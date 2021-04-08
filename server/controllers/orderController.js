@@ -7,34 +7,34 @@ const Comment = require('../db/models/comment');
 // const { response } = require('express');
 
 const renderAllOrders = async (req, res) => {
-  const orders = await Order.find().populate('client');
-  res.render('orders/allOrders', { orders });
+  try {
+    const orders = await Order.find().populate('client');
+    res.status(200).json(orders);
+  } catch (err) {
+    res.status(500).json(err.message);
+  }
 };
 
 const renderOrder = async (req, res) => {
-  const order = await Order.findById(req.params.id).populate('client').populate({ path: 'comments', populate: { path: 'manager' } });
-  res.render('orders/order', { order });
-};
-
-const renderNewOrderForm = (req, res) => {
-  res.render('orders/addNewOrder');
+  try {
+    const order = await Order.findById(req.params.id).populate('client').populate({ path: 'comments', populate: { path: 'manager' } });
+    res.status(200).json(order);
+  } catch (error) {
+    res.status(500).json(err.message);
+  }
 };
 
 const addNewOrder = async (req, res) => {
   try {
     const counter = await Counter.findOne();
 
-    const newOrder = await Order.create({ ...req.body, number: counter.number });
+    const newOrder = await Order.create({ ...req.body });
     await Client.findByIdAndUpdate(req.body.client, { $push: { orders: newOrder._id } });
     await User.findByIdAndUpdate(res.locals.id, { $push: { orders: newOrder._id } });
 
-    counter.number++;
-    await counter.save();
-    console.log(newOrder);
     res.status(200).json(newOrder._id);
   } catch (error) {
-    console.log(error);
-    res.sendStatus(500);
+    res.status(500).json(err.message);
   }
 };
 
@@ -54,44 +54,68 @@ const addComment = async (req, res) => {
 };
 
 const renderNewOrderFormForClient = async (req, res) => {
-  const client = await Client.findById(req.params.id);
-  res.render('orders/addNewOrderForClient', { client });
+  try {
+    const client = await Client.findById(req.params.id);
+    res.status(200).json(client);
+  } catch (error) {
+    res.status(500).json(err.message);
+  }
+
 };
 
 const findAll = async (req, res) => {
-  let { text } = req.body;
-  text = text.toLowerCase();
-  const orders = await Order.find();
-  const result = orders.filter((order) => order.number === +text
-    || order.title?.toLowerCase().includes(text)
-    || order.status?.toLowerCase().includes(text));
-  res.status(200).json({
-    orders: result,
-  });
+  try {
+    let { text } = req.body;
+    text = text.toLowerCase();
+    const orders = await Order.find();
+    const result = orders.filter((order) => order.number === text
+      || order.title?.toLowerCase().includes(text)
+      || order.status?.toLowerCase().includes(text));
+    res.status(200).json(result);
+  } catch (error) {
+    res.status(500).json(err.message);
+  }
 };
 
 const renderOrderEdit = async (req, res) => {
-  const order = await Order.findById(req.params.id).populate('client');
-  console.log(order, 'order');
-  res.render('orders/edit', { order });
+  try {
+    const order = await Order.findById(req.params.id).populate('client');
+    res.status(200).json(order);
+  } catch (error) {
+    res.status(500).json(err.message);
+  }
+
 };
 
 const postEditOrder = async (req, res) => {
-  await Order.findByIdAndUpdate(req.params.id, { ...req.body });
-  const order = await Order.findById(req.params.id);
-  res.redirect(`/orders/${order._id}`);
+  try {
+    await Order.findByIdAndUpdate(req.params.id, { ...req.body });
+    res.sendStatus(200);
+  } catch (error) {
+    res.status(500).json(err.message);
+  }
+
 };
 
 const deliteOrder = async (req, res) => {
-  await Order.findByIdAndDelete(req.params.id);
-  res.redirect('/orders');
+  try {
+    await Order.findByIdAndDelete(req.params.id);
+    res.sendStatus(200);
+  } catch (error) {
+    res.status(500).json(err.message);
+  }
 };
 
 const changeStatus = async (req, res) => {
-  const order = await Order.findById(req.params.id);
-  order.status = req.body.status;
-  await order.save();
-  res.sendStatus(200);
+  try {
+    const order = await Order.findById(req.params.id);
+    order.status = req.body.status;
+    await order.save();
+    res.sendStatus(200);
+  } catch (error) {
+    res.status(500).json(err.message);
+  }
+
 };
 
 module.exports = {
@@ -100,7 +124,6 @@ module.exports = {
   addNewOrder,
   addComment,
   findAll,
-  renderNewOrderForm,
   addNewOrder,
   renderNewOrderFormForClient,
   renderOrderEdit,
