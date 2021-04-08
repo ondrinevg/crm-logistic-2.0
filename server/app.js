@@ -8,6 +8,7 @@ const createError = require('http-errors');
 // const logger = require('morgan');
 const path = require('path');
 const hbs = require('hbs');
+const cors = require('cors');
 const { connect } = require('mongoose');
 require('dotenv').config();
 // process.env.PWD = __dirname
