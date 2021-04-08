@@ -3,7 +3,7 @@ import { SHOW_CLIENT_SAGA } from '../../types/clientTypes'
 import { showClient } from '../../actionCreators/clientAC'
 
 const getClientFromServer = (id) => {
-  return fetch(`http://localhost:3000/api/v1/clients/${id}`)
+  return fetch(`http://localhost:3002/api/v1/clients/${id}`)
     .then(response => response.json())
 };
 

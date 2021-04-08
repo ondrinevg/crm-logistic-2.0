@@ -3,7 +3,7 @@ import { SHOW_ORDER_SAGA } from '../../types/orderTypes'
 import { showOrder } from '../../actionCreators/orderAC'
 
 const getOrderFromServer = (id) => {
-  return fetch(`http://localhost:3000/api/v1/orders/${id}`)
+  return fetch(`http://localhost:3002/api/v1/orders/${id}`)
     .then(response => response.json())
 }
 

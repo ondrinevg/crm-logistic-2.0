@@ -9,12 +9,9 @@ export default function Client() {
           <h2>Информация о клиенте</h2>
 
           <div>
-            <Link className="firstedit">Редактировать</Link>
+            <Link to='/' className="firstedit">Редактировать</Link>
             <button>Удалить клиента</button>
-          </div>
-          <div>
-            <Link to="/clients/:id/edit">Редактировать</Link>
-          </div>
+          </div>      
 
           <div>
             ФИО:
@@ -64,7 +61,7 @@ export default function Client() {
 
           <form name="addCommentClient">
             <div className="mb-3">
-              <label htmlFor="texOfComment" className="form-label" required="true">Новый комментарий:</label>
+              <label htmlFor="texOfComment" className="form-label" required={true}>Новый комментарий:</label>
               <textarea name="texOfComment" className="form-control" aria-describedby="emailHelp"></textarea>
             </div>
             <button type="submit" className="btn btn-primary">Оставить комментарий</button>

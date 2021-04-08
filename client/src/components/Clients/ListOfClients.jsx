@@ -1,9 +1,18 @@
-import React from 'react'
+import React, { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
+import { showAllClientsSaga } from '../../redux/actionCreators/clientsAC';
 import ClientForList from './Client/ClientForList'
 
 export default function ListOfClients() {
-  
+  const clients = useSelector(state => state.clients);
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(showAllClientsSaga());
+  }, []);
+
   return (
     <div className="container w-5">
       <div className="container d-flex">

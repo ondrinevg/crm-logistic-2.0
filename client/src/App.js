@@ -4,6 +4,8 @@ import {
   Route,
   // Redirect,
 } from "react-router-dom";
+import AddClient from "./components/AddClient/AddClient";
+import AddOrder from "./components/AddOrder/AddOrder";
 import Client from "./components/Clients/Client/Client";
 import ListOfClients from "./components/Clients/ListOfClients";
 import Header from "./components/Header/Header";
@@ -21,6 +23,9 @@ function App() {
         <Route exact path='/client'>
           <Client />
         </Route>
+        <Route exact path='/clients/new'>
+          <AddClient />
+        </Route>
         <Route exact path='/order'>
           <Order />
         </Route>
@@ -29,6 +34,9 @@ function App() {
         </Route>
         <Route exact path='/orders'>
           <ListOfOrders />
+        </Route>
+        <Route exact path='/orders/new'>
+          <AddOrder />
         </Route>
       </Switch>
     </Router>
