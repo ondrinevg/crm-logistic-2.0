@@ -58,10 +58,10 @@ app.use(async (req, res, next) => {
   next();
 });
 
-app.use('api/v1/users', usersRouter);
+app.use('/api/v1/users', usersRouter);
 // app.use('/managers', managersRouter);
-app.use('api/v1/clients', clientsRouter);
-app.use('api/v1/orders', ordersRouter);
+app.use('/api/v1/clients', clientsRouter);
+app.use('/api/v1/orders', ordersRouter);
 
 const PORT = process.env.PORT ?? 3000;
 
