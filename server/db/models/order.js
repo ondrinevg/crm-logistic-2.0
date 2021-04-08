@@ -22,7 +22,7 @@ const orderSchema = new Schema({
   },
   deliveryAdress: {
     type: Schema.Types.ObjectId,
-    ref: 'DeliveryAdress',
+    ref: 'Adress',
   },
   deliveryDate: {
     type: Date,
