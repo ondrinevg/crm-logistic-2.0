@@ -3,7 +3,7 @@ const orderRouter = require('express').Router();
 const { checkAuth } = require('../middlewares/checkAuth');
 const { checkAdmin } = require('../middlewares/checkAdmin');
 const {
-  renderAllOrders, renderOrder, addComment, addNewOrder, renderNewOrderForm, renderOrderEdit, postEditOrder,
+  renderAllOrders, renderOrder, addComment, addNewOrder, renderOrderEdit, postEditOrder,
   deliteOrder,
   findAll,
   changeStatus,
@@ -17,7 +17,6 @@ orderRouter.route('/all')
   .post(findAll);
 
 orderRouter.route('/new')
-  .get(renderNewOrderForm)
   .post(addNewOrder);
 
 orderRouter.route('/new/:id')
