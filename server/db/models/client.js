@@ -19,13 +19,13 @@ const clientSchema = new Schema({
     type: String,
     required: true,
   },
-  registrationAdress: {
+  registrationAddress: {
     type: Schema.Types.ObjectId,
-    ref: 'Adress',
+    ref: 'Address',
   },
-  homeAdress: {
+  homeAddress: {
     type: Schema.Types.ObjectId,
-    ref: 'Adress',
+    ref: 'Address',
   },
   manager: {
     type: Schema.Types.ObjectId,

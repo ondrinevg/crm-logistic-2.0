@@ -4,6 +4,7 @@ const Counter = require('../db/models/counter');
 const User = require('../db/models/user');
 const Client = require('../db/models/client');
 const Comment = require('../db/models/comment');
+const Address = require('../db/models/adress')
 // const { response } = require('express');
 
 const renderAllOrders = async (req, res) => {
@@ -24,13 +25,19 @@ const renderOrder = async (req, res) => {
   }
 };
 
+/// 
 const addNewOrder = async (req, res) => {
-  try {
-    const counter = await Counter.findOne();
+  try { 
+    const address = { index,  city, street, building, room} = rec.body;
+    const obj = {...rec.body};
 
-    const newOrder = await Order.create({ ...req.body });
-    await Client.findByIdAndUpdate(req.body.client, { $push: { orders: newOrder._id } });
-    await User.findByIdAndUpdate(res.locals.id, { $push: { orders: newOrder._id } });
+const newAddress = await Address.create({...address})
+    for (key in address) {
+      delete obj[key];
+    }
+    const newOrder = await Order.create({ ...obj, deliveryAddress: newAddress._id });
+    // await Client.findByIdAndUpdate(client, { $push: { orders: newOrder._id } });
+    // await User.findByIdAndUpdate(res.locals.id, { $push: { orders: newOrder._id } });
 
     res.status(200).json(newOrder._id);
   } catch (err) {
