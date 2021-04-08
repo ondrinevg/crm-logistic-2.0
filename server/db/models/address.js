@@ -1,6 +1,6 @@
 const { Schema, model } = require('mongoose');
 
-const deliveryAdress = new Schema({
+const addressSchema = new Schema({
   index: {
     type: String,
     required: true,
@@ -16,7 +16,15 @@ const deliveryAdress = new Schema({
   building: {
     type: String,
     required: true,
+  },
+  room: {
+    type: String,
+    required: true,
   }
 );
 
-module.exports = model('DeliveryAdress', deliveryAdress);
+// addressSchema.statics.finalAddress = async function (id) {
+//   return this.findById().({}).exec();
+// }
+
+module.exports = model('Address', addressSchema);
