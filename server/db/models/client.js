@@ -20,12 +20,12 @@ const clientSchema = new Schema({
     required: true,
   },
   registrationAdress: {
-    type: String,
-    required: true,
+    type: Schema.Types.ObjectId,
+    ref: 'Adress',
   },
   homeAdress: {
-    type: String,
-    required: true,
+    type: Schema.Types.ObjectId,
+    ref: 'Adress',
   },
   manager: {
     type: Schema.Types.ObjectId,
