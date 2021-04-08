@@ -34,10 +34,7 @@ export default function AddOrder() {
           </div>
           <div className="mb-3">
             <input placeholder="Фамилия клиента" type="text" name="client" autoComplete="off" required className="form-control" />
-          </div>
-          <div className="mb-3">
-            <input placeholder="индекс" type="number" name="index" required className="form-control" />
-          </div>
+          </div>         
           <div className="mb-3">
             <input placeholder="Город" type="text" name="city" required className="form-control" />
           </div>
