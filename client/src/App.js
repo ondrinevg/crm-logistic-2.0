@@ -26,7 +26,10 @@ function App() {
         <Route exact path='/clients/new'>
           <AddClient />
         </Route>
-        <Route exact path='/order'>
+        <Route exact path='/orders/new'>
+          <AddOrder />
+        </Route>
+        <Route exact path='/orders/:id'>
           <Order />
         </Route>
         <Route exact path='/clients'>
@@ -34,10 +37,7 @@ function App() {
         </Route>
         <Route exact path='/orders'>
           <ListOfOrders />
-        </Route>
-        <Route exact path='/orders/new'>
-          <AddOrder />
-        </Route>
+        </Route>       
       </Switch>
     </Router>
   );

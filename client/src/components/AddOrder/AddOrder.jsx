@@ -1,14 +1,16 @@
 import React, { useRef } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { Redirect } from 'react-router';
+import { useHistory } from 'react-router';
 import { addOrderSaga } from '../../redux/actionCreators/orderAC';
 
 export default function AddOrder() {
   const formRef = useRef(null);
 
+  const history = useHistory();
+
   const dispatch = useDispatch();
 
-  const newOrder = useSelector(state => state.order);
+  const id = useSelector(state => state.order._id);
 
   const submitHandler = (e) => {
     e.preventDefault();
@@ -18,7 +20,7 @@ export default function AddOrder() {
     if (Object.keys(valuesOfFields).every(key => valuesOfFields[key].trim())) {
       dispatch(addOrderSaga(valuesOfFields));
       formRef.current.reset();
-      <Redirect to={`/orders/${newOrder.id}`} />
+      history.push(`/orders/${id}`);
     }
   }
 
@@ -31,6 +33,9 @@ export default function AddOrder() {
         <form ref={formRef} onSubmit={submitHandler} name="addNewOrderForm">
           <div className="mb-3">
             <input placeholder="Название заказа" type="text" name="title" required className="form-control" />
+          </div>
+          <div className="mb-3">
+            <input placeholder="Название заказа" type="text" name="contractNumber" required className="form-control" />
           </div>
           <div className="mb-3">
             <input placeholder="Фамилия клиента" type="text" name="client" autoComplete="off" required className="form-control" />
