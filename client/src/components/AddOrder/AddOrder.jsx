@@ -1,8 +1,14 @@
 import React, { useRef } from 'react'
+import { useDispatch, useSelector } from 'react-redux';
+import { Redirect } from 'react-router';
+import { addOrderSaga } from '../../redux/actionCreators/orderAC';
 
 export default function AddOrder() {
   const formRef = useRef(null);
 
+  const dispatch = useDispatch();
+
+  const newOrder = useSelector(state => state.order);
 
   const submitHandler = (e) => {
     e.preventDefault();
@@ -10,8 +16,9 @@ export default function AddOrder() {
     const valuesOfFields = Object.fromEntries(new FormData(formRef.current).entries());
 
     if (Object.keys(valuesOfFields).every(key => valuesOfFields[key].trim())) {
-      console.log(valuesOfFields);
+      dispatch(addOrderSaga(valuesOfFields));
       formRef.current.reset();
+      <Redirect to={`/orders/${newOrder.id}`} />
     }
   }
 
