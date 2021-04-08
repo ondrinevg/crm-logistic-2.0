@@ -1,14 +1,16 @@
 import { all } from 'redux-saga/effects';
-import showClientSaga from './client/showClientSaga';
-import showAllClientsSaga from './clients/showAllClientsSaga';
-import showOrderSaga from './order/showOrderSaga';
-import showAllOrdersSaga from './orders/showAllOrdersSaga';
+import showClientSagaWatcher from './client/showClientSagaWatcher';
+import showAllClientsSagaWatcher from './clients/showAllClientsSagaWatcher';
+import addOrderSagaWatcher from './order/addOrderSagaWatcher';
+import showOrderSagaWatcher from './order/showOrderSagaWatcher';
+import showAllOrdersSagaWatcher from './orders/showAllOrdersSagaWatcher';
 
 export default function* rootSaga() {
   yield all([
-    showClientSaga(),
-    showAllClientsSaga(),
-    showOrderSaga(),
-    showAllOrdersSaga(),
+    showClientSagaWatcher(),
+    showAllClientsSagaWatcher(),
+    showOrderSagaWatcher(),
+    addOrderSagaWatcher(),
+    showAllOrdersSagaWatcher(),
   ])
 };

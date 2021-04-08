@@ -21,4 +21,4 @@ function* showOrderSagaWatcher() {
   yield takeLatest(SHOW_ORDER_SAGA, orderSagaWorker);
 }
 
-export default showOrderSagaWatcher
+export default showOrderSagaWatcher;
