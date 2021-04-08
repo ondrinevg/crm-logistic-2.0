@@ -2,7 +2,7 @@ const { Schema, model } = require('mongoose');
 
 const adress = new Schema({
   index: {
-    type: String,
+    type: Number,
     required: true,
   },
   city: {
@@ -14,6 +14,10 @@ const adress = new Schema({
     required: true,
   },
   building: {
+    type: String,
+    required: true,
+  },
+  room: {
     type: String,
     required: true,
   }
