@@ -1,8 +1,18 @@
-import React from 'react'
+import React, { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
+import { showAllOrdersSaga } from '../../redux/actionCreators/ordersAC';
 import OrderForList from './Order/OrderForList'
 
 export default function ListOfOrders() {
+  const orders = useSelector(state => state.orders);
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(showAllOrdersSaga());
+  }, []);
+
   return (
     <div className="container">
       <div className="d-flex search m-3">
@@ -33,7 +43,12 @@ export default function ListOfOrders() {
       </div>
 
       <ul className="list-group">
-       <OrderForList />
+      {orders.length > 0
+          ? orders.map(order => (
+            <OrderForList key={order._id} order={order}/>
+          ))
+          : <div>Собираю заказы...</div>
+        }
       </ul>
     </div>
   )
