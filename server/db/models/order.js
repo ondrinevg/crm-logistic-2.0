@@ -20,21 +20,9 @@ const orderSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: 'Client',
   },
-  deliveryAdressIndex: {
-    type: String,
-    required: true,
-  },
-  deliveryAdressCity: {
-    type: String,
-    required: true,
-  },
-  deliveryAdressStreet: {
-    type: String,
-    required: true,
-  },
-  deliveryAdressBuilding: {
-    type: String,
-    required: true,
+  deliveryAdress: {
+    type: Schema.Types.ObjectId,
+    ref: 'DeliveryAdress',
   },
   deliveryDate: {
     type: Date,
@@ -66,6 +54,7 @@ const orderSchema = new Schema({
   }],
   createdAt: Date,
 },
-{ timestamps: true });
+{ timestamps: true }
+);
 
 module.exports = model('Order', orderSchema);
