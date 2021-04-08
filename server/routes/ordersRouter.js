@@ -3,7 +3,7 @@ const orderRouter = require('express').Router();
 const { checkAuth } = require('../middlewares/checkAuth');
 const { checkAdmin } = require('../middlewares/checkAdmin');
 const {
-  renderAllOrders, renderOrder, addComment, addNewOrder, renderNewOrderForm, renderOrderEdit, postEditOrder,
+  renderAllOrders, renderOrder, addComment, addNewOrder, renderOrderEdit, editOrder,
   deliteOrder,
   findAll,
   changeStatus,
@@ -17,23 +17,19 @@ orderRouter.route('/all')
   .post(findAll);
 
 orderRouter.route('/new')
-  .get(renderNewOrderForm)
   .post(addNewOrder);
 
 orderRouter.route('/new/:id')
   .get(renderNewOrderFormForClient);
 
-orderRouter.route('/edit/:id')
-  .get(renderOrderEdit);
-
-orderRouter.route('/edit/:id')
-  .post(postEditOrder);
-
-orderRouter.route('/delete/:id')
-  .get(deliteOrder);
+orderRouter.route('/:id/edit')
+  .get(renderOrderEdit)
+  .patch(editOrder);
 
 orderRouter.route('/:id')
+  .delete(deliteOrder)
   .get(renderOrder);
+
 
 orderRouter.route('/:id/comments')
   .post(addComment);
