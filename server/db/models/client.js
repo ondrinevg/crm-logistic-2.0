@@ -5,10 +5,10 @@ const clientSchema = new Schema({
     type: String,
     required: true,
   },
-  lastname: {
+  lastName: {
     type: String,
   },
-  middlename: {
+  middleName: {
     type: String,
   },
   phone: {
@@ -16,6 +16,14 @@ const clientSchema = new Schema({
     required: true,
   },
   email: {
+    type: String,
+    required: true,
+  },
+  registrationAdress: {
+    type: String,
+    required: true,
+  },
+  homeAdress: {
     type: String,
     required: true,
   },
