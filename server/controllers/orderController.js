@@ -19,7 +19,7 @@ const renderOrder = async (req, res) => {
   try {
     const order = await Order.findById(req.params.id).populate('client').populate({ path: 'comments', populate: { path: 'manager' } });
     res.status(200).json(order);
-  } catch (error) {
+  } catch (err) {
     res.status(500).json(err.message);
   }
 };
@@ -33,31 +33,36 @@ const addNewOrder = async (req, res) => {
     await User.findByIdAndUpdate(res.locals.id, { $push: { orders: newOrder._id } });
 
     res.status(200).json(newOrder._id);
-  } catch (error) {
+  } catch (err) {
     res.status(500).json(err.message);
   }
 };
 
 const addComment = async (req, res) => {
-  const { id } = req.params;
-  const { text } = req.body;
-  const newComment = new Comment({ manager: res.locals.id, text });
-  await newComment.save();
-  await Order.findByIdAndUpdate(id, { $push: { comments: newComment._id } });
-  res.status(200).json({
-    isAdmin: res.locals.admin,
-    text: newComment.text,
-    name: res.locals.name,
-    lastname: res.locals.lastname,
-    middlname: res.locals.middlname,
-  });
+  try {
+    const { id } = req.params;
+    const { text } = req.body;
+    const newComment = new Comment({ manager: res.locals.id, text });
+    await newComment.save();
+    await Order.findByIdAndUpdate(id, { $push: { comments: newComment._id } });
+    res.status(200).json({
+      isAdmin: res.locals.admin,
+      text: newComment.text,
+      name: res.locals.name,
+      lastname: res.locals.lastname,
+      middlname: res.locals.middlname,
+    });
+  } catch (err) {
+    res.status(500).json(err.message);
+  }
+
 };
 
 const renderNewOrderFormForClient = async (req, res) => {
   try {
     const client = await Client.findById(req.params.id);
     res.status(200).json(client);
-  } catch (error) {
+  } catch (err) {
     res.status(500).json(err.message);
   }
 
@@ -72,7 +77,7 @@ const findAll = async (req, res) => {
       || order.title?.toLowerCase().includes(text)
       || order.status?.toLowerCase().includes(text));
     res.status(200).json(result);
-  } catch (error) {
+  } catch (err) {
     res.status(500).json(err.message);
   }
 };
@@ -81,17 +86,17 @@ const renderOrderEdit = async (req, res) => {
   try {
     const order = await Order.findById(req.params.id).populate('client');
     res.status(200).json(order);
-  } catch (error) {
+  } catch (err) {
     res.status(500).json(err.message);
   }
 
 };
 
-const postEditOrder = async (req, res) => {
+const editOrder = async (req, res) => {
   try {
     await Order.findByIdAndUpdate(req.params.id, { ...req.body });
     res.sendStatus(200);
-  } catch (error) {
+  } catch (err) {
     res.status(500).json(err.message);
   }
 
@@ -101,7 +106,7 @@ const deliteOrder = async (req, res) => {
   try {
     await Order.findByIdAndDelete(req.params.id);
     res.sendStatus(200);
-  } catch (error) {
+  } catch (err) {
     res.status(500).json(err.message);
   }
 };
@@ -112,7 +117,7 @@ const changeStatus = async (req, res) => {
     order.status = req.body.status;
     await order.save();
     res.sendStatus(200);
-  } catch (error) {
+  } catch (err) {
     res.status(500).json(err.message);
   }
 
@@ -127,7 +132,7 @@ module.exports = {
   addNewOrder,
   renderNewOrderFormForClient,
   renderOrderEdit,
-  postEditOrder,
+  editOrder,
   deliteOrder,
   changeStatus,
 };

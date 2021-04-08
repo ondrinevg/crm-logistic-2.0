@@ -47,12 +47,12 @@ app.use(async (req, res, next) => {
   if (userId) {
     const currentUser = await User.findById(userId);
     if (currentUser) {
-      // res.locals.name = currentUser.name;
-      // res.locals.lastname = currentUser.lastname;
-      // res.locals.middlname = currentUser.middlename;
-      // res.locals.id = currentUser._id;
+      res.locals.name = currentUser.name;
+      res.locals.lastname = currentUser.lastname;
+      res.locals.middlname = currentUser.middlename;
+      res.locals.id = currentUser._id;
       res.locals.admin = currentUser.role === 'admin';
-      // res.locals.manager = currentUser.role === 'manager';
+      res.locals.manager = currentUser.role === 'manager';
     }
   }
   next();
