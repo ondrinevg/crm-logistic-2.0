@@ -1,6 +1,6 @@
 const { Schema, model } = require('mongoose');
 
-const deliveryAdress = new Schema({
+const adress = new Schema({
   index: {
     type: String,
     required: true,
@@ -19,4 +19,4 @@ const deliveryAdress = new Schema({
   }
 );
 
-module.exports = model('DeliveryAdress', deliveryAdress);
+module.exports = model('Adress', adress);
