@@ -1,8 +1,8 @@
 const { Schema, model } = require('mongoose');
 
-const adress = new Schema({
+const addressSchema = new Schema({
   index: {
-    type: String,
+    type: Number,
     required: true,
   },
   city: {
@@ -16,7 +16,11 @@ const adress = new Schema({
   building: {
     type: String,
     required: true,
-  }
-);
+  },
+  room: {
+    type: String,
+    required: true,
+  },
+});
 
-module.exports = model('Adress', adress);
+module.exports = model('Address', addressSchema);
