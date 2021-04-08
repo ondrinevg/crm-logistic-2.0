@@ -6,7 +6,10 @@ const orderSchema = new Schema({
     required: true,
   },
   number: {
-    type: Number,
+    type: String,
+  },
+  contractNumber: {
+    type: String,
   },
   status: {
     type: String,
@@ -17,19 +20,31 @@ const orderSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: 'Client',
   },
-  deliveryadress: {
+  deliveryAdressIndex: {
     type: String,
     required: true,
   },
-  deliverydate: {
+  deliveryAdressCity: {
+    type: String,
+    required: true,
+  },
+  deliveryAdressStreet: {
+    type: String,
+    required: true,
+  },
+  deliveryAdressBuilding: {
+    type: String,
+    required: true,
+  },
+  deliveryDate: {
     type: Date,
     required: true,
   },
-  assemblydate: {
+  assemblyDate: {
     type: Date,
     required: true,
   },
-  orderprice: {
+  orderPrice: {
     type: Number,
     required: true,
   },
@@ -37,11 +52,11 @@ const orderSchema = new Schema({
     type: Number,
     required: true,
   },
-  deliveryprice: {
+  deliveryPrice: {
     type: Number,
     required: true,
   },
-  assemblyprice: {
+  assemblyPrice: {
     type: Number,
     required: true,
   },
