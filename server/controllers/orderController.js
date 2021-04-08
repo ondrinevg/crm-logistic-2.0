@@ -28,8 +28,8 @@ const renderOrder = async (req, res) => {
 /// 
 const addNewOrder = async (req, res) => {
   try { 
-    const address = { index,  city, street, building, room} = rec.body;
-    const obj = {...rec.body};
+    const address = { index,  city, street, building, room} = req.body;
+    const obj = {...req.body};
 
 const newAddress = await Address.create({...address})
     for (key in address) {
@@ -39,7 +39,7 @@ const newAddress = await Address.create({...address})
     // await Client.findByIdAndUpdate(client, { $push: { orders: newOrder._id } });
     // await User.findByIdAndUpdate(res.locals.id, { $push: { orders: newOrder._id } });
 
-    res.status(200).json(newOrder._id);
+    res.status(200).json(newOrder);
   } catch (err) {
     res.status(500).json(err.message);
   }
