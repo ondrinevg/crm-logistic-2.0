@@ -1,0 +1,4 @@
+export const SHOW_CLIENT = 'SHOW_CLIENT'
+
+
+export const SHOW_CLIENT_SAGA = 'SHOW_CLIENT_SAGA'

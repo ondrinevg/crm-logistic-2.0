@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import ClientForList from './Client/ClientForList'
 
 export default function ListOfClients() {
+  
   return (
     <div className="container w-5">
       <div className="container d-flex">

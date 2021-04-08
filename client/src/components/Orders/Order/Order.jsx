@@ -73,7 +73,7 @@ export default function Order() {
           <form name="addCommentOrder">
             <div class="mb-3">
               <label htmlFor="texOfComment" class="form-label">Новый комментарий:</label>
-              <textarea name="texOfComment" class="form-control" aria-describedby="emailHelp" required="true"></textarea>
+              <textarea name="texOfComment" class="form-control" aria-describedby="emailHelp" required={true}></textarea>
             </div>
             <button type="submit" class="btn btn-primary">Оставить комментарий</button>
           </form>
