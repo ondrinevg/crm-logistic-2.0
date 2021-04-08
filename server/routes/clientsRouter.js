@@ -7,7 +7,7 @@ const {
 } = require('../controllers/clientController');
 
 clientsRouter.route('/')
-  .get(checkAuth, renderAllClients);
+  .get(renderAllClients);
 
 clientsRouter.route('/new')
   .post(checkAuth, postAddClient);

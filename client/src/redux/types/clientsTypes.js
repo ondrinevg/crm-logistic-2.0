@@ -1,0 +1,5 @@
+export const SHOW_ALL_CLIENTS = 'SHOW_ALL_CLIENTS'
+
+
+
+export const SHOW_ALL_CLIENTS_SAGA = 'SHOW_ALL_CLIENTS_SAGA'
