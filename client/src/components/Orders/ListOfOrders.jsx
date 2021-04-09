@@ -1,13 +1,17 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
-import { showAllOrdersSaga } from '../../redux/actionCreators/ordersAC';
+import { searchOrdersSaga, showAllOrdersSaga } from '../../redux/actionCreators/ordersAC';
 import OrderForList from './Order/OrderForList'
 
 export default function ListOfOrders() {
   const orders = useSelector(state => state.orders);
 
   const dispatch = useDispatch();
+
+  const searchHandler = (e) => {
+    dispatch(searchOrdersSaga(e.target.value));
+  };
 
   useEffect(() => {
     dispatch(showAllOrdersSaga());
@@ -22,7 +26,7 @@ export default function ListOfOrders() {
               <label htmlFor="inputPassword6" className="col-form-label">Поиск</label>
             </div>
             <div className="col-auto">
-              <input type="text" name="name" className="form-control" aria-describedby="passwordHelpInline" />
+              <input onChange={searchHandler} type="text" name="name" className="form-control" aria-describedby="passwordHelpInline" />
             </div>
           </div>
         </form>
@@ -43,11 +47,11 @@ export default function ListOfOrders() {
       </div>
 
       <ul className="list-group">
-      {orders.length > 0
+        {orders.length > 0
           ? orders.map(order => (
-            <OrderForList key={order._id} order={order}/>
+            <OrderForList key={order._id} order={order} />
           ))
-          : <div>Собираю заказы...</div>
+          : <div>Таких заказов нет...</div>
         }
       </ul>
     </div>

@@ -10,15 +10,16 @@ export default function AddOrder() {
 
   const dispatch = useDispatch();
 
+  const client = useSelector(state => state.client);
   const id = useSelector(state => state.order._id);
 
   const submitHandler = (e) => {
     e.preventDefault();
 
     const valuesOfFields = Object.fromEntries(new FormData(formRef.current).entries());
-
-    if (Object.keys(valuesOfFields).every(key => valuesOfFields[key].trim())) {
-      dispatch(addOrderSaga(valuesOfFields));
+    const order = {...valuesOfFields, client: client._id}
+    if (Object.keys(order).every(key => order[key].trim())) {
+      dispatch(addOrderSaga(order));
       formRef.current.reset(); 
     }
   }
@@ -39,9 +40,9 @@ export default function AddOrder() {
           </div>
           <div className="mb-3">
             <input placeholder="Номер договора" type="text" name="contractNumber" required className="form-control" />
-          </div>
+          </div>          
           <div className="mb-3">
-            <input placeholder="Фамилия клиента" type="text" name="client" autoComplete="off" required className="form-control" />
+            <input placeholder="Клиент" defaultValue={client?.id ? `${client.lastName} ${client.name} ${client.middleName}` : ''} type="text" name="client" autoComplete="off" required className="form-control" />
           </div>         
           <div className="mb-3">
             <input placeholder="Город" type="text" name="city" required className="form-control" />

@@ -3,6 +3,7 @@ export const ADD_ORDER = 'ADD_ORDER'
 export const EDIT_ORDER = 'EDIT_ORDER'
 export const DELETE_ORDER = 'DELETE_ORDER'
 export const ADD_COMMENT_ORDER = 'ADD_COMMENT_ORDER'
+export const CLEARE_ORDER_STATE = 'CLEARE_ORDER_STATE'
 
 export const SHOW_ORDER_SAGA = 'SHOW_ORDER_SAGA'
 export const ADD_ORDER_SAGA = 'ADD_ORDER_SAGA'
