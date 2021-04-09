@@ -44,10 +44,13 @@ export const editClient = (client) => {
   };
 };
 
-export const editClientSaga = (client) => {
+export const editClientSaga = (client, id) => {
   return {
     type: EDIT_CLIENT_SAGA,
-    payload: client,
+    payload: {
+      client,
+      id,
+    }
   };
 };
 

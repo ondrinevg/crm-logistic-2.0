@@ -19,14 +19,20 @@ export default function EditClient() {
     e.preventDefault();
 
     const valuesOfFields = Object.fromEntries(new FormData(formRef.current).entries());
-
     if (Object.keys(valuesOfFields).every(key => valuesOfFields[key].trim())) {
-      valuesOfFields.id = client._id;
-      dispatch(editClientSaga(valuesOfFields));
-      formRef.current.reset();
-      history.push(`/clients/${client._id}`);
+      console.log(client._id);
+      console.log(valuesOfFields);
+      dispatch(editClientSaga(valuesOfFields, client._id))
+      .then(() => {
+        formRef.current.reset();
+        history.push(`/clients/${client._id}`);
+      })    
     }
-  } 
+  }   
+
+  // useEffect(() => {
+  //   if (client._id) history.push(`/clients/${client._id}`);
+  // }, [client])
 
   return (
     <>
