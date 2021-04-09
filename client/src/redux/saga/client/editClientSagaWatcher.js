@@ -5,7 +5,7 @@ import { EDIT_CLIENT_SAGA } from '../../types/clientTypes';
 const editClientToServer = (client) => {
   const id = client.id;
   delete client.id;
-  return fetch(`http://localhost:3002/api/v1/clients/${id}/edit`, {
+  return fetch(`http://localhost:3002/api/v1/clients/${id}`, {
     method: 'PATCH',
     headers: {
       'Content-Type' : 'application/json',

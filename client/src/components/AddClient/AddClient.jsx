@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router';
 import { addClientSaga } from '../../redux/actionCreators/clientAC';
@@ -21,10 +21,14 @@ export default function AddClient() {
 
     if (Object.keys(valuesOfFields).every(key => valuesOfFields[key].trim())) {
       dispatch(addClientSaga(valuesOfFields));
-      formRef.current.reset();
-      history.push(`/clients/${id}`);
+      formRef.current.reset();      
     }
   }
+
+  useEffect(() => {
+    if (id) history.push(`/clients/${id}`);
+  }, [id]);
+
   return (
     <>
       <div className="container d-flex justify-content-center aling-items-center">

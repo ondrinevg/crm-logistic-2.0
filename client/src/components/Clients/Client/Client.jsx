@@ -20,7 +20,7 @@ export default function Client() {
 
   useEffect(() => {
     dispatch(showClientSaga(id));
-  }, []);
+  }, [id]);
 
   return (
     <div className="container">
@@ -29,7 +29,7 @@ export default function Client() {
           <h2>Информация о клиенте</h2>
 
           <div>
-            <Link to={`/clients/${client._id}`} className="firstedit">Редактировать</Link>
+            <Link to={`/clients/${client._id}/edit`} className="firstedit">Редактировать</Link>
             <button onClick={deleteHandler}>Удалить клиента</button>
           </div>
 
