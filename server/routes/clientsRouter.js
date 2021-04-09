@@ -10,7 +10,7 @@ clientsRouter.route('/')
   .get(renderAllClients);
 
 clientsRouter.route('/new')
-  .post(checkAuth, postAddClient);
+  .post(postAddClient);
 
 clientsRouter.route('/:id')
   .get(checkAuth, renderEditClient)

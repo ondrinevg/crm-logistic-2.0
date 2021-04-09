@@ -1,4 +1,4 @@
-import { SHOW_CLIENT } from "../types/clientTypes";
+import { ADD_CLIENT, SHOW_CLIENT } from "../types/clientTypes";
 
 const clientReducer = (state = {}, action) => {
   switch (action.type) {
@@ -6,7 +6,10 @@ const clientReducer = (state = {}, action) => {
       return [
         ...state,
         action.payload
-      ]  
+      ];
+
+    case ADD_CLIENT:
+      return action.payload;
 
     default:
       return state

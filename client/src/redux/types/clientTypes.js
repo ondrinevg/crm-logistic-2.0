@@ -1,4 +1,5 @@
 export const SHOW_CLIENT = 'SHOW_CLIENT'
-
+export const ADD_CLIENT = 'ADD_CLIENT'
 
 export const SHOW_CLIENT_SAGA = 'SHOW_CLIENT_SAGA'
+export const ADD_CLIENT_SAGA = 'ADD_CLIENT_SAGA'

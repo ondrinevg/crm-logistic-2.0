@@ -2,16 +2,16 @@ const Client = require('../db/models/client');
 const Comment = require('../db/models/comment');
 
 const postAddClient = async (req, res) => {
-  const manager = res.locals.id;
+  // const manager = res.locals.id;
   const {
     name, lastname, middlename, phone, email,
   } = req.body;
   try {
     if (name && lastname && middlename && phone && email) {
       const newClient = await Client.create({
-        name, lastname, middlename, phone, email, manager,
+        name, lastname, middlename, phone, email,
       });
-      return res.sendStatus(200);
+      return res.sendStatus(200).json(newClient);
     }
   } catch (err) {
     return res.status(418).json(err.message);
