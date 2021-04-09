@@ -1,6 +1,9 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { Link } from 'react-router-dom'
+import { useHistory } from 'react-router';
+import { cleareClientState } from '../../redux/actionCreators/clientAC';
+import { cleareClientsState } from '../../redux/actionCreators/clientsAC';
+import { cleareOrderState } from '../../redux/actionCreators/orderAC';
 import { searchOrdersSaga, showAllOrdersSaga } from '../../redux/actionCreators/ordersAC';
 import OrderForList from './Order/OrderForList'
 
@@ -8,9 +11,17 @@ export default function ListOfOrders() {
   const orders = useSelector(state => state.orders);
 
   const dispatch = useDispatch();
+  const history = useHistory();
 
   const searchHandler = (e) => {
     dispatch(searchOrdersSaga(e.target.value));
+  };
+
+  const addOrderHandler = () => {
+    dispatch(cleareOrderState());
+    dispatch(cleareClientState());
+    dispatch(cleareClientsState());
+    history.push('/orders/new');
   };
 
   useEffect(() => {
@@ -31,7 +42,7 @@ export default function ListOfOrders() {
           </div>
         </form>
 
-        <Link to="/orders/new"><button type="button" className="btn btn-light btn-client mx-3">Добавить заказ</button></Link>
+        <button onClick={addOrderHandler} type="button" className="btn btn-light btn-client mx-3">Добавить заказ</button>
       </div>
 
       <div data-type="findOrdersByStatus" className="row m-4">

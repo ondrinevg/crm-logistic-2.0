@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link, useHistory, useParams } from 'react-router-dom'
-import { showOrderSaga, addCommentToOrderSaga, deleteOrderSaga } from '../../../redux/actionCreators/orderAC';
+import { showOrderSaga, addCommentToOrderSaga, deleteOrderSaga, editOrderSaga } from '../../../redux/actionCreators/orderAC';
 
 export default function Order() {
-  const { id } = useParams();  
+  const { id } = useParams();
   const order = useSelector(state => state.order);
   const [comment, setComment] = useState('');
+  const [status, setStatus] = useState(order?.status || 'в работе'); 
 
   const dispatch = useDispatch();
   const history = useHistory();
@@ -32,6 +33,18 @@ export default function Order() {
     }
   };
 
+  const statusHandler = (e) => {
+    setStatus(e.target.value);
+  };
+
+  const statusHandlerSubmit = (e) => {
+    e.preventDefault();
+    const newOrder = {...order, status};
+    delete newOrder._id;
+    dispatch(editOrderSaga(newOrder, order._id));
+    setStatus('в работе');
+  };
+
   useEffect(() => {
     dispatch(showOrderSaga(id));
   }, []);
@@ -48,8 +61,8 @@ export default function Order() {
           </div>
 
           <div>
-            <form name='changeStatus' className="form-floating d-flex">
-              <select name='statusSelect' className="form-select edit editStatus" id="floatingSelect" aria-label="Floating label select example">
+            <form onSubmit={statusHandlerSubmit} name='changeStatus' className="form-floating d-flex">
+              <select onChange={statusHandler} value={status} name='statusSelect' className="form-select edit editStatus" id="floatingSelect" aria-label="Floating label select example">
                 <option value="в работе">в работе</option>
                 <option value="в рекламации">в рекламации</option>
                 <option value="закончен">закончен</option>
@@ -60,25 +73,25 @@ export default function Order() {
 
           <div id='status'>
             Текущий статус: {order.status}
-        </div>
+          </div>
           <div>
-            Номер заказа:
-        </div>
+            Номер заказа: {order.number}
+          </div>
           <div>
             Название: {order.title}
           </div>
           <div>
-            Клиент: <Link to="/clients/:id">ссылка на клиента</Link>
+            Клиент: <Link to={`/clients/${order.client?._id}`}>{order.client?.lastName} {order.client?.name} {order.client?.middleName}</Link>
           </div>
           <div>
             Адрес доставки: {order.deliveryAddress}
-        </div>
+          </div>
           <div>
             Дата доставки: {new Date(order.deliveryDate).toLocaleDateString()}
-        </div>
+          </div>
           <div>
             Дата сборки: {new Date(order.assemblyDate).toLocaleDateString()}
-        </div>
+          </div>
           <div>
             Сумма заказа: {order.orderPrice} руб.
         </div>
@@ -103,7 +116,7 @@ export default function Order() {
                 <li key={comment._id}>user {new Date(comment.createdAt).toLocaleString()}: {comment.text}</li>
               ))
               : null
-            }            
+            }
           </ul>
 
           <form onSubmit={commentHandlerSubmit} name="addCommentClient">

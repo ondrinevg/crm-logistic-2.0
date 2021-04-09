@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { Link } from 'react-router-dom'
+import { useHistory } from 'react-router';
+import { cleareClientState } from '../../redux/actionCreators/clientAC';
 import { searchClientsSaga, showAllClientsSaga } from '../../redux/actionCreators/clientsAC';
 import ClientForList from './Client/ClientForList'
 
@@ -8,9 +9,15 @@ export default function ListOfClients() {
   const clients = useSelector(state => state.clients);
 
   const dispatch = useDispatch();
+  const history = useHistory();
 
   const searchHandler = (e) => {
     dispatch(searchClientsSaga(e.target.value));
+  };
+
+  const addClientHandler = () => {
+    dispatch(cleareClientState());
+    history.push('/clients/new');
   };
 
   useEffect(() => {
@@ -30,7 +37,7 @@ export default function ListOfClients() {
             </div>
           </div>
         </form>
-        <Link to="/clients/new"><button type="button" className="btn btn-light btn-client m-4">Добавить клиента</button></Link>
+        <button onClick={addClientHandler} type="button" className="btn btn-light btn-client m-4">Добавить клиента</button>
       </div>
 
       <ul className="list-group">

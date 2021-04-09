@@ -4,8 +4,8 @@ import {
   CLEARE_ORDER_STATE,
   DELETE_ORDER,
   EDIT_ORDER,
-  FIND_CLIENTS_FOR_NEW_ORDER,
-  SHOW_ORDER } from '../types/orderTypes'
+  SHOW_ORDER
+} from '../types/orderTypes'
 
 const orderReducer = (state = {}, action) => {
   switch (action.type) {
@@ -25,10 +25,7 @@ const orderReducer = (state = {}, action) => {
       return {};
 
     case CLEARE_ORDER_STATE:
-      return {};
-      
-    case FIND_CLIENTS_FOR_NEW_ORDER:
-      return action.payload;
+      return {};  
 
     default:
       return state;
