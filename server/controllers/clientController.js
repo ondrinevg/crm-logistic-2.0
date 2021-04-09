@@ -56,7 +56,7 @@ const addComment = async (req, res) => {
   try {
     const { id } = req.params;
     const { text } = req.body;
-    const newComment = new Comment({ manager: res.locals.id, text });
+    const newComment = new Comment({ /*manager: res.locals.id,*/ text });
     await newComment.save();
     await Client.findByIdAndUpdate(id, { $push: { comments: newComment._id } });
     const client = await Client.findById(id).populate({ path: 'comments', populate: { path: 'manager' } });

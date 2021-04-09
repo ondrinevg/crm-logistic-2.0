@@ -130,8 +130,6 @@ module.exports = {
   findAll,
   addNewOrder,
   renderNewOrderFormForClient,
-  renderOrderEdit,
   editOrder,
   deliteOrder,
-  changeStatus,
 };
