@@ -1,4 +1,4 @@
-import React, { useRef } from 'react'
+import React, { useEffect, useRef } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router';
 import { addOrderSaga } from '../../redux/actionCreators/orderAC';
@@ -19,10 +19,13 @@ export default function AddOrder() {
 
     if (Object.keys(valuesOfFields).every(key => valuesOfFields[key].trim())) {
       dispatch(addOrderSaga(valuesOfFields));
-      formRef.current.reset();
-      history.push(`/orders/${id}`);
+      formRef.current.reset(); 
     }
   }
+
+  useEffect(() => {
+    if (id) history.push(`/orders/${id}`);
+  }, [id]);
 
   return (
     <>

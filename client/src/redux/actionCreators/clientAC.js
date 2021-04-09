@@ -6,7 +6,9 @@ import {
   EDIT_CLIENT,
   EDIT_CLIENT_SAGA,
   DELETE_CLIENT,
-  DELETE_CLIENT_SAGA
+  DELETE_CLIENT_SAGA,
+  ADD_COMMENT_CLIENT,
+  ADD_COMMENT_CLIENT_SAGA
 } from '../types/clientTypes';
 
 export const showClient = (client) => {
@@ -44,10 +46,13 @@ export const editClient = (client) => {
   };
 };
 
-export const editClientSaga = (client) => {
+export const editClientSaga = (client, id) => {
   return {
     type: EDIT_CLIENT_SAGA,
-    payload: client,
+    payload: {
+      client,
+      id,
+    }
   };
 };
 
@@ -61,5 +66,22 @@ export const deleteClientSaga = (id) => {
   return {
     type: DELETE_CLIENT_SAGA,
     payload: id,
+  };
+};
+
+export const addCommentToClient = (client) => {
+  return {
+    type: ADD_COMMENT_CLIENT,
+    payload: client,
+  };
+};
+
+export const addCommentToClientSaga = (id, text) => {
+  return {
+    type: ADD_COMMENT_CLIENT_SAGA,
+    payload: {
+      text,
+      id,
+    }
   };
 };
