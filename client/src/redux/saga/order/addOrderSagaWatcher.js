@@ -3,7 +3,7 @@ import { ADD_ORDER_SAGA } from '../../types/orderTypes'
 import { addOrder } from '../../actionCreators/orderAC'
 
 const addOrderToServer = (order) => {
-  return fetch(`http://localhost:3002/api/v1/orders/new`, {
+  return fetch(`${process.env.REACT_APP_ADDRESS_TO_FETCH}/api/v1/orders/new`, {
     method: 'POST',
     headers: {
       'Content-Type' : 'application/json',

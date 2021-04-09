@@ -3,7 +3,7 @@ import { SHOW_ALL_ORDERS_SAGA } from '../../types/ordersTypes'
 import { showAllOrders } from '../../actionCreators/ordersAC'
 
 const getAllOrdersFromServer = () => {
-  return fetch(`http://localhost:3002/api/v1/orders/`)
+  return fetch(`${process.env.REACT_APP_ADDRESS_TO_FETCH}/api/v1/orders/`)
     .then(response => response.json())
 };
 
