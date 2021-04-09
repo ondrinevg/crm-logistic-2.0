@@ -28,6 +28,7 @@ export default function Client() {
 
     if (comment.trim()) {
       dispatch(addCommentToClientSaga(client._id, comment));
+      setComment('');
     }
   };
 

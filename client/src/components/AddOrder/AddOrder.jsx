@@ -38,7 +38,7 @@ export default function AddOrder() {
             <input placeholder="Название заказа" type="text" name="title" required className="form-control" />
           </div>
           <div className="mb-3">
-            <input placeholder="Название заказа" type="text" name="contractNumber" required className="form-control" />
+            <input placeholder="Номер договора" type="text" name="contractNumber" required className="form-control" />
           </div>
           <div className="mb-3">
             <input placeholder="Фамилия клиента" type="text" name="client" autoComplete="off" required className="form-control" />

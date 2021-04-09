@@ -12,6 +12,7 @@ import Header from "./components/Header/Header";
 import ListOfOrders from "./components/Orders/ListOfOrders";
 import Order from "./components/Orders/Order/Order";
 import EditClient from "./components/EditClient/EditClient";
+import EditOrder from "./components/EditOrder/EditOrder";
 
 function App() {
 
@@ -34,6 +35,9 @@ function App() {
         </Route>
         <Route exact path='/orders/new'>
           <AddOrder />
+        </Route>
+        <Route exact path='/orders/:id/edit'>
+          <EditOrder />
         </Route>
         <Route exact path='/orders/:id'>
           <Order />

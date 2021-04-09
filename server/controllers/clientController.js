@@ -88,7 +88,6 @@ const findAll = async (req, res) => {
 
 const postEditClient = async (req, res) => {
   try {
-    console.log(req.params.id);
     await Client.findByIdAndUpdate(req.params.id, { ...req.body });
     const client = await Client.findById(req.params.id).populate({ path: 'comments', populate: { path: 'manager' } });
     res.json(client);

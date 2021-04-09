@@ -20,8 +20,6 @@ export default function EditClient() {
 
     const valuesOfFields = Object.fromEntries(new FormData(formRef.current).entries());
     if (Object.keys(valuesOfFields).every(key => valuesOfFields[key].trim())) {
-      console.log(client._id);
-      console.log(valuesOfFields);
       dispatch(editClientSaga(valuesOfFields, client._id));
       formRef.current.reset();
       history.push(`/clients/${client._id}`);
