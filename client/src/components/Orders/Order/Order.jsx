@@ -1,13 +1,36 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { Link, useParams } from 'react-router-dom'
+import { Link, useHistory, useParams } from 'react-router-dom'
 import { showOrderSaga } from '../../../redux/actionCreators/orderAC';
 
 export default function Order() {
   const { id } = useParams();  
   const order = useSelector(state => state.order);
+  const [comment, setComment] = useState('');
 
   const dispatch = useDispatch();
+  const history = useHistory();
+
+  const deleteHandler = () => {
+    const result = window.confirm('Точно удалить заказ?');
+    if (result) {
+      // dispatch(deleteOrderSaga(order._id));
+      history.push('/orders');
+    }
+  };
+
+  const commentHandler = (e) => {
+    setComment(e.target.value);
+  };
+
+  const commentHandlerSubmit = (e) => {
+    e.preventDefault();
+
+    if (comment.trim()) {
+      // dispatch(addCommentToOrderSaga(order._id, comment));
+      setComment('');
+    }
+  };
 
   useEffect(() => {
     dispatch(showOrderSaga(id));
@@ -20,8 +43,8 @@ export default function Order() {
           <h2>Информация о заказе:</h2>
 
           <div>
-            <Link className="firstedit" to="/orders/:id/edit/">Редактировать</Link>
-            <Link to="/orders/:id/delete/">Удалить заказ</Link>
+            <Link className="firstedit" to={`/orders/${id}/edit/`}>Редактировать</Link>
+            <button onClick={deleteHandler}>Удалить заказ</button>
           </div>
 
           <div>
@@ -81,10 +104,10 @@ export default function Order() {
               </div>
             </li>
           </ol>
-          <form name="addCommentOrder">
+          <form onSubmit={commentHandlerSubmit} name="addCommentClient">
             <div className="mb-3">
               <label htmlFor="texOfComment" className="form-label">Новый комментарий:</label>
-              <textarea name="texOfComment" className="form-control" aria-describedby="emailHelp" required={true}></textarea>
+              <textarea onChange={commentHandler} value={comment} name="texOfComment" className="form-control" required={true} aria-describedby="emailHelp"></textarea>
             </div>
             <button type="submit" className="btn btn-primary">Оставить комментарий</button>
           </form>
