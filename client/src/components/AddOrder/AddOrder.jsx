@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router';
-import { addOrderSaga } from '../../redux/actionCreators/orderAC';
+import { addOrderSaga, findClientsForOrderSaga } from '../../redux/actionCreators/orderAC';
 
 export default function AddOrder() {
   const formRef = useRef(null);
@@ -12,6 +12,7 @@ export default function AddOrder() {
 
   const client = useSelector(state => state.client);
   const id = useSelector(state => state.order._id);
+  const clients = useSelector(state => state.clients);
 
   const submitHandler = (e) => {
     e.preventDefault();
@@ -22,6 +23,11 @@ export default function AddOrder() {
       dispatch(addOrderSaga(order));
       formRef.current.reset(); 
     }
+  }
+
+  const handlerSerchClients = (e) => {
+    const text = e.target.value;
+    dispatch(findClientsForOrderSaga(text));
   }
 
   useEffect(() => {
@@ -42,8 +48,19 @@ export default function AddOrder() {
             <input placeholder="Номер договора" type="text" name="contractNumber" required className="form-control" />
           </div>          
           <div className="mb-3">
-            <input placeholder="Клиент" defaultValue={client?.id ? `${client.lastName} ${client.name} ${client.middleName}` : ''} type="text" name="client" autoComplete="off" required className="form-control" />
-          </div>         
+            <input
+            onChange={(e) => handlerSerchClients(e)}
+            placeholder="Клиент"
+            defaultValue={client?.id ? `${client.lastName} ${client.name} ${client.middleName}` : ''}
+            type="text"
+            name="client"
+            autoComplete="off"
+            required
+            className="form-control" />
+          </div>
+          <div>
+            { clients.length ? clients.map(el => (<p key={el._id}>{el.lastName} {el.name} {el.middleName}</p>)) : '' }
+          </div>
           <div className="mb-3">
             <input placeholder="Город" type="text" name="city" required className="form-control" />
           </div>
@@ -58,7 +75,7 @@ export default function AddOrder() {
           </div>
           <div className="mb-3">
             <input placeholder="Дата доставки" type="date" name="deliveryDate" required className="form-control" />
-          </div>        
+          </div>
           <div className="mb-3">
             <input placeholder="Дата сборки" type="date" name="assemblyDate" required className="form-control" />
           </div>

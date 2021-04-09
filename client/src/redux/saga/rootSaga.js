@@ -1,6 +1,6 @@
 import { all } from 'redux-saga/effects';
 import editClientSagaWatcher from './client/editClientSagaWatcher';
-import addClientSagaWatcher from './client/searchClientSagaWatcher';
+import addClientSagaWatcher from './client/addClientSagaWatcher';
 import showClientSagaWatcher from './client/showClientSagaWatcher';
 import showAllClientsSagaWatcher from './clients/showAllClientsSagaWatcher';
 import addOrderSagaWatcher from './order/addOrderSagaWatcher';
@@ -13,6 +13,7 @@ import addCommentToOrderSagaWatcher from './order/addCommentToOrderSagaWatcher';
 import editOrderSagaWatcher from './order/editOrderSagaWatcher';
 import searchClientSagaWatcher from './client/searchClientSagaWatcher';
 import searchOrderSagaWatcher from './order/searchOrderSagaWatcher';
+import findClientsForOrderSagaWatcher from './order/findClientsForOrderSagaWatcher';
 
 export default function* rootSaga() {
   yield all([
@@ -30,5 +31,6 @@ export default function* rootSaga() {
     addCommentToOrderSagaWatcher(),
     searchClientSagaWatcher(),
     searchOrderSagaWatcher(),
+    findClientsForOrderSagaWatcher()
   ])
 };
