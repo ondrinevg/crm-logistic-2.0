@@ -22,17 +22,11 @@ export default function EditClient() {
     if (Object.keys(valuesOfFields).every(key => valuesOfFields[key].trim())) {
       console.log(client._id);
       console.log(valuesOfFields);
-      dispatch(editClientSaga(valuesOfFields, client._id))
-      .then(() => {
-        formRef.current.reset();
-        history.push(`/clients/${client._id}`);
-      })    
+      dispatch(editClientSaga(valuesOfFields, client._id));
+      formRef.current.reset();
+      history.push(`/clients/${client._id}`);
     }
-  }   
-
-  // useEffect(() => {
-  //   if (client._id) history.push(`/clients/${client._id}`);
-  // }, [client])
+  }
 
   return (
     <>
@@ -45,10 +39,10 @@ export default function EditClient() {
             <input placeholder="Имя" defaultValue={client.name} type="text" name="name" required className="form-control" aria-describedby="emailHelp" />
           </div>
           <div className="mb-3">
-            <input placeholder="Отчество" defaultValue={client.middlename} type="text" name="middlename" required className="form-control" aria-describedby="emailHelp" />
+            <input placeholder="Отчество" defaultValue={client.middleName} type="text" name="middleName" required className="form-control" aria-describedby="emailHelp" />
           </div>
           <div className="mb-3">
-            <input placeholder="Фамилия" type="text" defaultValue={client.lastname} name="lastname" required className="form-control" aria-describedby="emailHelp" />
+            <input placeholder="Фамилия" type="text" defaultValue={client.lastName} name="lastName" required className="form-control" aria-describedby="emailHelp" />
           </div>
           <div className="mb-3">
             <input placeholder="Телефон" type="text" defaultValue={client.phone} name="phone" required className="form-control" aria-describedby="emailHelp" />
@@ -80,7 +74,7 @@ export default function EditClient() {
           <div className="mb-3">
             <input placeholder="Квартира/помещение" defaultValue={registrationAddress[3]} type="text" name="roomReg" required className="form-control" />
           </div>
-          <button type="submit" className="btn btn-primary">Добавить</button>
+          <button type="submit" className="btn btn-primary">Редактировать</button>
         </form>
       </div>
     </>

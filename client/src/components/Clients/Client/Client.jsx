@@ -1,11 +1,12 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link, useHistory, useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux';
-import { deleteClientSaga, showClientSaga } from '../../../redux/actionCreators/clientAC';
+import { addCommentToClientSaga, deleteClientSaga, showClientSaga } from '../../../redux/actionCreators/clientAC';
 
 export default function Client() {
   const client = useSelector(state => state.client);
-  const { id } = useParams(); 
+  const { id } = useParams();
+  const [comment, setComment] = useState('');
 
   const dispatch = useDispatch();
   const history = useHistory();
@@ -16,7 +17,19 @@ export default function Client() {
       dispatch(deleteClientSaga(client._id)); // должны удалить и все связанные заказы
       history.push('/clients');
     }
-  }
+  };
+
+  const commentHandler = (e) => {
+    setComment(e.target.value);
+  };
+
+  const commentHandlerSubmit = (e) => {
+    e.preventDefault();
+
+    if (comment.trim()) {
+      dispatch(addCommentToClientSaga(client._id, comment));
+    }
+  };
 
   useEffect(() => {
     dispatch(showClientSaga(id));
@@ -79,18 +92,19 @@ export default function Client() {
         <div className="col-sm">
           <h2>Комментарии к клиенту:</h2>
 
-          <ol className="listOfComment">
-            <li>
-              <div>
-                user:
-          </div>
-            </li>
-          </ol>
+          <ul className="listOfComment">
+            {client?.comments?.length
+              ? client.comments.map(comment => (
+                <li key={comment._id}>user {new Date(comment.createdAt).toLocaleString()}: {comment.text}</li>
+              ))
+              : null
+            }            
+          </ul>
 
-          <form name="addCommentClient">
+          <form onSubmit={commentHandlerSubmit} name="addCommentClient">
             <div className="mb-3">
-              <label htmlFor="texOfComment" className="form-label" required={true}>Новый комментарий:</label>
-              <textarea name="texOfComment" className="form-control" aria-describedby="emailHelp"></textarea>
+              <label htmlFor="texOfComment" className="form-label">Новый комментарий:</label>
+              <textarea onChange={commentHandler} value={comment} name="texOfComment" className="form-control" required={true} aria-describedby="emailHelp"></textarea>
             </div>
             <button type="submit" className="btn btn-primary">Оставить комментарий</button>
           </form>

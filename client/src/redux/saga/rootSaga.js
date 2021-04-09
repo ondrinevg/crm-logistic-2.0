@@ -7,6 +7,7 @@ import addOrderSagaWatcher from './order/addOrderSagaWatcher';
 import showOrderSagaWatcher from './order/showOrderSagaWatcher';
 import showAllOrdersSagaWatcher from './orders/showAllOrdersSagaWatcher';
 import deleteClientSagaWatcher from './client/deleteClientSagaWatcher';
+import addCommentToClientSagaWatcher from './client/addCommentToClientSagaWatcher';
 
 export default function* rootSaga() {
   yield all([
@@ -18,5 +19,6 @@ export default function* rootSaga() {
     showAllOrdersSagaWatcher(),
     addClientSagaWatcher(),
     deleteClientSagaWatcher(),
+    addCommentToClientSagaWatcher(),
   ])
 };
