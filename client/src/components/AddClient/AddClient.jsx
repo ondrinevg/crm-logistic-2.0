@@ -36,10 +36,10 @@ export default function AddClient() {
             <input placeholder="Имя" type="text" name="name" required className="form-control" aria-describedby="emailHelp" />
           </div>
           <div className="mb-3">
-            <input placeholder="Отчество" type="text" name="middlename" required className="form-control" aria-describedby="emailHelp" />
+            <input placeholder="Отчество" type="text" name="middleName" required className="form-control" aria-describedby="emailHelp" />
           </div>
           <div className="mb-3">
-            <input placeholder="Фамилия" type="text" name="lastname" required className="form-control" aria-describedby="emailHelp" />
+            <input placeholder="Фамилия" type="text" name="lastName" required className="form-control" aria-describedby="emailHelp" />
           </div>
           <div className="mb-3">
             <input placeholder="Телефон" type="text" name="phone" required className="form-control" aria-describedby="emailHelp" />
