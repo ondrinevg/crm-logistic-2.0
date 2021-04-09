@@ -92,6 +92,7 @@ const findAll = async (req, res) => {
 
 const editOrder = async (req, res) => {
   try {
+    delete req.body.client;
     await Order.findByIdAndUpdate(req.params.id, { ...req.body });
     const editorder = await Order.findById(req.params.id).populate('client').populate({ path: 'comments', populate: { path: 'manager' } });
     res.json(editorder);
