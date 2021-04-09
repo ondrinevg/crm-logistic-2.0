@@ -12,6 +12,7 @@ import addCommentToClientSagaWatcher from './client/addCommentToClientSagaWatche
 import addCommentToOrderSagaWatcher from './order/addCommentToOrderSagaWatcher';
 import editOrderSagaWatcher from './order/editOrderSagaWatcher';
 import searchClientSagaWatcher from './client/addClientSagaWatcher';
+import findClientsForOrderSagaWatcher from './order/findClientsForOrderSagaWatcher';
 
 export default function* rootSaga() {
   yield all([
@@ -28,5 +29,6 @@ export default function* rootSaga() {
     addCommentToClientSagaWatcher(),
     addCommentToOrderSagaWatcher(),
     searchClientSagaWatcher(),
+    findClientsForOrderSagaWatcher()
   ])
 };
