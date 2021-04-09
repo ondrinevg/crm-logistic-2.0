@@ -1,13 +1,17 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
-import { showAllClientsSaga } from '../../redux/actionCreators/clientsAC';
+import { searchClientsSaga, showAllClientsSaga } from '../../redux/actionCreators/clientsAC';
 import ClientForList from './Client/ClientForList'
 
 export default function ListOfClients() {
   const clients = useSelector(state => state.clients);
 
   const dispatch = useDispatch();
+
+  const searchHandler = (e) => {
+    dispatch(searchClientsSaga(e.target.value));
+  };
 
   useEffect(() => {
     dispatch(showAllClientsSaga());
@@ -22,7 +26,7 @@ export default function ListOfClients() {
               <label htmlFor="inputPassword6" className="col-form-label m-4 mx-0">Поиск</label>
             </div>
             <div className="col-auto">
-              <input type="text" name="name" className="search form-control client m-4 mx-2" aria-describedby="passwordHelpInline" />
+              <input onChange={searchHandler} type="text" name="name" className="search form-control client m-4 mx-2" aria-describedby="passwordHelpInline" />
             </div>
           </div>
         </form>
@@ -34,7 +38,7 @@ export default function ListOfClients() {
           ? clients.map(client => (
             <ClientForList key={client._id} client={client} />
           ))
-          : <div>Собираю клиентов...</div>
+          : <div>Нет таких клиентов...</div>
         }
       </ul>
     </div>
