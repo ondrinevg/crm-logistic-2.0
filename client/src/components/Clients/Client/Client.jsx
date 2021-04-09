@@ -14,7 +14,7 @@ export default function Client() {
   const deleteHandler = () => {
     const result = window.confirm('Точно удалить клиента? Это повлечет удаление всех связанных с ним заказов');
     if (result) {
-      dispatch(deleteClientSaga(client._id)); // должны удалить и все связанные заказы
+      dispatch(deleteClientSaga(client._id));
       history.push('/clients');
     }
   };
@@ -73,21 +73,28 @@ export default function Client() {
             <thead>
               <tr>
                 <th scope="col">Номер заказа</th>
+                <th scope="col">Контракт</th>
                 <th scope="col">Название</th>
                 <th scope="col">Статус</th>
               </tr>
             </thead>
             <tbody>
-              <tr className="table-success">
-                <th><Link to="/orders/:id">number</Link></th>
-                <td>contract</td>
-                <td>title</td>
-                <td>status</td>
-              </tr>
+
+              {client?.orders?.length
+                ? client.orders.map(order => (
+                  <tr key={order._id} className="table-success">
+                    <th><Link to="/orders/:id">{order.number}</Link></th>
+                    <td>{order.contract}</td>
+                    <td>{order.title}</td>
+                    <td>{order.status}</td>
+                  </tr>
+                ))
+                : null
+              }
             </tbody>
           </table>
 
-          <Link className="btn btn-primary" to="/orders/new/" role="button">Добавить заказ</Link>
+          <Link className="btn btn-primary" to="/orders/new" role="button">Добавить заказ</Link>
 
         </div>
         <div className="col-sm">
@@ -99,7 +106,7 @@ export default function Client() {
                 <li key={comment._id}>user {new Date(comment.createdAt).toLocaleString()}: {comment.text}</li>
               ))
               : null
-            }            
+            }
           </ul>
 
           <form onSubmit={commentHandlerSubmit} name="addCommentClient">

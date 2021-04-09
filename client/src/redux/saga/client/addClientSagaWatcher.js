@@ -1,14 +1,14 @@
-import { call, put, takeLatest } from 'redux-saga/effects';
-import { addClient } from '../../actionCreators/clientAC';
-import { ADD_CLIENT_SAGA } from '../../types/clientTypes';
+import { call, debounce, put } from 'redux-saga/effects';
+import { searchClients } from '../../actionCreators/clientsAC';
+import { SEARCH_CLIENTS_SAGA } from '../../types/clientsTypes';
 
-const addClientToServer = (client) => {
-  return fetch(`${process.env.REACT_APP_ADDRESS_TO_FETCH}/api/v1/clients/new`, {
+const findClientsFromServer = (text) => {
+  return fetch(`${process.env.REACT_APP_ADDRESS_TO_FETCH}/api/v1/clients/all/`, {
     method: 'POST',
     headers: {
       'Content-Type' : 'application/json',
     },
-    body: JSON.stringify(client),
+    body: JSON.stringify({text}),
   })
     .then(response => response.json())
 }
@@ -16,15 +16,15 @@ const addClientToServer = (client) => {
 
 function* clientSagaWorker(action) {
   try {
-    const client = yield call(addClientToServer, action.payload);
-    yield put(addClient(client));
+    const clients = yield call(findClientsFromServer, action.payload);
+    yield put(searchClients(clients));
   } catch (e) {
     yield put({ type: "USER_FETCH_FAILED", message: e.message });
   }
 }
 
-function* addClientSagaWatcher() {
-  yield takeLatest(ADD_CLIENT_SAGA, clientSagaWorker);
+function* searchClientSagaWatcher() {
+  yield debounce(400, SEARCH_CLIENTS_SAGA, clientSagaWorker);
 }
 
-export default addClientSagaWatcher;
+export default searchClientSagaWatcher;
