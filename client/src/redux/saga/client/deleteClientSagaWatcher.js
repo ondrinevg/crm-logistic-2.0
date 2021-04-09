@@ -3,7 +3,7 @@ import { deleteClient } from '../../actionCreators/clientAC';
 import { DELETE_CLIENT_SAGA } from '../../types/clientTypes';
 
 const deleteClientOnServer = (id) => {
-  return fetch(`http://localhost:3002/api/v1/clients/${id}/delete`, {
+  return fetch(`http://localhost:3002/api/v1/clients/${id}`, {
     method: 'DELETE', 
   })
 }
