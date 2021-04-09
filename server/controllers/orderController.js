@@ -26,20 +26,22 @@ const renderOrder = async (req, res) => {
 
 /// 
 const addNewOrder = async (req, res) => {
-  try { 
-    const { city, street, building, room} = req.body;
-    const address = { city, street, building, room };
-    const obj = {...req.body};
-    const deliveryAddress = Object.values(address).join(', ');
-    for (key in address) {
-      delete obj[key];
-    }
-    delete obj.client; //!!!!!!!!!!!!!
-    const newOrder = await Order.create({ ...obj, deliveryAddress });
-    // await Client.findByIdAndUpdate(client, { $push: { orders: newOrder._id } });
-    // await User.findByIdAndUpdate(res.locals.id, { $push: { orders: newOrder._id } });
+  try {
+    if (Object.keys(req.body).every(key => req.body[key].trim())) {
+      const { city, street, building, room } = req.body;
+      const address = { city, street, building, room };
+      const obj = { ...req.body };
+      const deliveryAddress = Object.values(address).join(', ');
+      for (key in address) {
+        delete obj[key];
+      }
+      delete obj.client; //!!!!!!!!!!!!!
+      const newOrder = await Order.create({ ...obj, deliveryAddress });
+      // await Client.findByIdAndUpdate(client, { $push: { orders: newOrder._id } });
+      // await User.findByIdAndUpdate(res.locals.id, { $push: { orders: newOrder._id } });
 
-    res.status(200).json(newOrder);
+      res.status(200).json(newOrder);
+    }
   } catch (err) {
     res.status(500).json(err.message);
   }
