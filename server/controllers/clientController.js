@@ -59,13 +59,14 @@ const addComment = async (req, res) => {
     const newComment = new Comment({ manager: res.locals.id, text });
     await newComment.save();
     await Client.findByIdAndUpdate(id, { $push: { comments: newComment._id } });
-    res.status(200).json({
-      isAdmin: res.locals.admin,
-      text: newComment.text,
-      name: res.locals.name,
-      lastname: res.locals.lastname,
-      middlname: res.locals.middlname,
-    });
+    const client = await Client.findById(id).populate({ path: 'comments', populate: { path: 'manager' } });
+    res.json(client);
+      // isAdmin: res.locals.admin,
+      // text: newComment.text,
+      // name: res.locals.name,
+      // lastname: res.locals.lastname,
+      // middlname: res.locals.middlname,
+    // });
   } catch (err) {
     res.status(500).json(err.message);
   }
@@ -88,7 +89,7 @@ const findAll = async (req, res) => {
 const postEditClient = async (req, res) => {
   try {
     await Client.findByIdAndUpdate(req.params.id, { ...req.body });
-    const client = await Client.findById(req.params.id);
+    const client = await Client.findById(req.params.id).populate({ path: 'comments', populate: { path: 'manager' } });
     res.json(client);
   } catch (err) {
     res.status(500).json(err.message);
