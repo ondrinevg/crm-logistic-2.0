@@ -85,15 +85,6 @@ const findAll = async (req, res) => {
   }
 };
 
-const renderEditClient = async (req, res) => {
-  try {
-    const client = await Client.findById(req.params.id);
-    res.json(client);
-  } catch (err) {
-    res.status(500).json(err.message);
-  }
-};
-
 const postEditClient = async (req, res) => {
   try {
     console.log(req.params.id);
@@ -126,7 +117,6 @@ module.exports = {
   addComment,
   postAddClient,
   findAll,
-  renderEditClient,
   postEditClient,
   deliteClient,
 };
