@@ -2,16 +2,22 @@ const Client = require('../db/models/client');
 const Comment = require('../db/models/comment');
 
 const postAddClient = async (req, res) => {
-  // const manager = res.locals.id;
-  const {
-    name, lastname, middlename, phone, email,
-  } = req.body;
+
   try {
-    if (name && lastname && middlename && phone && email) {
-      const newClient = await Client.create({
-        name, lastname, middlename, phone, email,
-      });
-      return res.sendStatus(200).json(newClient);
+    if (Object.keys(req.body).every(key => req.body[key].trim())) {
+      const { cityReg, streetReg, buildingReg, roomReg, city, street, building, room } = req.body;
+      const addressReg = { cityReg, streetReg, buildingReg, roomReg };
+      const address = { city, street, building, room };
+      const objForDeleting = { ...addressReg, ...address };
+      const obj = { ...req.body };
+      const registrationAddress = Object.values(addressReg).join(', ');
+      const homeAddress = Object.values(address).join(', ');
+      for (key in objForDeleting) {
+        delete obj[key];
+      }
+
+      const newClient = await Client.create({ ...obj, registrationAddress, homeAddress });
+      return res.json(newClient);
     }
   } catch (err) {
     return res.status(418).json(err.message);
