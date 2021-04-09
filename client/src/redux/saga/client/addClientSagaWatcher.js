@@ -15,7 +15,6 @@ const addClientToServer = (client) => {
 
 
 function* clientSagaWorker(action) {
-  console.log(1)
   try {
     const client = yield call(addClientToServer, action.payload);
     yield put(addClient(client));

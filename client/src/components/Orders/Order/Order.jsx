@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link, useHistory, useParams } from 'react-router-dom'
-import { showOrderSaga } from '../../../redux/actionCreators/orderAC';
+import { showOrderSaga, addCommentToOrderSaga, deleteOrderSaga } from '../../../redux/actionCreators/orderAC';
 
 export default function Order() {
   const { id } = useParams();  
@@ -14,7 +14,7 @@ export default function Order() {
   const deleteHandler = () => {
     const result = window.confirm('Точно удалить заказ?');
     if (result) {
-      // dispatch(deleteOrderSaga(order._id));
+      dispatch(deleteOrderSaga(order._id));
       history.push('/orders');
     }
   };
@@ -27,7 +27,7 @@ export default function Order() {
     e.preventDefault();
 
     if (comment.trim()) {
-      // dispatch(addCommentToOrderSaga(order._id, comment));
+      dispatch(addCommentToOrderSaga(order._id, comment));
       setComment('');
     }
   };
@@ -97,13 +97,15 @@ export default function Order() {
         <div className="col-sm mt-3">
           <h2>Комментарии к заказу:</h2>
 
-          <ol className="listOfComment">
-            <li>
-              <div>
-                user: comment
-              </div>
-            </li>
-          </ol>
+          <ul className="listOfComment">
+            {order?.comments?.length
+              ? order.comments.map(comment => (
+                <li key={comment._id}>user {new Date(comment.createdAt).toLocaleString()}: {comment.text}</li>
+              ))
+              : null
+            }            
+          </ul>
+
           <form onSubmit={commentHandlerSubmit} name="addCommentClient">
             <div className="mb-3">
               <label htmlFor="texOfComment" className="form-label">Новый комментарий:</label>

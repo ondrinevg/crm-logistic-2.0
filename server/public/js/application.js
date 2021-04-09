@@ -2,10 +2,8 @@ const { addNewOrderForm } = document;
 let id;
 
 addNewOrderForm?.client?.addEventListener('input', async (e) => {
-  // console.log(e.target.value.trim())
   const response = await fetch(`/clients/all/?lastName=${e.target.value}`);
   const allClients = await response.json();
-  // console.log(allClients);
   const names = allClients.map((el) => `<p data-id="${el._id}">${el.lastname} ${el.name} ${el.middlename}</p>`).join('');
 
   let namesDiv = document.querySelector('[data-find]');
@@ -81,7 +79,6 @@ if (addNewOrderForClient) {
     });
     if (response.status === 200) {
       const userOrderId = await response.json();
-      console.log('===========', userOrderId);
       window.location.replace(`/orders/${userOrderId}`);
     }
   });
@@ -210,7 +207,6 @@ function delayFiltrByOrder() {
 }
 
 // function delay(fn, event) {
-//   console.log(event);
 //   window.clearTimeout(timeoutID);
 //   timeoutID = window.setTimeout(fn, 300);
 // }

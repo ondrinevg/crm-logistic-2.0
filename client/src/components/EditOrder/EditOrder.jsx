@@ -2,6 +2,7 @@ import React, { useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router';
 import moment from 'moment';
+import { editOrderSaga } from '../../redux/actionCreators/orderAC';
 
 export default function EditOrder() {
   const formRef = useRef(null);
@@ -19,8 +20,7 @@ export default function EditOrder() {
 
     const valuesOfFields = Object.fromEntries(new FormData(formRef.current).entries());
     if (Object.keys(valuesOfFields).every(key => valuesOfFields[key].trim())) {
-      console.log(valuesOfFields, order._id);
-      // dispatch(editClientSaga(valuesOfFields, order._id));
+      dispatch(editOrderSaga(valuesOfFields, order._id));
       formRef.current.reset();
       history.push(`/orders/${order._id}`);
     }
