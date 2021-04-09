@@ -13,18 +13,18 @@ clientsRouter.route('/new')
   .post(postAddClient);
 
 clientsRouter.route('/:id')
-  .get(checkAuth, renderEditClient)
-  .patch(checkAuth, postEditClient)
-  .delete(checkAdmin, deliteClient);
+  .get(renderEditClient)
+  .patch(postEditClient)
+  .delete(deliteClient);
 
 clientsRouter.route('/all/')
-  .post(checkAuth, findAll)
+  .post(findAll)
   .get(findClients);
 
 clientsRouter.route('/:id')
-  .get(checkAuth, renderClient);
+  .get(renderClient);
 
 clientsRouter.route('/:id/comments')
-  .post(checkAuth, addComment);
+  .post(addComment);
 
 module.exports = clientsRouter;

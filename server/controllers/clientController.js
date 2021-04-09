@@ -108,6 +108,11 @@ const postEditClient = async (req, res) => {
 
 const deliteClient = async (req, res) => {
   try {
+    const clientsOrders = (await Client.findById(req.params.id)).orders;
+    for (id of clientsOrders) {
+      await Order.findByIdAndDelete(id);
+    }
+
     await Client.findByIdAndDelete(req.params.id);
     res.sendStatus(200);
   } catch (err) {

@@ -29,7 +29,7 @@ export default function Client() {
           </div>
 
           <div>
-            ФИО: {client.lastname} {client.name} {client.middlname}
+            ФИО: {client.lastName} {client.name} {client.middleName}
           </div>
 
           <div>
