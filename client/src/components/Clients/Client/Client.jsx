@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react'
 import { Link, useHistory, useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux';
 import { addCommentToClientSaga, deleteClientSaga, showClientSaga } from '../../../redux/actionCreators/clientAC';
+import { cleareOrderState } from '../../../redux/actionCreators/orderAC';
+import { cleareClientsState } from '../../../redux/actionCreators/clientsAC';
 
 export default function Client() {
   const client = useSelector(state => state.client);
@@ -30,6 +32,12 @@ export default function Client() {
       dispatch(addCommentToClientSaga(client._id, comment));
       setComment('');
     }
+  };
+
+  const addOrderHandler = () => {
+    dispatch(cleareOrderState());
+    dispatch(cleareClientsState());
+    history.push('/orders/new');
   };
 
   useEffect(() => {
@@ -71,7 +79,7 @@ export default function Client() {
 
           <table className="table">
             <thead>
-              <tr>
+              <tr key={client._id}>
                 <th scope="col">Номер заказа</th>
                 <th scope="col">Контракт</th>
                 <th scope="col">Название</th>
@@ -94,7 +102,7 @@ export default function Client() {
             </tbody>
           </table>
 
-          <Link className="btn btn-primary" to="/orders/new" role="button">Добавить заказ</Link>
+          <button onClick={addOrderHandler} className="btn btn-primary" role="button">Добавить заказ</button>
 
         </div>
         <div className="col-sm">

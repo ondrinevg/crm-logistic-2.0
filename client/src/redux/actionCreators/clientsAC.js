@@ -1,4 +1,10 @@
-import { SEARCH_CLIENTS, SEARCH_CLIENTS_SAGA, SHOW_ALL_CLIENTS, SHOW_ALL_CLIENTS_SAGA } from '../types/clientsTypes'
+import {
+  CLEARE_CLIENTS_STATE,
+  SEARCH_CLIENTS,
+  SEARCH_CLIENTS_SAGA,
+  SHOW_ALL_CLIENTS,
+  SHOW_ALL_CLIENTS_SAGA
+} from '../types/clientsTypes'
 
 export const showAllClients = (clients) => {
   return {
@@ -22,3 +28,9 @@ export const searchClientsSaga = (text) => {
     payload: text
   }
 }
+
+export const cleareClientsState = () => {
+  return {
+    type: CLEARE_CLIENTS_STATE,
+  };
+};

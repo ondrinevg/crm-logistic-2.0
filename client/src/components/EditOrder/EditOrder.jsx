@@ -43,9 +43,6 @@ export default function EditOrder() {
             <input placeholder="Номер договора" defaultValue={order.contractNumber} type="text" name="contractNumber" required className="form-control" />
           </div>
           <div className="mb-3">
-            <input placeholder="Фамилия клиента" defaultValue={order.client} type="text" name="client" autoComplete="off" required className="form-control" />
-          </div>         
-          <div className="mb-3">
             <input placeholder="Город" defaultValue={address[0]} type="text" name="city" required className="form-control" />
           </div>
           <div className="mb-3">
@@ -75,7 +72,7 @@ export default function EditOrder() {
           <div className="mb-3">
             <input placeholder="Стоимость сборки" defaultValue={order.assemblyPrice} type="number" name="assemblyPrice" required className="form-control" />
           </div>
-          <button type="submit" className="btn btn-primary">Добавить</button>
+          <button type="submit" className="btn btn-primary">Редактировать</button>
         </form>
       </div>
     </>

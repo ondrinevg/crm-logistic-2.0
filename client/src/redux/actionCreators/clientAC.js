@@ -8,7 +8,8 @@ import {
   DELETE_CLIENT,
   DELETE_CLIENT_SAGA,
   ADD_COMMENT_CLIENT,
-  ADD_COMMENT_CLIENT_SAGA
+  ADD_COMMENT_CLIENT_SAGA,
+  CLEARE_CLIENT_STATE,
 } from '../types/clientTypes';
 
 export const showClient = (client) => {
@@ -83,5 +84,11 @@ export const addCommentToClientSaga = (id, text) => {
       text,
       id,
     }
+  };
+};
+
+export const cleareClientState = () => {
+  return {
+    type: CLEARE_CLIENT_STATE,
   };
 };

@@ -1,4 +1,17 @@
-import { ADD_COMMENT_ORDER, ADD_COMMENT_ORDER_SAGA, ADD_ORDER, ADD_ORDER_SAGA, DELETE_ORDER, DELETE_ORDER_SAGA, EDIT_ORDER, EDIT_ORDER_SAGA, FIND_CLIENTS_FOR_NEW_ORDER, FIND_CLIENTS_FOR_NEW_ORDER_SAGA, SHOW_ORDER, SHOW_ORDER_SAGA } from '../types/orderTypes'
+import {
+  ADD_COMMENT_ORDER,
+  ADD_COMMENT_ORDER_SAGA,
+  ADD_ORDER,
+  ADD_ORDER_SAGA,
+  CLEARE_ORDER_STATE,
+  DELETE_ORDER,
+  DELETE_ORDER_SAGA,
+  EDIT_ORDER,
+  EDIT_ORDER_SAGA,
+  FIND_CLIENTS_FOR_NEW_ORDER,
+  FIND_CLIENTS_FOR_NEW_ORDER_SAGA,
+  SHOW_ORDER,
+  SHOW_ORDER_SAGA } from '../types/orderTypes'
 
 export const showOrder = (order) => {
   return {
@@ -25,6 +38,7 @@ export const addOrderSaga = (order) => {
   return {
     type: ADD_ORDER_SAGA,
     payload: order,
+    
   };
 };
 
@@ -74,6 +88,12 @@ export const addCommentToOrderSaga = (id, text) => {
       text,
       id,
     }
+  };
+};
+
+export const cleareOrderState = () => {
+  return {
+    type: CLEARE_ORDER_STATE,
   };
 };
 
