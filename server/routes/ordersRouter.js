@@ -22,18 +22,14 @@ orderRouter.route('/new')
 orderRouter.route('/new/:id')
   .get(renderNewOrderFormForClient);
 
-orderRouter.route('/:id/edit')
-  .get(renderOrderEdit)
-  .patch(editOrder);
-
 orderRouter.route('/:id')
+  .patch(editOrder)
   .delete(deliteOrder)
   .get(renderOrder);
-
 
 orderRouter.route('/:id/comments')
   .post(addComment);
 
-orderRouter.route('/:id/status')
-  .patch(changeStatus);
+// orderRouter.route('/:id/status')
+//   .patch(changeStatus);
 module.exports = orderRouter;

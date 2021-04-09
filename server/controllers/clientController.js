@@ -2,7 +2,6 @@ const Client = require('../db/models/client');
 const Comment = require('../db/models/comment');
 
 const postAddClient = async (req, res) => {
-
   try {
     if (Object.keys(req.body).every(key => req.body[key].trim())) {
       const { cityReg, streetReg, buildingReg, roomReg, city, street, building, room } = req.body;
@@ -27,7 +26,7 @@ const postAddClient = async (req, res) => {
 const renderAllClients = async (req, res) => {
   try {
     const clients = await Client.find();
-    res.status(200).json(clients);
+    res.json(clients);
   } catch (error) {
     res.status(500).json(error.message);
   }
@@ -36,18 +35,17 @@ const renderAllClients = async (req, res) => {
 const renderClient = async (req, res) => {
   try {
     const client = await Client.findById(req.params.id).populate('orders').populate({ path: 'comments', populate: { path: 'manager' } });
-    res.status(200).json(client);
+    res.json(client);
   } catch (err) {
     res.status(500).json(err.message);
   }
-
 };
 
 const findClients = async (req, res) => {
   try {
     const { lastName } = req.query;
-    let allClients = []
-    if (lastName) allClients = await Client.find({ lastname: new RegExp(`^${lastName}.*`, 'ig') });
+    let allClients = [];
+    if (lastName) allClients = await Client.find({ lastName: new RegExp(`^${lastName}.*`, 'ig') });
     res.status(200).json(allClients);
   } catch (err) {
     res.status(500).json(err.message);
@@ -79,8 +77,8 @@ const findAll = async (req, res) => {
     text = text.toLowerCase();
     const clients = await Client.find();
     const result = clients.filter((client) => client.name.toLowerCase()?.includes(text)
-      || client.lastname?.toLowerCase().includes(text)
-      || client.middlename?.toLowerCase().includes(text));
+      || client.lastName?.toLowerCase().includes(text)
+      || client.middleName?.toLowerCase().includes(text));
     res.status(200).json(result);
   } catch (err) {
     res.status(500).json(err.message);
@@ -90,7 +88,7 @@ const findAll = async (req, res) => {
 const renderEditClient = async (req, res) => {
   try {
     const client = await Client.findById(req.params.id);
-    res.status(200).json(client);
+    res.json(client);
   } catch (err) {
     res.status(500).json(err.message);
   }
