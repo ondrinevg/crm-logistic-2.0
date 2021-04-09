@@ -51,20 +51,20 @@ const addComment = async (req, res) => {
   try {
     const { id } = req.params;
     const { text } = req.body;
-    const newComment = new Comment({ manager: res.locals.id, text });
+    const newComment = new Comment({ /*manager: res.locals.id,*/ text });
     await newComment.save();
     await Order.findByIdAndUpdate(id, { $push: { comments: newComment._id } });
-    res.json({
-      isAdmin: res.locals.admin,
-      text: newComment.text,
-      name: res.locals.name,
-      lastname: res.locals.lastname,
-      middlname: res.locals.middlname,
-    });
+    const order = await Order.findById(id).populate({ path: 'comments', populate: { path: 'manager' } });
+    res.json(order);
+    //   isAdmin: res.locals.admin,
+    //   text: newComment.text,
+    //   name: res.locals.name,
+    //   lastname: res.locals.lastname,
+    //   middlname: res.locals.middlname,
+    // });
   } catch (err) {
     res.status(500).json(err.message);
   }
-
 };
 
 const renderNewOrderFormForClient = async (req, res) => {
@@ -93,7 +93,7 @@ const findAll = async (req, res) => {
 const editOrder = async (req, res) => {
   try {
     await Order.findByIdAndUpdate(req.params.id, { ...req.body });
-    const editorder = await Order.findById(req.params.id);
+    const editorder = await Order.findById(req.params.id).populate('client').populate({ path: 'comments', populate: { path: 'manager' } });
     res.json(editorder);
   } catch (err) {
     res.status(500).json(err.message);
