@@ -12,6 +12,8 @@ export default function AddClient() {
 
   const id = useSelector(state => state.client._id);
 
+ 
+
   const submitHandler = (e) => {
     e.preventDefault();
 

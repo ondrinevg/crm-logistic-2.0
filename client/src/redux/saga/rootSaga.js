@@ -1,4 +1,5 @@
 import { all } from 'redux-saga/effects';
+import addClientSagaWatcher from './client/addClientSagaWatcher';
 import showClientSagaWatcher from './client/showClientSagaWatcher';
 import showAllClientsSagaWatcher from './clients/showAllClientsSagaWatcher';
 import addOrderSagaWatcher from './order/addOrderSagaWatcher';
@@ -12,5 +13,6 @@ export default function* rootSaga() {
     showOrderSagaWatcher(),
     addOrderSagaWatcher(),
     showAllOrdersSagaWatcher(),
+    addClientSagaWatcher(),
   ])
 };
