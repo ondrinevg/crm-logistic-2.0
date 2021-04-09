@@ -1,6 +1,5 @@
 /* eslint-disable no-dupe-keys */
 const Order = require('../db/models/order');
-const Counter = require('../db/models/counter');
 const User = require('../db/models/user');
 const Client = require('../db/models/client');
 const Comment = require('../db/models/comment');
@@ -24,23 +23,21 @@ const renderOrder = async (req, res) => {
   }
 };
 
-
 const addNewOrder = async (req, res) => {
   try {
     if (Object.keys(req.body).every(key => req.body[key].trim())) {
-      const { city, street, building, room } = req.body;
+      const { city, street, building, room, client } = req.body;
       const address = { city, street, building, room };
       const obj = { ...req.body };
       const deliveryAddress = Object.values(address).join(', ');
       for (key in address) {
         delete obj[key];
       }
-      delete obj.client; //!!!!!!!!!!!!!
       const newOrder = await Order.create({ ...obj, deliveryAddress });
-      // await Client.findByIdAndUpdate(client, { $push: { orders: newOrder._id } });
+      await Client.findByIdAndUpdate(client, { $push: { orders: newOrder._id } });
       // await User.findByIdAndUpdate(res.locals.id, { $push: { orders: newOrder._id } });
-
-      res.json(newOrder);
+      const order = await Order.findById(newOrder._id).populate('client');
+      res.json(order);
     }
   } catch (err) {
     res.status(500).json(err.message);
@@ -99,7 +96,6 @@ const editOrder = async (req, res) => {
   } catch (err) {
     res.status(500).json(err.message);
   }
-
 };
 
 const deliteOrder = async (req, res) => {
