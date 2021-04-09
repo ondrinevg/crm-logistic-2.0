@@ -1,4 +1,4 @@
-import { ADD_CLIENT, SHOW_CLIENT } from "../types/clientTypes";
+import { ADD_CLIENT, SHOW_CLIENT, EDIT_CLIENT, DELETE_CLIENT } from "../types/clientTypes";
 
 const clientReducer = (state = {}, action) => {
   switch (action.type) {
@@ -10,6 +10,12 @@ const clientReducer = (state = {}, action) => {
 
     case ADD_CLIENT:
       return action.payload;
+
+    case EDIT_CLIENT:
+      return action.payload;
+
+    case DELETE_CLIENT:
+      return {};
 
     default:
       return state

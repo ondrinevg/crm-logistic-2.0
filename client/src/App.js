@@ -11,6 +11,7 @@ import ListOfClients from "./components/Clients/ListOfClients";
 import Header from "./components/Header/Header";
 import ListOfOrders from "./components/Orders/ListOfOrders";
 import Order from "./components/Orders/Order/Order";
+import EditClient from "./components/EditClient/EditClient";
 
 function App() {
   return (
@@ -22,6 +23,9 @@ function App() {
         </Route>
         <Route exact path='/clients/new'>
           <AddClient />
+        </Route>
+        <Route exact path='/clients/:id/edit'>
+          <EditClient />
         </Route>
         <Route exact path='/clients/:id'>
           <Client />

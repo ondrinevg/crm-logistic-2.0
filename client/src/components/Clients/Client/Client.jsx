@@ -1,7 +1,22 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux';
+import { deleteClientSaga } from '../../../redux/actionCreators/clientAC';
 
 export default function Client() {
+  const client = useSelector(state => state.client);
+
+  const dispatch = useDispatch();
+  const history = useHistory();
+
+  const deleteHandler = () => {
+    const result = window.confirm('Точно удалить клиента? Это повлечет удаление всех связанных с ним заказов');
+    if (result) {
+      dispatch(deleteClientSaga(client._id)); // должны удалить и все связанные заказы
+      history.push('/clients');
+    }
+  }
+
   return (
     <div className="container">
       <div className="row mt-3">
@@ -9,21 +24,29 @@ export default function Client() {
           <h2>Информация о клиенте</h2>
 
           <div>
-            <Link to='/' className="firstedit">Редактировать</Link>
-            <button>Удалить клиента</button>
-          </div>      
+            <Link to={`/clients/${client._id}`} className="firstedit">Редактировать</Link>
+            <button onClick={deleteHandler}>Удалить клиента</button>
+          </div>
 
           <div>
-            ФИО:
-      </div>
+            ФИО: {client.lastname} {client.name} {client.middlname}
+          </div>
 
           <div>
-            Телефон:
-      </div>
+            Телефон: {client.phone}
+          </div>
 
           <div>
-            E-mail:
-      </div>
+            E-mail: {client.email}
+          </div>
+
+          <div>
+            Адрес регистрации: {client.registrationAddress}
+          </div>
+
+          <div>
+            Адрес проживания: {client.homeAddress}
+          </div>
 
           <h2 className="mt-3">Заказы клиента</h2>
 
