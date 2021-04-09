@@ -30,7 +30,12 @@ export default function ListOfClients() {
       </div>
 
       <ul className="list-group">
-       <ClientForList />
+        {clients.length > 0
+          ? clients.map(client => (
+            <ClientForList client={client} />
+          ))
+          : <div>Собираю клиентов...</div>
+        }
       </ul>
     </div>
   )

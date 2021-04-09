@@ -1,7 +1,18 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
+import React, { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { Link, useParams } from 'react-router-dom'
+import { showOrderSaga } from '../../../redux/actionCreators/orderAC';
 
 export default function Order() {
+  const { id } = useParams();  
+  const order = useSelector(state => state.order);
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(showOrderSaga(id));
+  }, []);
+
   return (
     <div className="container">
       <div className="row">
@@ -25,37 +36,37 @@ export default function Order() {
           </div>
 
           <div id='status'>
-            Текущий статус:
+            Текущий статус: {order.status}
         </div>
           <div>
             Номер заказа:
         </div>
           <div>
-            Название:
+            Название: {order.title}
           </div>
           <div>
             Клиент: <Link to="/clients/:id">ссылка на клиента</Link>
           </div>
           <div>
-            Адрес доставки:
+            Адрес доставки: {order.deliveryAddress}
         </div>
           <div>
-            Дата доставки:
+            Дата доставки: {new Date(order.deliveryDate).toLocaleDateString()}
         </div>
           <div>
-            Дата сборки:
+            Дата сборки: {new Date(order.assemblyDate).toLocaleDateString()}
         </div>
           <div>
-            Сумма заказа:
+            Сумма заказа: {order.orderPrice} руб.
         </div>
           <div>
-            Оплачено:
+            Оплачено: {order.payment} руб.
         </div>
           <div>
-            Стоимость доставки:
+            Стоимость доставки: {order.deliveryPrice} руб.
         </div>
           <div>
-            Стоимость сборки:
+            Стоимость сборки: {order.assemblyPrice} руб.
         </div>
 
         </div>
@@ -67,7 +78,7 @@ export default function Order() {
             <li>
               <div>
                 user: comment
-            </div>
+              </div>
             </li>
           </ol>
           <form name="addCommentOrder">
