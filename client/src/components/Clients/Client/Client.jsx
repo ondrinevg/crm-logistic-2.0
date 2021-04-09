@@ -1,10 +1,11 @@
-import React from 'react'
-import { Link, useHistory } from 'react-router-dom'
+import React, { useEffect } from 'react'
+import { Link, useHistory, useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux';
-import { deleteClientSaga } from '../../../redux/actionCreators/clientAC';
+import { deleteClientSaga, showClientSaga } from '../../../redux/actionCreators/clientAC';
 
 export default function Client() {
   const client = useSelector(state => state.client);
+  const { id } = useParams(); 
 
   const dispatch = useDispatch();
   const history = useHistory();
@@ -16,6 +17,10 @@ export default function Client() {
       history.push('/clients');
     }
   }
+
+  useEffect(() => {
+    dispatch(showClientSaga(id));
+  }, []);
 
   return (
     <div className="container">

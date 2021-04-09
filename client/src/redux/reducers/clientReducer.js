@@ -3,10 +3,7 @@ import { ADD_CLIENT, SHOW_CLIENT, EDIT_CLIENT, DELETE_CLIENT } from "../types/cl
 const clientReducer = (state = {}, action) => {
   switch (action.type) {
     case SHOW_CLIENT:
-      return [
-        ...state,
-        action.payload
-      ];
+      return action.payload;
 
     case ADD_CLIENT:
       return action.payload;

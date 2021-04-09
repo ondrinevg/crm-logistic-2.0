@@ -32,7 +32,7 @@ export default function ListOfClients() {
       <ul className="list-group">
         {clients.length > 0
           ? clients.map(client => (
-            <ClientForList client={client} />
+            <ClientForList key={client._id} client={client} />
           ))
           : <div>Собираю клиентов...</div>
         }
