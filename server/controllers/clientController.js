@@ -98,8 +98,9 @@ const renderEditClient = async (req, res) => {
 
 const postEditClient = async (req, res) => {
   try {
-    const client = await Client.findByIdAndUpdate(req.params.id, { ...req.body });
-    res.sendStatus(200);
+    await Client.findByIdAndUpdate(req.params.id, { ...req.body });
+    const client = await Client.findById(req.params.id);
+    res.json(client);
   } catch (err) {
     res.status(500).json(err.message);
   }
