@@ -2,7 +2,9 @@ const bcrypt = require('bcrypt');
 const User = require('../db/models/user');
 const app = require('../app');
 
+
 const saltRound = 10;
+
 
 const userLoginRender = async (req, res) => {
   try {
@@ -58,7 +60,7 @@ const userLogin = async (req, res) => {
         req.session.user = {
           id: currentUser._id,
         };
-
+        
         return res.sendStatus(200);
       }
       return res.sendStatus(418);
@@ -81,6 +83,8 @@ const userLogout = async (req, res) => {
     res.status(500).json(err.message);
   }
 };
+
+
 
 module.exports = {
   userLoginRender,
