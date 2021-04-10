@@ -11,8 +11,12 @@ import ListOfClients from "./components/Clients/ListOfClients";
 import Header from "./components/Header/Header";
 import ListOfOrders from "./components/Orders/ListOfOrders";
 import Order from "./components/Orders/Order/Order";
+import EditClient from "./components/EditClient/EditClient";
+import EditOrder from "./components/EditOrder/EditOrder";
 
 function App() {
+
+ 
   return (
     <Router>
       <Header />
@@ -20,14 +24,20 @@ function App() {
         <Route exact path='/'>
           <div>главная страница</div>
         </Route>
-        <Route exact path='/client'>
-          <Client />
-        </Route>
         <Route exact path='/clients/new'>
           <AddClient />
         </Route>
+        <Route exact path='/clients/:id/edit'>
+          <EditClient />
+        </Route>
+        <Route exact path='/clients/:id'>
+          <Client />
+        </Route>
         <Route exact path='/orders/new'>
           <AddOrder />
+        </Route>
+        <Route exact path='/orders/:id/edit'>
+          <EditOrder />
         </Route>
         <Route exact path='/orders/:id'>
           <Order />
@@ -37,7 +47,7 @@ function App() {
         </Route>
         <Route exact path='/orders'>
           <ListOfOrders />
-        </Route>       
+        </Route>
       </Switch>
     </Router>
   );

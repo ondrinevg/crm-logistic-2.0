@@ -10,7 +10,6 @@ const userLoginRender = async (req, res) => {
   try {
     const { id } = res.locals;
     const userId = await User.findById(id);
-    console.log(userId, 'userId');
     res.status(200).json(userId);
   } catch (err) {
     res.status(500).json(err.message);

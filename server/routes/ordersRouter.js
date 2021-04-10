@@ -3,10 +3,9 @@ const orderRouter = require('express').Router();
 const { checkAuth } = require('../middlewares/checkAuth');
 const { checkAdmin } = require('../middlewares/checkAdmin');
 const {
-  renderAllOrders, renderOrder, addComment, addNewOrder, renderOrderEdit, editOrder,
+  renderAllOrders, renderOrder, addComment, addNewOrder, editOrder,
   deliteOrder,
-  findAll,
-  changeStatus,
+  findAll,  
   renderNewOrderFormForClient,
 } = require('../controllers/orderController');
 
@@ -22,18 +21,14 @@ orderRouter.route('/new')
 orderRouter.route('/new/:id')
   .get(renderNewOrderFormForClient);
 
-orderRouter.route('/:id/edit')
-  .get(renderOrderEdit)
-  .patch(editOrder);
-
 orderRouter.route('/:id')
+  .patch(editOrder)
   .delete(deliteOrder)
   .get(renderOrder);
-
 
 orderRouter.route('/:id/comments')
   .post(addComment);
 
-orderRouter.route('/:id/status')
-  .patch(changeStatus);
+// orderRouter.route('/:id/status')
+//   .patch(changeStatus);
 module.exports = orderRouter;

@@ -3,28 +3,26 @@ const clientsRouter = require('express').Router();
 const { checkAdmin } = require('../middlewares/checkAdmin');
 const { checkAuth } = require('../middlewares/checkAuth');
 const {
-  findAll, renderClient, renderAllClients, findClients, postAddClient, addComment, renderEditClient, postEditClient, deliteClient,
+  findAll, renderClient, renderAllClients, findClients, postAddClient, addComment, postEditClient, deliteClient,
 } = require('../controllers/clientController');
 
 clientsRouter.route('/')
   .get(renderAllClients);
 
 clientsRouter.route('/new')
-  .post(checkAuth, postAddClient);
+  .post(postAddClient);
 
-clientsRouter.route('/:id')
-  .get(checkAuth, renderEditClient)
-  .patch(checkAuth, postEditClient)
-  .delete(checkAdmin, deliteClient);
-
-clientsRouter.route('/all/')
-  .post(checkAuth, findAll)
+  
+  clientsRouter.route('/all/')
+  .post(findAll)
   .get(findClients);
-
-clientsRouter.route('/:id')
-  .get(checkAuth, renderClient);
+  
+  clientsRouter.route('/:id')
+    .get(renderClient)
+    .patch(postEditClient)
+    .delete(deliteClient);
 
 clientsRouter.route('/:id/comments')
-  .post(checkAuth, addComment);
+  .post(addComment);
 
 module.exports = clientsRouter;

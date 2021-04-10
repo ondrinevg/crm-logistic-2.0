@@ -1,28 +1,44 @@
-import React, { useRef } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router';
-import { addOrderSaga } from '../../redux/actionCreators/orderAC';
+import { addOrderSaga, findClientsForOrderSaga } from '../../redux/actionCreators/orderAC';
+import ClientVariant from './ClientVariant/ClientVariant';
 
 export default function AddOrder() {
   const formRef = useRef(null);
+  const [clientString, setClientString] = useState('');
 
   const history = useHistory();
 
   const dispatch = useDispatch();
 
+  const client = useSelector(state => state.client);
   const id = useSelector(state => state.order._id);
+  const clients = useSelector(state => state.clients);
+
+  const clientStringHandler = (e) => {
+    setClientString(e.target.value);
+  };
 
   const submitHandler = (e) => {
     e.preventDefault();
 
     const valuesOfFields = Object.fromEntries(new FormData(formRef.current).entries());
-
-    if (Object.keys(valuesOfFields).every(key => valuesOfFields[key].trim())) {
-      dispatch(addOrderSaga(valuesOfFields));
+    const order = { ...valuesOfFields, client: client._id }
+    if (Object.keys(order).every(key => order[key].trim())) {
+      dispatch(addOrderSaga(order));
       formRef.current.reset();
-      history.push(`/orders/${id}`);
     }
   }
+
+  const handlerSerchClients = (e) => {
+    const text = e.target.value;
+    dispatch(findClientsForOrderSaga(text));
+  }
+
+  useEffect(() => {
+    if (id) history.push(`/orders/${id}`);
+  }, [id]);
 
   return (
     <>
@@ -35,11 +51,32 @@ export default function AddOrder() {
             <input placeholder="Название заказа" type="text" name="title" required className="form-control" />
           </div>
           <div className="mb-3">
-            <input placeholder="Название заказа" type="text" name="contractNumber" required className="form-control" />
+            <input placeholder="Номер договора" type="text" name="contractNumber" required className="form-control" />
           </div>
           <div className="mb-3">
-            <input placeholder="Фамилия клиента" type="text" name="client" autoComplete="off" required className="form-control" />
-          </div>         
+            <input
+              onChange={(e) => {
+                clientStringHandler(e);
+                handlerSerchClients(e);
+              }
+              }
+              value={client?._id ? `${client.lastName} ${client.name} ${client.middleName}` : clientString}
+              placeholder="Клиент"
+              type="text"
+              name="client"
+              autoComplete="off"
+              required
+              className="form-control" />
+          </div>
+          <ul>
+            {clients.length
+              ? clients.map(client => (
+                <ClientVariant key={client._id} client={client} setClientString={setClientString} />
+              ))
+              :
+              ''
+            }
+          </ul>
           <div className="mb-3">
             <input placeholder="Город" type="text" name="city" required className="form-control" />
           </div>
@@ -54,7 +91,7 @@ export default function AddOrder() {
           </div>
           <div className="mb-3">
             <input placeholder="Дата доставки" type="date" name="deliveryDate" required className="form-control" />
-          </div>        
+          </div>
           <div className="mb-3">
             <input placeholder="Дата сборки" type="date" name="assemblyDate" required className="form-control" />
           </div>
