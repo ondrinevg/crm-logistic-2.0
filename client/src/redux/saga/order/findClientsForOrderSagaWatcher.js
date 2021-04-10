@@ -19,7 +19,7 @@ function* orderSagaWorker(action) {
 }
 
 function* findClientsForOrderSagaWatcher() {
-  yield debounce(FIND_CLIENTS_FOR_NEW_ORDER_SAGA, orderSagaWorker);
+  yield debounce(400, FIND_CLIENTS_FOR_NEW_ORDER_SAGA, orderSagaWorker);
 }
 
 export default findClientsForOrderSagaWatcher;
