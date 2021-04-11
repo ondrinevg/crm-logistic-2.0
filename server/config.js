@@ -1,4 +1,5 @@
 require('dotenv').config();
+// const flash = require('connect-flash');
 const passport = require('passport');
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const User = require('./db/models/user');
@@ -28,11 +29,11 @@ passport.use(
         console.log(currentUser, '<<<<<<<<<<<<<<current');
         if (currentUser) {
           // already have this user
-          console.log('user is: ', currentUser)
+          console.log('user is: ', currentUser);
           console.log('accessToken', accessToken);
           return done(null, currentUser);
         } else {
-          return done(null, false, { message: 'Incorrect user' })
+          return done(null, false, { message: 'User incorrect!' });
           console.log(profile, "<<<<<profile")
           User.create({
             googleId: profile.id,
