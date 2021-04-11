@@ -10,24 +10,24 @@ const {
 } = require('../controllers/orderController');
 
 orderRouter.route('/')
-  .get(renderAllOrders);
+  .get(checkAuth, renderAllOrders);
 
 orderRouter.route('/all')
-  .post(findAll);
+  .post(checkAuth, findAll);
 
 orderRouter.route('/new')
-  .post(addNewOrder);
+  .post(checkAuth, addNewOrder);
 
 orderRouter.route('/new/:id')
-  .get(renderNewOrderFormForClient);
+  .get(checkAuth, renderNewOrderFormForClient);
 
 orderRouter.route('/:id')
-  .patch(editOrder)
-  .delete(deliteOrder)
-  .get(renderOrder);
+  .patch(checkAuth, editOrder)
+  .delete(checkAuth, deliteOrder)
+  .get(checkAuth, renderOrder);
 
 orderRouter.route('/:id/comments')
-  .post(addComment);
+  .post(checkAuth, addComment);
 
 // orderRouter.route('/:id/status')
 //   .patch(changeStatus);

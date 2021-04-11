@@ -10,19 +10,19 @@ clientsRouter.route('/')
   .get(checkAuth, renderAllClients);
 
 clientsRouter.route('/new')
-  .post(postAddClient);
+  .post(checkAuth, postAddClient);
 
   
   clientsRouter.route('/all/')
-  .post(findAll)
-  .get(findClients);
+  .post(checkAuth, findAll)
+  .get(checkAuth, findClients);
   
   clientsRouter.route('/:id')
-    .get(renderClient)
-    .patch(postEditClient)
-    .delete(deliteClient);
+    .get(checkAuth, renderClient)
+    .patch(checkAuth, postEditClient)
+    .delete(checkAuth, deliteClient);
 
 clientsRouter.route('/:id/comments')
-  .post(addComment);
+  .post(checkAuth, addComment);
 
 module.exports = clientsRouter;
