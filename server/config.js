@@ -42,8 +42,7 @@ passport.use(
             console.log('<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<created new user: ', newUser)
             return done(null, newUser);
           })
-        }
-        ;
+        };
       });
   }),
 );

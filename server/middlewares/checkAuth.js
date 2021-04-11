@@ -1,8 +1,10 @@
+require('dotenv').config();
+
 const checkAuth = (req, res, next) => {
-  if (req.session.user) {
+  if (req.user) {
     return next();
   }
-  return res.redirect('/users/login');
+  return res.redirect(`http://localhost:${process.env.PORT}/api/v1/auth/google`);
 };
 
 module.exports = {
