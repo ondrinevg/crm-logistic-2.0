@@ -22,4 +22,9 @@ router.get('/google/redirect', passport.authenticate('google', {
   failureFlash: true,
 }));
 
+router.get('/logout', function(req, res){
+  req.logout();
+  res.redirect('http://localhost:3000');
+});
+
 module.exports = router;
