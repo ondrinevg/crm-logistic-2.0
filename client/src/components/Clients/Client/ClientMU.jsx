@@ -104,7 +104,7 @@ export default function ClientMU() {
                 ? client.orders.map(order => (
                   <TableRow key={order._id} className="table-success">
                     <TableCell align='center'><Button component={RouterLink} to={`/orders/${order._id}`}>{order.number}</Button></TableCell>
-                    <TableCell>{order.contract}</TableCell>
+                    <TableCell>{order.contractNumber}</TableCell>
                     <TableCell>{order.title}</TableCell>
                     <TableCell>{order.status}</TableCell>
                   </TableRow>

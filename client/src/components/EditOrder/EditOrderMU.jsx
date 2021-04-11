@@ -58,146 +58,105 @@ export default function EditOrderMU() {
 
   return (
     <>
-        <MuiPickersUtilsProvider utils={MomentUtils}>
-      <Container>
-        <Typography variant="h4">Редактирование заказа</Typography>
-        <form ref={formRef} onSubmit={submitHandler}>
-          <Box className={classes.root}>
-            <FormControl>
-              <InputLabel htmlFor="component-simple">Название заказа</InputLabel>
-              <Input type="text" defaultValue={order.title} name="title" required />
-            </FormControl>
-            <FormControl>
-              <InputLabel htmlFor="component-simple">Номер договора</InputLabel>
-              <Input type="text" defaultValue={order.contractNumber} name="contractNumber" required />
-            </FormControl>
-           
-          </Box>
+      <MuiPickersUtilsProvider utils={MomentUtils}>
+        <Container>
+          <Typography variant="h4">Редактирование заказа</Typography>
+          <form ref={formRef} onSubmit={submitHandler}>
+            <Box className={classes.root}>
+              <FormControl>
+                <InputLabel htmlFor="component-simple">Номер заказа</InputLabel>
+                <Input type="text" defaultValue={order.number} name="number" required />
+              </FormControl>
+              <FormControl>
+                <InputLabel htmlFor="component-simple">Название заказа</InputLabel>
+                <Input type="text" defaultValue={order.title} name="title" required />
+              </FormControl>
+              <FormControl>
+                <InputLabel htmlFor="component-simple">Номер договора</InputLabel>
+                <Input type="text" defaultValue={order.contractNumber} name="contractNumber" required />
+              </FormControl>
 
-          <Box className={classes.root}>
-            <p>Адрес доставки</p>
-            <FormControl>
-              <InputLabel htmlFor="component-simple">Город</InputLabel>
-              <Input type="text" name="city" defaultValue={address[0]}  required />
-            </FormControl>
-            <FormControl>
-              <InputLabel htmlFor="component-simple">Улица</InputLabel>
-              <Input type="text" name="street" defaultValue={address[1]} required />
-            </FormControl>
-            <FormControl>
-              <InputLabel htmlFor="component-simple">Дом/строение</InputLabel>
-              <Input type="text" name="building" defaultValue={address[2]} required />
-            </FormControl>
-            <FormControl>
-              <InputLabel htmlFor="component-simple">Квартира/помещение</InputLabel>
-              <Input type="text" name="room" defaultValue={address[3]} required />
-            </FormControl>
-          </Box>
-          <Box className={classes.root}>
-            <KeyboardDatePicker
-              disableToolbar
-              name="deliveryDate"
-              required
-              variant="inline"
-              format="YYYY-MM-DD"
-              // format="MM/dd/yyyy"
-              margin="normal"
-              defaultValue={deliveryDate}
-              value={selectedDateDelivery}
-              onChange={date => setSelectedDateDelivery(date)}
-              label="Дата доставки"
-              KeyboardButtonProps={{
-                "aria-label": "change date",
-              }}
-            />
+            </Box>
 
-            <KeyboardDatePicker
-              disableToolbar
-              variant="inline"
-              format="YYYY-MM-DD"
-              margin="normal"
-              name="assemblyDate"
-              required
-              defaultValue={assemblyDate}
-              value={selectedDateAssembly}
-              onChange={date => setSelectedDateAssembly(date)}
-              label="Дата сборки"
-              KeyboardButtonProps={{
-                "aria-label": "change date",
-              }}
-            />
-           
-          </Box>
-          <Box className={classes.root}>
-            <FormControl>
-              <InputLabel htmlFor="component-simple">Стоимость заказа</InputLabel>
-              <Input type="number" defaultValue={order.orderPrice}  name="orderPrice" required />
+            <Box className={classes.root}>
+              <p>Адрес доставки</p>
+              <FormControl>
+                <InputLabel htmlFor="component-simple">Город</InputLabel>
+                <Input type="text" name="city" defaultValue={address[0]} required />
+              </FormControl>
+              <FormControl>
+                <InputLabel htmlFor="component-simple">Улица</InputLabel>
+                <Input type="text" name="street" defaultValue={address[1]} required />
+              </FormControl>
+              <FormControl>
+                <InputLabel htmlFor="component-simple">Дом/строение</InputLabel>
+                <Input type="text" name="building" defaultValue={address[2]} required />
+              </FormControl>
+              <FormControl>
+                <InputLabel htmlFor="component-simple">Квартира/помещение</InputLabel>
+                <Input type="text" name="room" defaultValue={address[3]} required />
+              </FormControl>
+            </Box>
+            <Box className={classes.root}>
+              <KeyboardDatePicker
+                disableToolbar
+                name="deliveryDate"
+                required
+                variant="inline"
+                format="YYYY-MM-DD"
+                margin="normal"
+                defaultValue={deliveryDate}
+                value={selectedDateDelivery}
+                onChange={date => setSelectedDateDelivery(date)}
+                label="Дата доставки"
+                KeyboardButtonProps={{
+                  "aria-label": "change date",
+                }}
+              />
+
+              <KeyboardDatePicker
+                disableToolbar
+                variant="inline"
+                format="YYYY-MM-DD"
+                margin="normal"
+                name="assemblyDate"
+                required
+                defaultValue={assemblyDate}
+                value={selectedDateAssembly}
+                onChange={date => setSelectedDateAssembly(date)}
+                label="Дата сборки"
+                KeyboardButtonProps={{
+                  "aria-label": "change date",
+                }}
+              />
+
+            </Box>
+            <Box className={classes.root}>
+              <FormControl>
+                <InputLabel htmlFor="component-simple">Стоимость заказа</InputLabel>
+                <Input type="number" defaultValue={order.orderPrice} name="orderPrice" required />
+              </FormControl>
+              <FormControl>
+                <InputLabel htmlFor="component-simple">Оплачено</InputLabel>
+                <Input type="number" defaultValue={order.payment} name="payment" required />
+              </FormControl>
+            </Box>
+            <Box className={classes.root}>
+              <FormControl>
+                <InputLabel htmlFor="component-simple">Стоимость доставки</InputLabel>
+                <Input type="number" defaultValue={order.deliveryPrice} name="deliveryPrice" required />
+              </FormControl>
+              <FormControl>
+                <InputLabel htmlFor="component-simple">Стоимость сборки</InputLabel>
+                <Input type="number" defaultValue={order.assemblyPrice} name="assemblyPrice" required />
+              </FormControl>
+            </Box>
+            <FormControl fullWidth={true}>
+              <Button type="submit" className="btn btn-primary">Отредактировать</Button>
             </FormControl>
-            <FormControl>
-              <InputLabel htmlFor="component-simple">Оплачено</InputLabel>
-              <Input type="number" defaultValue={order.payment} name="payment" required />
-            </FormControl>
-          </Box>
-          <Box className={classes.root}>
-            <FormControl>
-              <InputLabel htmlFor="component-simple">Стоимость доставки</InputLabel>
-              <Input type="number" defaultValue={order.deliveryPrice} name="deliveryPrice" required />
-            </FormControl>
-            <FormControl>
-              <InputLabel htmlFor="component-simple">Стоимость сборки</InputLabel>
-              <Input type="number" defaultValue={order.assemblyPrice} name="assemblyPrice" required />
-            </FormControl>
-          </Box>
-          <FormControl fullWidth={true}>
-            <Button type="submit" className="btn btn-primary">Добавить</Button>
-          </FormControl>
-        </form>
-      </Container>
-    </MuiPickersUtilsProvider>
-      {/* <div className="container d-flex justify-content-center aling-items-center">
-        Редактирование заказа
-      </div>
-      <div className="container-fluid d-flex justify-content-center aling-items-center vh-100">
-        <form ref={formRef} onSubmit={submitHandler} name="addNewOrderForm">
-          <div className="mb-3">
-            <input placeholder="Название заказа" defaultValue={order.title} type="text" name="title" required className="form-control" />
-          </div>
-          <div className="mb-3">
-            <input placeholder="Номер договора" defaultValue={order.contractNumber} type="text" name="contractNumber" required className="form-control" />
-          </div>
-          <div className="mb-3">
-            <input placeholder="Город" defaultValue={address[0]} type="text" name="city" required className="form-control" />
-          </div>
-          <div className="mb-3">
-            <input placeholder="Улица" defaultValue={address[1]} type="text" name="street" required className="form-control" />
-          </div>
-          <div className="mb-3">
-            <input placeholder="Дом/строение" defaultValue={address[2]} type="text" name="building" required className="form-control" />
-          </div>
-          <div className="mb-3">
-            <input placeholder="Квартира/помещение" defaultValue={address[3]} type="text" name="room" required className="form-control" />
-          </div>
-          <div className="mb-3">
-            <input placeholder="Дата доставки" defaultValue={deliveryDate} type="date" name="deliveryDate" required className="form-control" />
-          </div>        
-          <div className="mb-3">
-            <input placeholder="Дата сборки" defaultValue={assemblyDate} type="date" name="assemblyDate" required className="form-control" />
-          </div>
-          <div className="mb-3">
-            <input placeholder="Стоимость заказа" defaultValue={order.orderPrice} type="number" name="orderPrice" required className="form-control" />
-          </div>
-          <div className="mb-3">
-            <input placeholder="Оплачено" defaultValue={order.payment} type="number" name="payment" className="form-control" />
-          </div>
-          <div className="mb-3">
-            <input placeholder="Стоимость доставки" defaultValue={order.deliveryPrice} type="number" name="deliveryPrice" required className="form-control" />
-          </div>
-          <div className="mb-3">
-            <input placeholder="Стоимость сборки" defaultValue={order.assemblyPrice} type="number" name="assemblyPrice" required className="form-control" />
-          </div>
-          <button type="submit" className="btn btn-primary">Редактировать</button>
-        </form>
-      </div> */}
+          </form>
+        </Container>
+      </MuiPickersUtilsProvider>
     </>
   )
 }

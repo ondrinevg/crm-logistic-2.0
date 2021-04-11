@@ -81,7 +81,7 @@ export default function OrderMU() {
               >
                 <option aria-label="None" value="" />
                 <option value="в работе">в работе</option>
-                <option value="в рекламации">в рекламации</option>
+                <option value="рекламация">рекламация</option>
                 <option value="закончен">закончен</option>
               </Select>
               <Button type="submit" className="btn btn-primary edit">Изменить статус</Button>
@@ -94,6 +94,10 @@ export default function OrderMU() {
 
           <Box>
             Номер заказа: {order.number}
+          </Box>
+
+          <Box>
+            Номер договора: {order.contractNumber}
           </Box>
 
           <Box>

@@ -12,7 +12,7 @@ export default function OrderForListMU({ order }) {
             {order.number}
           </Grid>
           <Grid item sm={2} align='center'>
-            {order.contract}
+            {order.contractNumber}
           </Grid>
           <Grid item sm={4} align='center'>
             {order.title}

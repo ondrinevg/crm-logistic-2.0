@@ -83,6 +83,10 @@ export default function AddOrderMU() {
         <form ref={formRef} onSubmit={submitHandler}>
           <Box className={classes.root}>
             <FormControl>
+              <InputLabel htmlFor="component-simple">Номер заказа</InputLabel>
+              <Input type="text" name="number" required />
+            </FormControl>
+            <FormControl>
               <InputLabel htmlFor="component-simple">Название заказа</InputLabel>
               <Input type="text" name="title" required />
             </FormControl>
@@ -141,7 +145,6 @@ export default function AddOrderMU() {
               required
               variant="inline"
               format="YYYY-MM-DD"
-              // format="MM/dd/yyyy"
               margin="normal"
               value={selectedDateDelivery}
               onChange={date => setSelectedDateDelivery(date)}
@@ -165,7 +168,7 @@ export default function AddOrderMU() {
                 "aria-label": "change date",
               }}
             />
-           
+
           </Box>
           <Box className={classes.root}>
             <FormControl>
