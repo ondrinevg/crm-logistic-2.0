@@ -1,84 +1,125 @@
 const Client = require('../db/models/client');
 const Comment = require('../db/models/comment');
 
-const renderAddClient = (req, res) => {
-  res.render('clients/addNew');
-};
-
 const postAddClient = async (req, res) => {
-  const manager = res.locals.id;
-  const {
-    name, lastname, middlename, phone, email,
-  } = req.body;
   try {
-    if (name && lastname && middlename && phone && email) {
-      const newClient = await Client.create({
-        name, lastname, middlename, phone, email, manager,
-      });
-      return res.redirect(`/clients/${newClient._id}`);
+    if (Object.keys(req.body).every(key => req.body[key].trim())) {
+      const { cityReg, streetReg, buildingReg, roomReg, city, street, building, room } = req.body;
+      const addressReg = { cityReg, streetReg, buildingReg, roomReg };
+      const address = { city, street, building, room };
+      const objForDeleting = { ...addressReg, ...address };
+      const obj = { ...req.body };
+      const registrationAddress = Object.values(addressReg).join(', ');
+      const homeAddress = Object.values(address).join(', ');
+      for (key in objForDeleting) {
+        delete obj[key];
+      }
+
+      const newClient = await Client.create({ ...obj, registrationAddress, homeAddress });
+      return res.json(newClient);
     }
-  } catch {
-    return res.status(418).redirect('/clients/new');
+  } catch (err) {
+    return res.status(418).json(err.message);
   }
 };
 
 const renderAllClients = async (req, res) => {
-  const clients = await Client.find();
-  res.render('clients/allClients', { clients });
+  try {
+    const clients = await Client.find();
+    res.json(clients);
+  } catch (error) {
+    res.status(500).json(error.message);
+  }
 };
 
 const renderClient = async (req, res) => {
-  const client = await Client.findById(req.params.id).populate('orders').populate({ path: 'comments', populate: { path: 'manager' } });
-  res.render('clients/client', { client });
+  try {
+    const client = await Client.findById(req.params.id).populate('orders').populate({ path: 'comments', populate: { path: 'manager' } });
+    res.json(client);
+  } catch (err) {
+    res.status(500).json(err.message);
+  }
 };
 
 const findClients = async (req, res) => {
-  const { lastName } = req.query;
-  let allClients = []
-  if (lastName) allClients = await Client.find({ lastname: new RegExp(`^${lastName}.*`, 'ig') });
-  res.json(allClients);
+  try {
+    const { lastName } = req.query;
+    let allClients = [];
+    if (lastName) allClients = await Client.find({ lastName: new RegExp(`^${lastName}.*`, 'ig') });
+    res.status(200).json(allClients);
+  } catch (err) {
+    res.status(500).json(err.message);
+  }
 };
 
 const addComment = async (req, res) => {
-  const { id } = req.params;
-  const { text } = req.body;
-  const newComment = new Comment({ manager: res.locals.id, text });
-  await newComment.save();
-  await Client.findByIdAndUpdate(id, { $push: { comments: newComment._id } });
-  res.status(200).json({
-    isAdmin: res.locals.admin,
-    text: newComment.text,
-    name: res.locals.name,
-    lastname: res.locals.lastname,
-    middlname: res.locals.middlname,
-  });
+  try {
+    const { id } = req.params;
+    const { text } = req.body;
+    const newComment = new Comment({ /*manager: res.locals.id,*/ text });
+    await newComment.save();
+    await Client.findByIdAndUpdate(id, { $push: { comments: newComment._id } });
+    const client = await Client.findById(id).populate({ path: 'comments', populate: { path: 'manager' } });
+    res.json(client);
+    // isAdmin: res.locals.admin,
+    // text: newComment.text,
+    // name: res.locals.name,
+    // lastname: res.locals.lastname,
+    // middlname: res.locals.middlname,
+    // });
+  } catch (err) {
+    res.status(500).json(err.message);
+  }
 };
 
 const findAll = async (req, res) => {
-  let { text } = req.body;
-  text = text.toLowerCase();
-  const clients = await Client.find();
-  const result = clients.filter((client) => client.name.toLowerCase()?.includes(text)
-   || client.lastname?.toLowerCase().includes(text)
-   || client.middlename?.toLowerCase().includes(text));
-  res.status(200).json({
-    clients: result,
-  });
-};
-
-const renderEditClient = async (req, res) => {
-  const client = await Client.findById(req.params.id);
-  res.render('clients/editClient', { client });
+  try {
+    let { text } = req.body;
+    text = text.toLowerCase();
+    const clients = await Client.find();
+    const result = clients.filter((client) => client.name.toLowerCase()?.includes(text)
+      || client.lastName?.toLowerCase().includes(text)
+      || client.middleName?.toLowerCase().includes(text));
+    res.status(200).json(result);
+  } catch (err) {
+    res.status(500).json(err.message);
+  }
 };
 
 const postEditClient = async (req, res) => {
-  const client = await Client.findByIdAndUpdate(req.params.id, { ...req.body });
-  res.redirect(`/clients/${client._id}`);
+  try {
+    if (Object.keys(req.body).every(key => req.body[key].trim())) {
+      const { cityReg, streetReg, buildingReg, roomReg, city, street, building, room } = req.body;
+      const addressReg = { cityReg, streetReg, buildingReg, roomReg };
+      const address = { city, street, building, room };
+      const objForDeleting = { ...addressReg, ...address };
+      const obj = { ...req.body };
+      const registrationAddress = Object.values(addressReg).join(', ');
+      const homeAddress = Object.values(address).join(', ');
+      for (key in objForDeleting) {
+        delete obj[key];
+      }
+      await Client.findByIdAndUpdate(req.params.id, { ...obj, registrationAddress, homeAddress });
+      const client = await Client.findById(req.params.id).populate({ path: 'comments', populate: { path: 'manager' } });
+      res.json(client);
+    }
+  } catch (err) {
+    res.status(500).json(err.message);
+  }
 };
 
 const deliteClient = async (req, res) => {
-  await Client.findByIdAndDelete(req.params.id);
-  res.redirect('/clients');
+  try {
+    const clientsOrders = (await Client.findById(req.params.id)).orders;
+    for (id of clientsOrders) {
+      await Order.findByIdAndDelete(id);
+    }
+
+    await Client.findByIdAndDelete(req.params.id);
+    res.sendStatus(200);
+  } catch (err) {
+    res.status(500).json(err.message);
+  }
 };
 
 module.exports = {
@@ -86,10 +127,8 @@ module.exports = {
   renderClient,
   findClients,
   addComment,
-  renderAddClient,
   postAddClient,
   findAll,
-  renderEditClient,
   postEditClient,
   deliteClient,
 };

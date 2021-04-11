@@ -1,13 +1,22 @@
 const { Schema, model } = require('mongoose');
 
 const userSchema = new Schema({
+  googleId: {
+    type: String,
+  },
+  googleName: {
+    type: String,
+  },
+  photo: {
+    type: String,
+  },
   name: {
     type: String,
   },
-  lastname: {
+  lastName: {
     type: String,
   },
-  middlename: {
+  middleName: {
     type: String,
   },
   phone: {
@@ -15,16 +24,16 @@ const userSchema = new Schema({
   },
   email: {
     type: String,
-    required: true,
     unique: true,
   },
   password: {
     type: String,
-    required: true,
+  },
+  accessToken: {
+    type: String,
   },
   role: {
     type: String,
-    required: true,
     default: 'Manager',
   },
   clients: [{
