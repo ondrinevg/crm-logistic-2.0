@@ -70,6 +70,15 @@ app.use('/api/v1/auth', authRouter);
 // app.use('/managers', managersRouter);
 app.use('/api/v1/clients', clientsRouter);
 app.use('/api/v1/orders', ordersRouter);
+app.use('/api/v1/managers', (req, res) => {
+  const userId = req.session?.user?.id;
+  console.log(userId);
+  if (userId) {
+    const currentUser = await User.findById(userId);
+    const token = currentUser.accessToken;
+    return res.json({token});
+  }
+})
 
 const PORT = process.env.PORT ?? 3000;
 

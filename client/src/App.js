@@ -17,13 +17,13 @@ import EditClientMU from "./components/EditClient/EditClientMU";
 
 function App() {
 
- 
+
   return (
     <Router>
       <HeaderMU />
       <Switch>
         <Route exact path='/'>
-          <div>главная страница</div>
+          <Calendare />
         </Route>
         <Route exact path='/clients'>
           <ListOfClientsMU />
@@ -45,13 +45,11 @@ function App() {
         </Route>
         <Route exact path='/orders/:id'>
           <OrderMU />
-        </Route>        
+        </Route>
         <Route exact path='/orders'>
           <ListOfOrdersMU />
         </Route>
-        <Route exact path='/calendare'>
-          <Calendare />
-        </Route>
+       
       </Switch>
     </Router>
   );
