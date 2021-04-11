@@ -4,6 +4,7 @@ import { ADD_COMMENT_CLIENT_SAGA } from '../../types/clientTypes';
 
 const addCommentClientToServer = ({text, id}) => {
   return fetch(`${process.env.REACT_APP_ADDRESS_TO_FETCH}/api/v1/clients/${id}/comments`, {
+    credentials: 'include',
     method: 'POST',
     headers: {
       'Content-Type' : 'application/json',

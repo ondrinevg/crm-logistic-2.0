@@ -4,6 +4,7 @@ import { ADD_COMMENT_ORDER_SAGA } from '../../types/orderTypes';
 
 const addCommentOrderToServer = ({text, id}) => {
   return fetch(`${process.env.REACT_APP_ADDRESS_TO_FETCH}/api/v1/orders/${id}/comments`, {
+    credentials: 'include',
     method: 'POST',
     headers: {
       'Content-Type' : 'application/json',
