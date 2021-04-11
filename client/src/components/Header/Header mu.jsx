@@ -1,5 +1,5 @@
 import React from 'react'
-import { AppBar, Toolbar, Button } from '@material-ui/core';
+import { AppBar, Toolbar, Button, Link } from '@material-ui/core';
 import { Link as RouterLink } from 'react-router-dom';
 
 export default function HeaderMU() {
@@ -17,7 +17,7 @@ export default function HeaderMU() {
         </Button>
         <Button color="inherit" component={RouterLink} to="/users/logout">Выйти
         </Button>
-        <Button color="inherit" component={RouterLink} to="/users/login">Войти
+        <Button color="inherit" component={Link} href={`${process.env.REACT_APP_ADDRESS_TO_FETCH}/api/v1/auth/google`}>Войти
         </Button>
       </Toolbar>
     </AppBar>
