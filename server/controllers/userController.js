@@ -16,6 +16,15 @@ const userLoginRender = async (req, res) => {
   }
 };
 
+const getManagers = async (req, res) => {
+  try {
+    const users = await User.find();
+    res.json(users);
+  } catch (err) {
+    res.status(500).json(err.message);
+  }
+}
+
 const userRegister = async (req, res) => {
   try {
     const {
@@ -60,7 +69,7 @@ const userLogin = async (req, res) => {
         req.session.user = {
           id: currentUser._id,
         };
-        
+
         return res.sendStatus(200);
       }
       return res.sendStatus(418);
@@ -91,4 +100,5 @@ module.exports = {
   userRegister,
   userLogin,
   userLogout,
+  getManagers,
 };

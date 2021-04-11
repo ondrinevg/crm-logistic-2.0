@@ -1,8 +1,8 @@
 const checkAdmin = (req, res, next) => {
-  if (res.locals.admin) {
+  if (req.user.role === 'Admin') {
     return next();
   }
-  return res.redirect('/');
+  return res.sendStatus(401);
 };
 
 module.exports = {

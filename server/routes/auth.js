@@ -1,6 +1,5 @@
 const passport = require('passport');
 const express = require('express');
-const { checkMail } = require('../middlewares/checkMail');
 
 const router = express.Router();// // auth logout
 
@@ -22,9 +21,12 @@ router.get('/google/redirect', passport.authenticate('google', {
   failureFlash: true,
 }));
 
-router.get('/logout', function(req, res){
+router.get('/logout', (req, res) => {
   req.logout();
-  res.redirect('http://localhost:3000');
+  req.session.destroy();
+  // res.clearCookie('cookieName');
+
+  return res.redirect('http://localhost:3000');
 });
 
 module.exports = router;
