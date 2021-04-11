@@ -4,7 +4,7 @@ const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const User = require('./db/models/user');
 
 passport.serializeUser((user, done) => {
-  // console.log(user);
+  console.log(user, '<<<7str');
   done(null, user._id);
 });
 passport.deserializeUser((id, done) => {
@@ -24,22 +24,25 @@ passport.use(
     console.log('profile new user: ', profile)
     const googlEmail = profile.emails[0].value;
     User.findOne({ email: googlEmail }).then((currentUser) => {
+      console.log(currentUser, '<<<<<<<<<<<<<<current')
       if (currentUser) {
         // already have this user
         console.log('user is: ', currentUser)
         console.log('accessToken', accessToken);
         return done(null, currentUser);
       } else {
-        new User({
+        return done(null, false, { message: 'Incorrect user' })
+        console.log(profile, "<<<<<profile")
+        User.create({
           googleId: profile.id,
           googleName: profile.displayName,
           email: profile.emails[0].value,
-        }).save().then((newUser) => {
-          console.log('created new user: ', newUser)
+        }).then((newUser) => {
+          console.log('<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<created new user: ', newUser)
           return done(null, newUser);
         })
       }
-      return done(null, false, { message: 'Incorrect user' });
+      ;
       });
   }),
 );
