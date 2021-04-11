@@ -19,7 +19,7 @@ router.get('/google', passport.authenticate('google', {
 router.get('/google/redirect', passport.authenticate('google', {
   successRedirect: 'http://localhost:3000',
   failureRedirect: 'http://localhost:3001/api/v1/auth/google',
-  failureFlash: 'incorect user',
+  failureFlash: true,
 }));
 
 module.exports = router;

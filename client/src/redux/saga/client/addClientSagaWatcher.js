@@ -4,6 +4,7 @@ import { ADD_CLIENT_SAGA } from '../../types/clientTypes';
 
 const addClientToServer = (client) => {
   return fetch(`${process.env.REACT_APP_ADDRESS_TO_FETCH}/api/v1/clients/new`, {
+    credentials: 'include',
     method: 'POST',
     headers: {
       'Content-Type' : 'application/json',

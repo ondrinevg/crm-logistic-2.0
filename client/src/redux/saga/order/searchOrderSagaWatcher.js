@@ -4,6 +4,7 @@ import { SEARCH_ORDERS_SAGA } from '../../types/ordersTypes';
 
 const findOrdersFromServer = (text) => {
   return fetch(`${process.env.REACT_APP_ADDRESS_TO_FETCH}/api/v1/orders/all/`, {
+    credentials: 'include',
     method: 'POST',
     headers: {
       'Content-Type' : 'application/json',

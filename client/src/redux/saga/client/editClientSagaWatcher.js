@@ -4,6 +4,7 @@ import { EDIT_CLIENT_SAGA } from '../../types/clientTypes';
 
 const editClientToServer = ({client, id}) => {
   return fetch(`${process.env.REACT_APP_ADDRESS_TO_FETCH}/api/v1/clients/${id}`, {
+    credentials: 'include',
     method: 'PATCH',
     headers: {
       'Content-Type' : 'application/json',

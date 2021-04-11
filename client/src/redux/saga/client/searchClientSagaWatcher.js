@@ -4,6 +4,7 @@ import { SEARCH_CLIENTS_SAGA } from '../../types/clientsTypes';
 
 const findClientsFromServer = (text) => {
   return fetch(`${process.env.REACT_APP_ADDRESS_TO_FETCH}/api/v1/clients/all/`, {
+    credentials: 'include',
     method: 'POST',
     headers: {
       'Content-Type' : 'application/json',

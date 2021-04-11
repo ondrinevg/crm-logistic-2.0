@@ -4,6 +4,7 @@ import { DELETE_CLIENT_SAGA } from '../../types/clientTypes';
 
 const deleteClientOnServer = (id) => {
   return fetch(`${process.env.REACT_APP_ADDRESS_TO_FETCH}/api/v1/clients/${id}`, {
+    credentials: 'include',
     method: 'DELETE', 
   })
 }
