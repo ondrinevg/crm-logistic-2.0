@@ -3,9 +3,6 @@ const User = require('../db/models/user');
 const app = require('../app');
 
 
-const saltRound = 10;
-
-
 const userLoginRender = async (req, res) => {
   try {
     const { id } = res.locals;
@@ -18,30 +15,24 @@ const userLoginRender = async (req, res) => {
 
 const userRegister = async (req, res) => {
   try {
+    console.log(req.body);
     const {
       name,
-      lastname,
-      middlename,
+      lastName,
+      middleName,
       phone,
       email,
-      password,
       role,
     } = req.body;
-    if (email && password && name && lastname && middlename && phone && role) {
-      const pass = await bcrypt.hash(password, saltRound);
+    if (email && name && lastName && middleName && phone && role) {
       const newUser = await User.create({
         name,
-        lastname,
-        middlename,
+        lastName,
+        middleName,
         phone,
         email,
-        password: pass,
         role,
       });
-
-      req.session.user = {
-        id: newUser._id,
-      };
 
       return res.sendStatus(200);
     }

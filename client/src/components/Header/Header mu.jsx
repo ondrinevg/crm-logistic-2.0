@@ -6,7 +6,7 @@ export default function HeaderMU() {
   return (
     <AppBar position="sticky">
       <Toolbar>
-        <Button color="inherit" component={RouterLink} to="/users/adminPanel">
+        <Button color="inherit" component={RouterLink} to="/admin">
           Панель администратора
         </Button>
         <Button color="inherit" component={RouterLink} to="/">Главная страница
