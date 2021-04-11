@@ -85,7 +85,7 @@ export default function OrderMU() {
                 <option value="рекламация">рекламация</option>
                 <option value="закончен">закончен</option>
               </Select>
-              <Button type="submit" className="btn btn-primary edit">Изменить статус</Button>
+              <Button type="submit">Изменить статус</Button>
             </FormControl>
           </form>
 
