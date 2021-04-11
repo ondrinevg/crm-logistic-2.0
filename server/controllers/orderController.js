@@ -89,6 +89,7 @@ const findAll = async (req, res) => {
 
 const editOrder = async (req, res) => {
   try {
+    delete req.body.client;
     if (Object.keys(req.body).every(key => req.body[key].trim())) {
       const { city, street, building, room } = req.body;
       const address = { city, street, building, room };
