@@ -5,7 +5,6 @@ const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const User = require('./db/models/user');
 
 passport.serializeUser((user, done) => {
-  console.log(user, '<<<7str');
   done(null, user._id);
 });
 passport.deserializeUser((id, done) => {
@@ -22,28 +21,33 @@ passport.use(
     callbackURL: '/api/v1/auth/google/redirect',
   }, (accessToken, refreshToken, profile, done) => {
     // check if user already exists in our own db
-    console.log('profile new user: ', profile)
-    const googlEmail = profile.emails[0].value;
-    User.findOneAndUpdate({ email: googlEmail }, { accessToken }, { new: true })
+
+    const googleEmail = profile.emails[0].value;
+    const photo = profile.photos[0].value;
+    const googleId = profile.id;
+    const googleName = profile.displayName;
+
+    User.findOneAndUpdate({ email: googleEmail },
+      {
+        accessToken,
+        photo,
+        googleName,
+        googleId,
+      }, { new: true })
       .then((currentUser) => {
-        console.log(currentUser, '<<<<<<<<<<<<<<current');
         if (currentUser) {
           // already have this user
-          console.log('user is: ', currentUser);
-          console.log('accessToken', accessToken);
           return done(null, currentUser);
-        } else {
-          return done(null, false, { message: 'User incorrect!' });
-          console.log(profile, "<<<<<profile")
-          User.create({
-            googleId: profile.id,
-            googleName: profile.displayName,
-            email: profile.emails[0].value,
-          }).then((newUser) => {
-            console.log('<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<created new user: ', newUser)
-            return done(null, newUser);
-          })
-        };
+        }
+
+        return done(null, false, { message: 'User incorrect!' });
+        // User.create({
+        //   googleId: profile.id,
+        //   googleName: profile.displayName,
+        //   email: profile.emails[0].value,
+        // }).then((newUser) => {
+        //   return done(null, newUser);
+        // })
       });
   }),
 );
