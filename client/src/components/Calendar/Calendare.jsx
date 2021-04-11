@@ -7,11 +7,18 @@ export default function Calendare() {
   }
 
   useEffect(() => {
-    fetch(`https://www.googleapis.com/calendar/v3/calendars/uudmopujkodqksbu55au8opt3k@group.calendar.google.com/events`, {
-      headers: {
-        Authorization: 'Bearer ' + 'ya29.a0AfH6SMAiY4KhNsHMM0qse3wql30M513xRt2HllgKldOfTzd10M2Wr4uhJzHiQGTn7JnrV3ttvQ4SAyuIHeoY4jjoQzFP_yMJB4HHxlEcfYPhysTYGV-NY6nV0I4iARYq3lpTHbb5h0ElfPZ4RP3iYw72Mm_C',
-      },
-    }).then((data) => data.json()).then((data) => console.log(data))
+    fetch(`${process.env.REACT_APP_ADDRESS_TO_FETCH}/api/v1/managers/token`, {
+      credentials: "include",
+    })
+      .then((response) => response.json())
+     .then((token) =>
+        fetch(`https://www.googleapis.com/calendar/v3/calendars/uudmopujkodqksbu55au8opt3k@group.calendar.google.com/events`, {
+          headers: {
+            Authorization: 'Bearer ' + token,
+          },         
+        })
+        .then((data) => data.json()).then((data) => console.log(data))
+      )
   }, [])
 
   return (
