@@ -16,9 +16,10 @@ router.get('/google', passport.authenticate('google', {
 }));
 // callback route for google to redirect to
 // hand control to passport to use code to grab profile info
-router.get('/google/redirect', passport.authenticate('google', {successRedirect: 'http://localhost:3000', failureRedirect: 'http://localhost:3000/500'}), (req, res) => {
-  console.log('<<<iinside 20')
-  // res.redirect('http://localhost:3000');
-});
+router.get('/google/redirect', passport.authenticate('google', {
+  successRedirect: 'http://localhost:3000',
+  failureRedirect: 'http://localhost:3001/api/v1/auth/google',
+  failureFlash: 'incorect user',
+}));
 
 module.exports = router;
