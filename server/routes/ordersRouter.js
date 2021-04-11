@@ -5,7 +5,7 @@ const { checkAdmin } = require('../middlewares/checkAdmin');
 const {
   renderAllOrders, renderOrder, addComment, addNewOrder, editOrder,
   deliteOrder,
-  findAll,  
+  findAll,
   renderNewOrderFormForClient,
 } = require('../controllers/orderController');
 
