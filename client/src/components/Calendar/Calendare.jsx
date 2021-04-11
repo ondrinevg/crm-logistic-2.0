@@ -7,12 +7,15 @@ export default function Calendare() {
   }
 
   useEffect(() => {
-    fetch(`${process.env.REACT_APP_ADDRESS_TO_FETCH}/managers/token`)
-      .then((token) =>
-        fetch(`https://www.googleapis.com/calendar/v3/calendars/${process.env.REACT_APP_GOOGLE_CALENDARE_ID}/events`, {
+    fetch(`${process.env.REACT_APP_ADDRESS_TO_FETCH}/api/v1/managers/token`, {
+      credentials: "include",
+    })
+      .then((response) => response.json())
+     .then((token) =>
+        fetch(`https://www.googleapis.com/calendar/v3/calendars/uudmopujkodqksbu55au8opt3k@group.calendar.google.com/events`, {
           headers: {
             Authorization: 'Bearer ' + token,
-          },
+          },         
         })
         .then((data) => data.json()).then((data) => console.log(data))
       )

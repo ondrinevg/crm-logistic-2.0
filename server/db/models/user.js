@@ -26,6 +26,9 @@ const userSchema = new Schema({
   password: {
     type: String,
   },
+  accessToken: {
+    type: String,
+  },
   role: {
     type: String,
     default: 'Manager',

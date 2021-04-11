@@ -3,7 +3,9 @@ import { SHOW_ALL_CLIENTS_SAGA } from '../../types/clientsTypes'
 import { showAllClients } from '../../actionCreators/clientsAC'
 
 const getAllClientsFromServer = () => {
-  return fetch(`${process.env.REACT_APP_ADDRESS_TO_FETCH}/api/v1/clients/`)
+  return fetch(`${process.env.REACT_APP_ADDRESS_TO_FETCH}/api/v1/clients/`, {
+    credentials: "include",
+  })
     .then(response => response.json())
 };
 

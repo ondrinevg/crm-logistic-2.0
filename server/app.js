@@ -72,13 +72,13 @@ app.use('/api/v1/auth', authRouter);
 // app.use('/managers', managersRouter);
 app.use('/api/v1/clients', clientsRouter);
 app.use('/api/v1/orders', ordersRouter);
-app.use('/api/v1/managers', (req, res) => {
-  const userId = req.session?.user?.id;
-  console.log(userId);
+app.use('/api/v1/managers/token', async (req, res) => {
+  const userId = req?.user?._id;
+  console.log(req.user);
   if (userId) {
     const currentUser = await User.findById(userId);
     const token = currentUser.accessToken;
-    return res.json({token});
+    return res.json(token);
   }
 })
 
