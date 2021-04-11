@@ -23,26 +23,29 @@ passport.use(
     // check if user already exists in our own db
     console.log('profile new user: ', profile)
     const googlEmail = profile.emails[0].value;
-    User.findOne({ email: googlEmail }).then((currentUser) => {
-      console.log(currentUser, '<<<<<<<<<<<<<<current')
-      if (currentUser) {
-        // already have this user
-        console.log('user is: ', currentUser)
-        console.log('accessToken', accessToken);
-        return done(null, currentUser);
-      } else {
-        // return done(null, false, { message: 'Incorrect user' })
-        console.log(profile, "<<<<<profile")
-        User.create({
-          googleId: profile.id,
-          googleName: profile.displayName,
-          email: profile.emails[0].value,
-        }).then((newUser) => {
-          console.log('<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<created new user: ', newUser)
-          return done(null, newUser);
-        })
-      }
-      ;
+    User.findOneAndUpdate({ email: googlEmail }, { accessToken }, { new: true })
+      .then((currentUser) => {
+        console.log(currentUser, '<<<<<<<<<<<<<<current');
+        if (currentUser) {
+          // already have this user
+          console.log('user is: ', currentUser)
+          console.log('accessToken', accessToken);
+          return done(null, currentUser);
+        } else {
+          return done(null, false, { message: 'Incorrect user' })
+          console.log(profile, "<<<<<profile")
+          User.create({
+            googleId: profile.id,
+            googleName: profile.displayName,
+            email: profile.emails[0].value,
+          }).then((newUser) => {
+            console.log('<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<created new user: ', newUser)
+            return done(null, newUser);
+          })
+        }
+        ;
       });
   }),
 );
+
+// "anastasiagodun24@gmail.com"

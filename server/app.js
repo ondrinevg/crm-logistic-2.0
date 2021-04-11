@@ -1,5 +1,6 @@
 /* eslint-disable max-len */
 require('dotenv').config();
+const flash = require('connect-flash');
 const express = require('express');
 const sessions = require('express-session');
 const MongoStore = require('connect-mongo');
@@ -27,6 +28,7 @@ app.set('cookieName', 'sid');
 // app.use(logger('dev'));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+app.use(flash());
 
 app.use(cors({
   origin: 'http://localhost:3000',
