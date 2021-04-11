@@ -13,7 +13,6 @@ export default function Calendare() {
       .then((response) => response.json())
      .then((token) =>
         fetch(`https://www.googleapis.com/calendar/v3/calendars/uudmopujkodqksbu55au8opt3k@group.calendar.google.com/events`, {
-          credentials: 'include',
           headers: {
             Authorization: 'Bearer ' + token,
           },         
