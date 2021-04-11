@@ -1,4 +1,5 @@
 /* eslint-disable max-len */
+require('dotenv').config();
 const express = require('express');
 const sessions = require('express-session');
 const MongoStore = require('connect-mongo');
@@ -9,13 +10,13 @@ const createError = require('http-errors');
 const path = require('path');
 const cors = require('cors');
 const { connect } = require('mongoose');
-require('dotenv').config();
 // process.env.PWD = __dirname
-
+const passport = require('passport');
+const googleConfig = require('./config');
 
 const User = require('./db/models/user');
 
-const usersRouter = require('./routes/usersRouter');
+const authRouter = require('./routes/auth');
 const ordersRouter = require('./routes/ordersRouter');
 const clientsRouter = require('./routes/clientsRouter');
 
@@ -27,7 +28,10 @@ app.set('cookieName', 'sid');
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-app.use(cors());
+app.use(cors({
+  origin: 'http://localhost:3000',
+  credentials: true,
+}));
 
 app.use(sessions({
   name: app.get('cookieName'),
@@ -42,6 +46,9 @@ app.use(sessions({
     maxAge: 86400 * 1e3, // устанавливаем время жизни cookie
   },
 }));
+
+app.use(passport.initialize());
+app.use(passport.session());
 
 app.use(async (req, res, next) => {
   const userId = req.session?.user?.id;
@@ -59,7 +66,7 @@ app.use(async (req, res, next) => {
   next();
 });
 
-app.use('/api/v1/users', usersRouter);
+app.use('/api/v1/auth', authRouter);
 // app.use('/managers', managersRouter);
 app.use('/api/v1/clients', clientsRouter);
 app.use('/api/v1/orders', ordersRouter);

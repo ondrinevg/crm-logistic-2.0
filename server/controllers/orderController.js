@@ -89,10 +89,19 @@ const findAll = async (req, res) => {
 
 const editOrder = async (req, res) => {
   try {
-    delete req.body.client;
-    await Order.findByIdAndUpdate(req.params.id, { ...req.body });
-    const editorder = await Order.findById(req.params.id).populate('client').populate({ path: 'comments', populate: { path: 'manager' } });
-    res.json(editorder);
+    if (Object.keys(req.body).every(key => req.body[key].trim())) {
+      const { city, street, building, room } = req.body;
+      const address = { city, street, building, room };
+      const obj = { ...req.body };
+      const deliveryAddress = Object.values(address).join(', ');
+      for (key in address) {
+        delete obj[key];
+      }
+
+      await Order.findByIdAndUpdate(req.params.id, { ...obj, deliveryAddress });
+      const editorder = await Order.findById(req.params.id).populate('client').populate({ path: 'comments', populate: { path: 'manager' } });
+      res.json(editorder);
+    }
   } catch (err) {
     res.status(500).json(err.message);
   }

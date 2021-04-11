@@ -61,11 +61,11 @@ const addComment = async (req, res) => {
     await Client.findByIdAndUpdate(id, { $push: { comments: newComment._id } });
     const client = await Client.findById(id).populate({ path: 'comments', populate: { path: 'manager' } });
     res.json(client);
-      // isAdmin: res.locals.admin,
-      // text: newComment.text,
-      // name: res.locals.name,
-      // lastname: res.locals.lastname,
-      // middlname: res.locals.middlname,
+    // isAdmin: res.locals.admin,
+    // text: newComment.text,
+    // name: res.locals.name,
+    // lastname: res.locals.lastname,
+    // middlname: res.locals.middlname,
     // });
   } catch (err) {
     res.status(500).json(err.message);
@@ -88,9 +88,21 @@ const findAll = async (req, res) => {
 
 const postEditClient = async (req, res) => {
   try {
-    await Client.findByIdAndUpdate(req.params.id, { ...req.body });
-    const client = await Client.findById(req.params.id).populate({ path: 'comments', populate: { path: 'manager' } });
-    res.json(client);
+    if (Object.keys(req.body).every(key => req.body[key].trim())) {
+      const { cityReg, streetReg, buildingReg, roomReg, city, street, building, room } = req.body;
+      const addressReg = { cityReg, streetReg, buildingReg, roomReg };
+      const address = { city, street, building, room };
+      const objForDeleting = { ...addressReg, ...address };
+      const obj = { ...req.body };
+      const registrationAddress = Object.values(addressReg).join(', ');
+      const homeAddress = Object.values(address).join(', ');
+      for (key in objForDeleting) {
+        delete obj[key];
+      }
+      await Client.findByIdAndUpdate(req.params.id, { ...obj, registrationAddress, homeAddress });
+      const client = await Client.findById(req.params.id).populate({ path: 'comments', populate: { path: 'manager' } });
+      res.json(client);
+    }
   } catch (err) {
     res.status(500).json(err.message);
   }

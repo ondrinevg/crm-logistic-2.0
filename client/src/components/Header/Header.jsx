@@ -19,6 +19,7 @@ export default function Header() {
             <Link className="nav-link" to="/users/logout">Выйти</Link>
             <Link className="nav-link" aria-current="page" to="/users/login">Войти</Link>
           </div>
+            <a href="http://localhost:3001/api/v1/auth/google">Google</a>
         </div>
       </div>
     </nav>
