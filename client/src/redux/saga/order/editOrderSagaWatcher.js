@@ -4,6 +4,7 @@ import { EDIT_ORDER_SAGA } from '../../types/orderTypes';
 
 const editOrderToServer = ({order, id}) => {
   return fetch(`${process.env.REACT_APP_ADDRESS_TO_FETCH}/api/v1/orders/${id}`, {
+    credentials: 'include',
     method: 'PATCH',
     headers: {
       'Content-Type' : 'application/json',

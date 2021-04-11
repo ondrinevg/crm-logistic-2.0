@@ -4,6 +4,7 @@ import { addOrder } from '../../actionCreators/orderAC'
 
 const addOrderToServer = (order) => {
   return fetch(`${process.env.REACT_APP_ADDRESS_TO_FETCH}/api/v1/orders/new`, {
+    credentials: 'include',
     method: 'POST',
     headers: {
       'Content-Type' : 'application/json',

@@ -4,7 +4,9 @@ import { FIND_CLIENTS_FOR_NEW_ORDER_SAGA } from "../../types/orderTypes";
 
 
 const getClientsFromServer = (text) => {
-  return fetch(`${process.env.REACT_APP_ADDRESS_TO_FETCH}/api/v1/clients/all/?lastName=${text}`)
+  return fetch(`${process.env.REACT_APP_ADDRESS_TO_FETCH}/api/v1/clients/all/?lastName=${text}`, {
+    credentials: 'include',
+  })
     .then(response => response.json())
 }
 
