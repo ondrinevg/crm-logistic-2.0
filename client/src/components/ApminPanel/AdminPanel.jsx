@@ -5,6 +5,7 @@ export default function AdminPanel() {
   return (
     <div>
       <AddUser />
+      <ManagerList />
     </div>
   )
 }
