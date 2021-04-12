@@ -8,6 +8,7 @@ const MongoStore = require('connect-mongo');
 const cors = require('cors');
 const { connect } = require('mongoose');
 const passport = require('passport');
+const googleConfig = require('./config');
 
 const User = require('./db/models/user');
 

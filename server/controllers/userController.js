@@ -15,14 +15,14 @@ const userLoginRender = async (req, res) => {
 
 const getManagers = async (req, res) => {
   try {
-    const users = (await User.find()).map(user => {
+    const users = (await User.find()).map(user => ({
       role: user.role,
       email: user.email,
       _id: user._id,
       name: user.name,
       lastName: user.lastName,
       middleName: user.middleName,
-      });
+      }));
 
     // const users = await User.find();
     res.json(users);
