@@ -70,7 +70,6 @@ app.use('/api/v1/clients', clientsRouter);
 app.use('/api/v1/orders', ordersRouter);
 app.use('/api/v1/managers/token', async (req, res) => {
   const userId = req?.user?._id;
-  console.log(req.user);
   if (userId) {
     const currentUser = await User.findById(userId);
     const token = currentUser.accessToken;
