@@ -14,6 +14,7 @@ const User = require('./db/models/user');
 const authRouter = require('./routes/auth');
 const ordersRouter = require('./routes/ordersRouter');
 const clientsRouter = require('./routes/clientsRouter');
+const usersRouter = require('./routes/usersRouter');
 
 const app = express();
 
@@ -63,7 +64,7 @@ app.use(async (req, res, next) => {
 });
 
 app.use('/api/v1/auth', authRouter);
-// app.use('/managers', managersRouter);
+app.use('/api/v1/users', usersRouter);
 app.use('/api/v1/clients', clientsRouter);
 app.use('/api/v1/orders', ordersRouter);
 app.use('/api/v1/managers/token', async (req, res) => {

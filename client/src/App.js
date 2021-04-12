@@ -14,6 +14,7 @@ import AddClientMU from "./components/AddClient/AddClientMU";
 import AddOrderMU from "./components/AddOrder/AddOrderMU";
 import EditOrderMU from "./components/EditOrder/EditOrderMU";
 import EditClientMU from "./components/EditClient/EditClientMU";
+import AdminPanel from "./components/ApminPanel/AdminPanel";
 
 function App() {
 
@@ -24,6 +25,9 @@ function App() {
       <Switch>
         <Route exact path='/'>
           <Calendare />
+        </Route>
+        <Route exact path='/admin'>
+          <AdminPanel />
         </Route>
         <Route exact path='/clients'>
           <ListOfClientsMU />
