@@ -1,4 +1,5 @@
 import { call, put, takeLatest } from 'redux-saga/effects';
+import { changeLoadStatus } from '../../actionCreators/loadAC';
 import { editOrder } from '../../actionCreators/orderAC';
 import { EDIT_ORDER_SAGA } from '../../types/orderTypes';
 
@@ -17,9 +18,12 @@ const editOrderToServer = ({order, id}) => {
 
 function* orderSagaWorker(action) {
   try {
+    yield put(changeLoadStatus(true));
     const order = yield call(editOrderToServer, action.payload);
     yield put(editOrder(order));
+    yield put(changeLoadStatus(false));
   } catch (e) {
+    yield put(changeLoadStatus(false));
     yield put({ type: "USER_FETCH_FAILED", message: e.message });
   }
 }

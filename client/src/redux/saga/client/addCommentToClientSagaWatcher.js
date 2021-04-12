@@ -1,5 +1,6 @@
 import { call, put, takeLatest } from 'redux-saga/effects';
 import { addCommentToClient } from '../../actionCreators/clientAC';
+import { changeLoadStatus } from '../../actionCreators/loadAC';
 import { ADD_COMMENT_CLIENT_SAGA } from '../../types/clientTypes';
 
 const addCommentClientToServer = ({text, id}) => {
@@ -17,9 +18,12 @@ const addCommentClientToServer = ({text, id}) => {
 
 function* clientSagaWorker(action) {
   try {
+    yield put(changeLoadStatus(true));
     const client = yield call(addCommentClientToServer, action.payload);
     yield put(addCommentToClient(client));
+    yield put(changeLoadStatus(false));
   } catch (e) {
+    yield put(changeLoadStatus(false));
     yield put({ type: "USER_FETCH_FAILED", message: e.message });
   }
 }
