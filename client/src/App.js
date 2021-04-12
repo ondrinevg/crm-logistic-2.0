@@ -34,54 +34,25 @@ function App() {
       <Switch>
         
         <PrivateRouterManager component={MyCalendar} exact path='/'/>
-        {/* <Route exact path='/'>
-          <MyCalendar />
-        </Route> */}
+         
         <PrivateRouterAdmin component={AdminPanel} exact path='/admin'/>
-        {/* <Route exact path='/admin'>
-          <AdminPanel />
-        </Route> */}
        
         <PrivateRouterManager component={ListOfClientsMU} exact path='/clients'/>
-        {/* <Route exact path='/clients'>
-          <ListOfClientsMU />
-        </Route> */}
         
         <PrivateRouterManager component={AddClientMU} exact path='/clients/new'/>
-        {/* <Route exact path='/clients/new'>
-          <AddClientMU />
-        </Route> */}
-        
+                
         <PrivateRouterManager component={EditClientMU} exact path='/clients/:id/edit'/>
-        {/* <Route exact path='/clients/:id/edit'>
-          <EditClientMU />
-        </Route> */}
-       
+              
         <PrivateRouterManager component={ClientMU} exact path='/clients/:id'/>
-        {/* <Route exact path='/clients/:id'>
-          <ClientMU />
-        </Route> */}
-        
+               
         <PrivateRouterManager component={AddOrderMU} exact path='/orders/new'/>
-        {/* <Route exact path='/orders/new'>
-          <AddOrderMU />
-        </Route> */}
-        
+                
         <PrivateRouterManager component={EditOrderMU} exact path='/orders/:id/edit'/>
-        {/* <Route exact path='/orders/:id/edit'>
-          <EditOrderMU />
-        </Route> */}
-        
+                
         <PrivateRouterManager component={OrderMU} exact path='/orders/:id'/>
-        {/* <Route exact path='/orders/:id'>
-          <OrderMU />
-        </Route> */}
-       
+               
         <PrivateRouterManager component={ListOfOrdersMU} exact path='/orders'/>
-        {/* <Route exact path='/orders'>
-          <ListOfOrdersMU />
-        </Route> */}
-       
+               
       </Switch>
     </Router>
   );

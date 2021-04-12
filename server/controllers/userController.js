@@ -34,7 +34,7 @@ const getManagers = async (req, res) => {
 const getUser = async (req, res) => {
   try {
     res.json(req.user);
-  } catch (error) {
+  } catch (err) {
     res.status(500).json(err.message);
   }
 }
@@ -101,6 +101,17 @@ const userLogout = async (req, res) => {
   }
 };
 
+const deleteUserEmail = async (req, res) => {
+  try {
+    const user = await User.findById(req.params.id);
+    delete user.email;
+    await user.save();
+    res.json(user);
+  } catch (err) {
+    res.status(500).json(err.message);
+  }
+};
+
 module.exports = {
   userLoginRender,
   userRegister,
@@ -108,4 +119,5 @@ module.exports = {
   userLogout,
   getManagers,
   getUser,
+  deleteUserEmail,
 };
