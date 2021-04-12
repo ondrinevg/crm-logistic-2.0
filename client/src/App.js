@@ -16,9 +16,16 @@ import EditOrderMU from "./components/EditOrder/EditOrderMU";
 import EditClientMU from "./components/EditClient/EditClientMU";
 import AdminPanel from "./components/ApminPanel/AdminPanel";
 import PrivatRouter from "./components/PrivateRouter/PrivatRouter";
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { initUserSaga } from "./redux/actionCreators/userAC";
 
 function App() {
+  const dispatch = useDispatch();
 
+  useEffect(() => {
+    dispatch(initUserSaga());
+  }, [])
 
   return (
     <Router>
