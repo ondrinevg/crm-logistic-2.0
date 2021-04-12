@@ -15,6 +15,7 @@ import AddOrderMU from "./components/AddOrder/AddOrderMU";
 import EditOrderMU from "./components/EditOrder/EditOrderMU";
 import EditClientMU from "./components/EditClient/EditClientMU";
 import AdminPanel from "./components/ApminPanel/AdminPanel";
+import PrivatRouter from "./components/PrivateRouter/PrivatRouter";
 
 function App() {
 
@@ -23,9 +24,10 @@ function App() {
     <Router>
       <HeaderMU />
       <Switch>
-        <Route exact path='/'>
+        <PrivatRouter component={<MyCalendar />} exact path='/'/>
+        {/* <Route exact path='/'>
           <MyCalendar />
-        </Route>
+        </Route> */}
         <Route exact path='/admin'>
           <AdminPanel />
         </Route>
