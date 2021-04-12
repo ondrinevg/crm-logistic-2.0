@@ -1,5 +1,6 @@
 import { call, put, takeLatest } from 'redux-saga/effects';
 import { editClient } from '../../actionCreators/clientAC';
+import { changeLoadStatus } from '../../actionCreators/loadAC';
 import { EDIT_CLIENT_SAGA } from '../../types/clientTypes';
 
 const editClientToServer = ({client, id}) => {
@@ -17,9 +18,12 @@ const editClientToServer = ({client, id}) => {
 
 function* clientSagaWorker(action) {
   try {
+    yield put(changeLoadStatus(true));
     const client = yield call(editClientToServer, action.payload);
     yield put(editClient(client));
+    yield put(changeLoadStatus(false));
   } catch (e) {
+    yield put(changeLoadStatus(false));
     yield put({ type: "USER_FETCH_FAILED", message: e.message });
   }
 }

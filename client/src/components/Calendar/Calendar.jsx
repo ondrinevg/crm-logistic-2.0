@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import Paper from "@material-ui/core/Paper";
 import {
   ViewState,
@@ -25,6 +25,7 @@ import {
 
 import { ViewSwitcher } from '@devexpress/dx-react-scheduler-material-ui';
 import { Container } from "@material-ui/core";
+import { changeLoadStatus } from "../../redux/actionCreators/loadAC";
 
 // let appointments = [
 //   { startDate: new Date(), endDate: new Date(), title: 'Meeting' },
@@ -46,10 +47,15 @@ const Calendar = () => {
     currentDate: new Date(),
   });
 
+  const user = useSelector(state => state.user);
+  const loading = useSelector(state => state.loading);
+  const dispatch = useDispatch();
+
   const { data, currentDate } = state;
   console.log({ state });
 
   useEffect(() => {
+    dispatch(changeLoadStatus(true));
     fetch(`${process.env.REACT_APP_ADDRESS_TO_FETCH}/api/v1/managers/token`, {
       credentials: "include",
     })
@@ -71,6 +77,7 @@ const Calendar = () => {
               data: newEvents,
               currentDate: new Date(),
             })
+            dispatch(changeLoadStatus(false));
           })
       )
   }, []);
