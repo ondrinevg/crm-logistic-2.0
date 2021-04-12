@@ -3,7 +3,7 @@ import {
   
 } from "../types/userType";
 
-const usersReducer = (state = {}, action) => {
+const userReducer = (state = {}, action) => {
   switch (action.type) {
     case SHOW_CLIENT:
       return action.payload;
@@ -28,4 +28,4 @@ const usersReducer = (state = {}, action) => {
   }
 }
 
-export default usersReducer;
+export default userReducer;
