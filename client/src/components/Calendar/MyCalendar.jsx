@@ -11,13 +11,13 @@ export default function MyCalendar() {
       credentials: "include",
     })
       .then((response) => response.json())
-     .then((token) =>
+      .then((token) =>
         fetch(`https://www.googleapis.com/calendar/v3/calendars/uudmopujkodqksbu55au8opt3k@group.calendar.google.com/events`, {
           headers: {
             Authorization: 'Bearer ' + token,
-          },         
+          },
         })
-        .then((data) => data.json()).then((data) => console.log(data))
+          .then((data) => data.json()).then((data) => console.log(data))
       )
   }, [])
 
