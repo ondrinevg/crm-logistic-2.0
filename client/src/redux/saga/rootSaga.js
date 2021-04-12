@@ -14,6 +14,7 @@ import editOrderSagaWatcher from './order/editOrderSagaWatcher';
 import searchClientSagaWatcher from './client/searchClientSagaWatcher';
 import searchOrderSagaWatcher from './order/searchOrderSagaWatcher';
 import findClientsForOrderSagaWatcher from './order/findClientsForOrderSagaWatcher';
+import initUserSagaWatcher from './user/initUserSaga';
 
 export default function* rootSaga() {
   yield all([
@@ -32,5 +33,6 @@ export default function* rootSaga() {
     searchClientSagaWatcher(),
     searchOrderSagaWatcher(),
     findClientsForOrderSagaWatcher(),
+    initUserSagaWatcher(),
   ])
 };

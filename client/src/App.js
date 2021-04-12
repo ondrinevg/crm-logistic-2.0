@@ -14,17 +14,24 @@ import AddClientMU from "./components/AddClient/AddClientMU";
 import AddOrderMU from "./components/AddOrder/AddOrderMU";
 import EditOrderMU from "./components/EditOrder/EditOrderMU";
 import EditClientMU from "./components/EditClient/EditClientMU";
-import AdminPanel from "./components/ApminPanel/AdminPanel";
-import PrivatRouter from "./components/PrivateRouter/PrivatRouter";
+import AdminPanel from "./components/AdminPanel/AdminPanel";
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { initUserSaga } from "./redux/actionCreators/userAC";
+import PrivatRouterAdmin from "./components/PrivateRouter/PrivatRouterAdmin";
 
 function App() {
+  const dispatch = useDispatch();
 
+  useEffect(() => {
+    dispatch(initUserSaga());
+  }, [])
 
   return (
     <Router>
       <HeaderMU />
       <Switch>
-        <PrivatRouter component={<MyCalendar />} exact path='/'/>
+        <PrivatRouterAdmin component={MyCalendar} exact path='/'/>
         {/* <Route exact path='/'>
           <MyCalendar />
         </Route> */}
