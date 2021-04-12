@@ -6,7 +6,7 @@ import {
 } from "react-router-dom";
 import ClientMU from "./components/Clients/Client/ClientMU";
 import ListOfClientsMU from "./components/Clients/ListOfClientsMU";
-import Calendare from "./components/Calendar/Calendare";
+import MyCalendar from "./components/Calendar/MyCalendar";
 import HeaderMU from "./components/Header/Header mu";
 import ListOfOrdersMU from "./components/Orders/ListOfOrdersMU";
 import OrderMU from "./components/Orders/Order/OrderMU";
@@ -24,7 +24,7 @@ function App() {
       <HeaderMU />
       <Switch>
         <Route exact path='/'>
-          <Calendare />
+          <MyCalendar />
         </Route>
         <Route exact path='/admin'>
           <AdminPanel />
