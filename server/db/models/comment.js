@@ -5,7 +5,7 @@ const commentSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: 'User',
   },
-   createdAt: {
+  createdAt: {
     type: Date,
     // required: true,
   },
@@ -14,8 +14,7 @@ const commentSchema = new Schema({
     // required: true,
   },
 },
-
-{ timestamps: true }
+  { timestamps: true }
 );
 
 module.exports = model('Comment', commentSchema);

@@ -22,10 +22,11 @@ import PrivateRouterManager from "./components/PrivateRouter/PrivateRouterManage
 import Calendar from './components/Calendar/Calendar';
 import LoginPage from './LoginPage/LoginPage';
 import { CircularProgress } from '@material-ui/core';
+import EditUser from './components/EditUser/EditUser';
 
 function App() {
   const dispatch = useDispatch();
-  
+
   const loading = useSelector(state => state.loading);
   const user = useSelector(state => state.user);
 
@@ -58,10 +59,12 @@ function App() {
             <PrivateRouterManager component={EditOrderMU} exact path='/orders/:id/edit' />
 
             <PrivateRouterManager component={ListOfOrdersMU} exact path='/orders' />
+
+            <PrivateRouterAdmin component={EditUser} exact path='/user/:id' />
           </>
           :
           <>
-          {!loading ? <LoginPage /> :  <CircularProgress />}
+            {!loading ? <LoginPage /> : <CircularProgress />}
           </>
         }
       </Switch>

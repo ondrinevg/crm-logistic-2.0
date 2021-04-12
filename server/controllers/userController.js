@@ -2,7 +2,6 @@ const bcrypt = require('bcrypt');
 const User = require('../db/models/user');
 const app = require('../app');
 
-
 const userLoginRender = async (req, res) => {
   try {
     const { id } = res.locals;
@@ -104,8 +103,9 @@ const userLogout = async (req, res) => {
 
 const editUser = async (req, res) => {
   try {
+    const { id } = req.params;
     if (req.body.deletemail) {
-      const user = await User.findByIdAndUpdate(req.params.id, { email: '' });
+      const user = await User.findByIdAndUpdate(id, { email: '' });
       await user.save();
       console.log(user);
       return res.json({
@@ -116,6 +116,18 @@ const editUser = async (req, res) => {
         lastName: user.lastName,
         middleName: user.middleName,
         photo: user.photo,
+      });
+    }
+    if (Object.keys(req.body).every((key) => req.body[key].trim())) {
+      const editedUser = await User.findByIdAndUpdate(id, { ...req.body }, { new: true });
+      return res.json({
+        role: editedUser.role,
+        _id: editedUser._id,
+        email: editedUser.email,
+        name: editedUser.name,
+        lastName: editedUser.lastName,
+        middleName: editedUser.middleName,
+        photo: editedUser.photo,
       });
     }
   } catch (err) {
