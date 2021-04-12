@@ -11,9 +11,9 @@ const Manager = ({ manager }) => {
   const dispatch = useDispatch();
 
   const deleteMailHandler = () => {
-    dispatch(deleteMailSaga(manager._id)) //action по id удалить почту
+    dispatch(deleteMailSaga(manager._id))
   }
-  console.log(manager);
+  
   return (
     <TableRow className="table-success">
       <TableCell>{manager.lastName} {manager.name} {manager.middleName}</TableCell>
@@ -25,4 +25,3 @@ const Manager = ({ manager }) => {
 }
 
 export default Manager;
-

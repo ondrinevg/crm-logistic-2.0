@@ -6,8 +6,6 @@ import orderReducer from './orderReducer';
 import usersReducer from './usersReducer';
 import userReducer from './userReducer';
 
-
-
 const rootReducer = combineReducers({
   client: clientReducer,
   clients: clientsReducer,
