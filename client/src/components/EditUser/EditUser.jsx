@@ -42,6 +42,7 @@ export default function EditUser() {
 
     const valuesOfFields = Object.fromEntries(new FormData(formRef.current).entries());
     if (Object.keys(valuesOfFields).every(key => valuesOfFields[key].trim())) {
+      console.log('valuesOfFields', valuesOfFields);
       dispatch(editUserSaga(valuesOfFields, id));
       formRef.current.reset();
       history.push('/admin');
@@ -71,7 +72,7 @@ export default function EditUser() {
             <Box className={classes.root}>
               <FormControl>
                 <InputLabel htmlFor="component-simple">Телефон</InputLabel>
-                <Input type="phone" defaultValue={user.phone} name="phone" required />
+                <Input type="number" defaultValue={user.phone} name="phone" required />
               </FormControl>
               <FormControl>
                 <InputLabel htmlFor="component-simple">E-mail</InputLabel>

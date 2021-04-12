@@ -40,7 +40,6 @@ const getUser = async (req, res) => {
 
 const userRegister = async (req, res) => {
   try {
-    console.log(req.body);
     const {
       name,
       lastName,
@@ -102,11 +101,11 @@ const userLogout = async (req, res) => {
 
 const editUser = async (req, res) => {
   try {
+    console.log('======', req.body);
     const { id } = req.params;
     if (req.body.deletemail) {
       const user = await User.findByIdAndUpdate(id, { email: '' });
       await user.save();
-      console.log(user);
       return res.json({
         role: user.role,
         _id: user._id,

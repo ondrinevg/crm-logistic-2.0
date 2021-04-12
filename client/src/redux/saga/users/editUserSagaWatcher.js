@@ -3,14 +3,14 @@ import { changeLoadStatus } from '../../actionCreators/loadAC';
 import { editUser } from '../../actionCreators/usersAC';
 import { EDIT_USER_SAGA } from '../../types/userType';
 
-const editUserFromServer = ({userInfo, id}) => {
+const editUserFromServer = ({newInfo, id}) => {
   return fetch(`${process.env.REACT_APP_ADDRESS_TO_FETCH}/api/v1/users/${id}`, {
     credentials: 'include',
     method: 'PATCH',
     headers: {
       'Content-Type' : 'application/json',
     },
-    body: JSON.stringify(userInfo),
+    body: JSON.stringify(newInfo),
   })
     .then(response => response.json())
 }

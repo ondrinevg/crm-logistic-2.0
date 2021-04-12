@@ -17,11 +17,8 @@ import findClientsForOrderSagaWatcher from './order/findClientsForOrderSagaWatch
 import showUsersSagaWatcher from './users/showUsersSagaWatcher';
 import initUserSagaWatcher from './user/initUserSaga';
 import deleteMailSagaWatcher from './users/deleteMailSagaWatcher';
-<<<<<<< HEAD
 import editUserSagaWatcher from './users/editUserSagaWatcher';
-=======
 import addUserSagaWatcher from './user/addUserSagaWatcher';
->>>>>>> 29f1aed8d19753bf728cbc92874c1dbe2b68943a
 
 export default function* rootSaga() {
   yield all([
@@ -43,10 +40,7 @@ export default function* rootSaga() {
     showUsersSagaWatcher(),
     initUserSagaWatcher(),
     deleteMailSagaWatcher(),
-<<<<<<< HEAD
     editUserSagaWatcher(),
-=======
     addUserSagaWatcher(),
->>>>>>> 29f1aed8d19753bf728cbc92874c1dbe2b68943a
   ])
 };

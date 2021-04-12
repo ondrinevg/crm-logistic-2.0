@@ -219,7 +219,6 @@ findOrders?.addEventListener('input', delayFiltrByOrder);
 changeStatus?.addEventListener('submit', async (event) => {
   event.preventDefault();
   const status = changeStatus.statusSelect.value;
-  console.log(status);
   const response = await fetch(`/orders/${changeStatus.dataset.id}/status`, {
     method: 'PATCH',
     headers: {
