@@ -143,7 +143,7 @@ export default function OrderMU() {
             <ul>
               {order?.comments?.length
                 ? order.comments.map(comment => (
-                  <li key={comment._id}>user {new Date(comment.createdAt).toLocaleString()}: {comment.text}</li>
+                  <li key={comment._id}>{`${comment.manager?.lastName} ${comment.manager?.name[0]}. ${comment.manager?.middleName[0]}.`} {new Date(comment.createdAt).toLocaleString()}: {comment.text}</li>
                 ))
                 : null
               }
