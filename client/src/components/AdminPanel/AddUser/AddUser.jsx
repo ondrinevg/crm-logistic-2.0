@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useRef } from 'react';
 import {
   Box,
   Button,
@@ -10,14 +10,14 @@ import {
   Select,
   Typography
 } from '@material-ui/core';
-import { useDispatch, useSelector } from 'react-redux';
-import { useHistory } from 'react-router';
+import { useDispatch } from 'react-redux';
+import { addUserSaga } from '../../../redux/actionCreators/userAC';
 
 const useStyles = makeStyles((theme) => ({
   root: {
     '& > *': {
-      margin: theme.spacing(2),
-      width: '30ch',
+      margin: theme.spacing(3),
+      // width: '30ch',
     },
   },
 }));
@@ -26,19 +26,14 @@ export default function AddUser() {
   const classes = useStyles();
   const formRef = useRef(null);
 
+  const dispatch = useDispatch();
+
   const submitHandler = (e) => {
     e.preventDefault();
     const valuesOfFields = Object.fromEntries(new FormData(formRef.current).entries());
 
     if (Object.keys(valuesOfFields).every(key => valuesOfFields[key].trim())) {
-      fetch(`${process.env.REACT_APP_ADDRESS_TO_FETCH}/api/v1/users/adminPanel`, {
-        credentials: 'include',
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(valuesOfFields)
-      })
+      dispatch(addUserSaga(valuesOfFields));
       formRef.current.reset();
     }
   }  
@@ -50,7 +45,7 @@ export default function AddUser() {
         <Grid item xs={5} container justify='center'>
         <Typography variant="h4" align='center'>Добавление менеджера</Typography>
         <form ref={formRef} onSubmit={submitHandler}>
-          <Box p={2} className={classes.root}>
+          <Box p={1} className={classes.root}>
             <FormControl>
               <InputLabel htmlFor="component-simple">Фамилия</InputLabel>
               <Input type="text" name="lastName" required />
@@ -92,10 +87,6 @@ export default function AddUser() {
         </form>
         </Grid>
         <Grid item xs={1}></Grid>
-        {/* <Grid item xs={3}>
-          <div>Лист менеджеров</div>
-        </Grid> */}
-        {/* <Grid item xs={1}></Grid> */}
     </>
   )
 }

@@ -61,7 +61,7 @@ const userRegister = async (req, res) => {
         role,
       });
 
-      return res.sendStatus(200);
+      return res.json(newUser);
     }
     return res.sendStatus(418);
   } catch (err) {
