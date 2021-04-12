@@ -1,18 +1,20 @@
 import { combineReducers } from 'redux';
-import clientRouter from './clientReducer';
-import clientsRouter from './clientsReducer';
-import ordersRouter from './ordersReducer';
-import orderRouter from './orderReducer';
-import usersReducer from './usersReducer';
+import clientReducer from './clientReducer';
+import clientsReducer from './clientsReducer';
+import ordersReducer from './ordersReducer';
+import orderReducer from './orderReducer';
+import usersReducer from './userReducer';
+import userReducer from './userReducer';
 
 
 
 const rootReducer = combineReducers({
-  client: clientRouter,
-  clients: clientsRouter,
-  order: orderRouter,
-  orders: ordersRouter,
+  client: clientReducer,
+  clients: clientsReducer,
+  order: ordersReducer,
+  orders: orderReducer,
   users: usersReducer,
+  user: userReducer,
 })
 
 export default rootReducer;
