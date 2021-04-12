@@ -24,7 +24,6 @@ const getManagers = async (req, res) => {
       photo: user.photo,
     }));
 
-    // const users = await User.find();
     res.json(users);
   } catch (err) {
     res.status(500).json(err.message);
@@ -60,7 +59,7 @@ const userRegister = async (req, res) => {
         role,
       });
 
-      return res.sendStatus(200);
+      return res.json(newUser);
     }
     return res.sendStatus(418);
   } catch (err) {
