@@ -40,6 +40,9 @@ export default function EditOrder() {
             <input placeholder="Название заказа" defaultValue={order.title} type="text" name="title" required className="form-control" />
           </div>
           <div className="mb-3">
+            <input placeholder="Номер заказа" defaultValue={order.number} type="text" name="number" required className="form-control" />
+          </div>
+          <div className="mb-3">
             <input placeholder="Номер договора" defaultValue={order.contractNumber} type="text" name="contractNumber" required className="form-control" />
           </div>
           <div className="mb-3">

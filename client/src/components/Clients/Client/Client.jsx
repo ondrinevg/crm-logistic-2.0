@@ -91,8 +91,8 @@ export default function Client() {
               {client?.orders?.length
                 ? client.orders.map(order => (
                   <tr key={order._id} className="table-success">
-                    <th><Link to="/orders/:id">{order.number}</Link></th>
-                    <td>{order.contract}</td>
+                    <th><Link to={`/orders/${id}`}>{order.number}</Link></th>
+                    <td>{order.contractNumber}</td>
                     <td>{order.title}</td>
                     <td>{order.status}</td>
                   </tr>

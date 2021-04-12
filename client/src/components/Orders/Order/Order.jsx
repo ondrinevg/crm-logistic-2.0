@@ -2,12 +2,13 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link, useHistory, useParams } from 'react-router-dom'
 import { showOrderSaga, addCommentToOrderSaga, deleteOrderSaga, editOrderSaga } from '../../../redux/actionCreators/orderAC';
+import Storage from '../../Storage/Storage'
 
 export default function Order() {
   const { id } = useParams();
   const order = useSelector(state => state.order);
   const [comment, setComment] = useState('');
-  const [status, setStatus] = useState(order?.status || 'в работе'); 
+  const [status, setStatus] = useState(order?.status || 'в работе');
 
   const dispatch = useDispatch();
   const history = useHistory();
@@ -39,7 +40,7 @@ export default function Order() {
 
   const statusHandlerSubmit = (e) => {
     e.preventDefault();
-    const newOrder = {...order, status};
+    const newOrder = { ...order, status };
     delete newOrder._id;
     dispatch(editOrderSaga(newOrder, order._id));
     setStatus('в работе');
@@ -60,6 +61,8 @@ export default function Order() {
             <button onClick={deleteHandler}>Удалить заказ</button>
           </div>
 
+
+
           <div>
             <form onSubmit={statusHandlerSubmit} name='changeStatus' className="form-floating d-flex">
               <select onChange={statusHandler} value={status} name='statusSelect' className="form-select edit editStatus" id="floatingSelect" aria-label="Floating label select example">
@@ -76,6 +79,9 @@ export default function Order() {
           </div>
           <div>
             Номер заказа: {order.number}
+          </div>
+          <div>
+            Номер договора: {order.contractNumber}
           </div>
           <div>
             Название: {order.title}
