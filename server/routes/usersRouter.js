@@ -16,7 +16,7 @@ userRouter.route('/')
 
 userRouter.route('/adminPanel')
   .get(checkAuth, checkAdmin, getManagers)
-  .post(userRegister);
+  .post(checkAuth, checkAdmin, userRegister);
 
 userRouter.route('/login')
   .get(userLoginRender)

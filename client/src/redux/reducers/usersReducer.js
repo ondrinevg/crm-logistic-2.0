@@ -1,4 +1,4 @@
-import { DELETE_MAIL, SHOW_ALL_USERS } from "../types/userType";
+import { ADD_USER, DELETE_MAIL, SHOW_ALL_USERS } from "../types/userType";
 
 
 const usersReducer = (state = [], action) => {
@@ -7,10 +7,13 @@ const usersReducer = (state = [], action) => {
       return action.payload;
 
       case DELETE_MAIL:
-        return state.map( el => el._id === action.payload._id ? action.payload : el)
+        return state.map( el => el._id === action.payload._id ? action.payload : el);
+
+      case ADD_USER:
+        return [...state, action.payload];
 
     default:
-      return state
+      return state;
   }
 }
 

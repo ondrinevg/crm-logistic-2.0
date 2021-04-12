@@ -56,9 +56,7 @@ export default function OrderMU() {
 
   const statusHandlerSubmit = (e) => {
     e.preventDefault();
-    // const newOrder = { ...order, status };
     const newOrder = { status };
-    // delete newOrder._id;
     dispatch(editOrderSaga(newOrder, order._id));
     setStatus('в работе');
   };
