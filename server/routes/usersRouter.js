@@ -6,7 +6,7 @@ const { checkAdmin } = require('../middlewares/checkAdmin');
 const { checkAuth } = require('../middlewares/checkAuth');
 
 userRouter.route('/adminPanel')
-  .get(checkAuth, checkAdmin, getManagers)
+  .get(/*checkAuth, checkAdmin, */getManagers)
   .post(userRegister);
 
 userRouter.route('/adminPanel/registration');
