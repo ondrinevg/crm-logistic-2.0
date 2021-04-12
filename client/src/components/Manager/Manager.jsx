@@ -9,7 +9,7 @@ const Manager = ({ manager }) => {
   const dispatch = useDispatch();
 
   const deleteMailHandler = () => {
-    // dispatch(deleteMailSaga(manager._id)) //action по id удалить почту
+    dispatch(deleteMailSaga(manager._id)) //action по id удалить почту
   }
 console.log(manager);
   return (
