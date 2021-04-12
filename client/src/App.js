@@ -44,13 +44,13 @@ function App() {
 
             <PrivateRouterManager component={ListOfClientsMU} exact path='/clients' />
 
-            <PrivateRouterManager component={AddClientMU} exact path='/clients/new' />
-
-            <PrivateRouterManager component={EditClientMU} exact path='/clients/:id/edit' />
+            <PrivateRouterManager component={AddClientMU} path='/clients/new' />
 
             <PrivateRouterManager component={ClientMU} exact path='/clients/:id' />
 
             <PrivateRouterManager component={AddOrderMU} exact path='/orders/new' />
+
+            <PrivateRouterManager component={EditClientMU} exact path='/clients/:id/edit' />
 
             <PrivateRouterManager component={EditOrderMU} exact path='/orders/:id/edit' />
 
@@ -61,7 +61,7 @@ function App() {
           :
           <LoginPage />
           // <PrivateRouterNoUser component={LoginPage} path='/' />
-          }
+        }
       </Switch>
     </Router>
   );
