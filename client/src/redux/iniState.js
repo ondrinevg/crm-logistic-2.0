@@ -3,6 +3,8 @@ const initState = {
   client: {},
   orders: [],
   order: {},
+  users: [],
+  user: {},
   // loading: false,
   // error: {},
 }
