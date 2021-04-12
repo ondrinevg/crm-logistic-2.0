@@ -22,11 +22,19 @@ const getManagers = async (req, res) => {
       name: user.name,
       lastName: user.lastName,
       middleName: user.middleName,
-      }));
+    }));
 
     // const users = await User.find();
     res.json(users);
   } catch (err) {
+    res.status(500).json(err.message);
+  }
+};
+
+const getUser = async (req, res) => {
+  try {
+    res.json(req.user);
+  } catch (error) {
     res.status(500).json(err.message);
   }
 }
@@ -93,12 +101,11 @@ const userLogout = async (req, res) => {
   }
 };
 
-
-
 module.exports = {
   userLoginRender,
   userRegister,
   userLogin,
   userLogout,
   getManagers,
+  getUser,
 };
