@@ -4,16 +4,10 @@ const flash = require('connect-flash');
 const express = require('express');
 const sessions = require('express-session');
 const MongoStore = require('connect-mongo');
-// eslint-disable-next-line import/no-extraneous-dependencies
-const createError = require('http-errors');
-// eslint-disable-next-line import/no-extraneous-dependencies
 // const logger = require('morgan');
-const path = require('path');
 const cors = require('cors');
 const { connect } = require('mongoose');
-// process.env.PWD = __dirname
 const passport = require('passport');
-const googleConfig = require('./config');
 
 const User = require('./db/models/user');
 
@@ -81,7 +75,7 @@ app.use('/api/v1/managers/token', async (req, res) => {
     const token = currentUser.accessToken;
     return res.json(token);
   }
-})
+});
 
 const PORT = process.env.PORT ?? 3000;
 
