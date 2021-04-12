@@ -1,3 +1,5 @@
+import 'devextreme/dist/css/dx.common.css';
+import 'devextreme/dist/css/dx.light.css';
 import {
   BrowserRouter as Router,
   Switch,
@@ -19,6 +21,7 @@ import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { initUserSaga } from "./redux/actionCreators/userAC";
 import PrivatRouterAdmin from "./components/PrivateRouter/PrivatRouterAdmin";
+import Calendar from './components/Calendar/Calendar';
 
 function App() {
   const dispatch = useDispatch();
@@ -31,10 +34,8 @@ function App() {
     <Router>
       <HeaderMU />
       <Switch>
-        <PrivatRouterAdmin component={MyCalendar} exact path='/'/>
-        {/* <Route exact path='/'>
-          <MyCalendar />
-        </Route> */}
+        {/* <PrivatRouterAdmin component={MyCalendar} exact path='/'/> */}
+        <PrivatRouterAdmin component={Calendar} exact path='/'/>
         <Route exact path='/admin'>
           <AdminPanel />
         </Route>

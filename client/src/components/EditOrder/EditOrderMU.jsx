@@ -105,7 +105,7 @@ export default function EditOrderMU() {
                 variant="inline"
                 format="YYYY-MM-DD"
                 margin="normal"
-                defaultValue={deliveryDate}
+                // defaultValue={deliveryDate}
                 value={selectedDateDelivery}
                 onChange={date => setSelectedDateDelivery(date)}
                 label="Дата доставки"
@@ -121,7 +121,7 @@ export default function EditOrderMU() {
                 margin="normal"
                 name="assemblyDate"
                 required
-                defaultValue={assemblyDate}
+                // defaultValue={assemblyDate}
                 value={selectedDateAssembly}
                 onChange={date => setSelectedDateAssembly(date)}
                 label="Дата сборки"
