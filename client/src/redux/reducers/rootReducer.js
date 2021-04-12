@@ -10,8 +10,8 @@ import usersReducer from './userReducer';
 const rootReducer = combineReducers({
   client: clientReducer,
   clients: clientsReducer,
-  order: ordersReducer,
-  orders: orderReducer,
+  order: orderReducer,
+  orders: ordersReducer,
   user: usersReducer,
 })
 
