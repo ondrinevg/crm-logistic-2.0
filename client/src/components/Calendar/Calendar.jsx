@@ -24,6 +24,7 @@ import {
 } from "@devexpress/dx-react-scheduler-material-ui";
 
 import { ViewSwitcher } from '@devexpress/dx-react-scheduler-material-ui';
+import { Container } from "@material-ui/core";
 
 // let appointments = [
 //   { startDate: new Date(), endDate: new Date(), title: 'Meeting' },
@@ -40,14 +41,13 @@ const appointmentComponent = (props) => {
 };
 
 const Calendar = () => {
-  // const [appointments, setAppointments] = useState([]);
   const [state, setState] = useState({
     data: [],
     currentDate: new Date(),
   });
 
   const { data, currentDate } = state;
-  console.log({state});
+  console.log({ state });
 
   useEffect(() => {
     fetch(`${process.env.REACT_APP_ADDRESS_TO_FETCH}/api/v1/managers/token`, {
@@ -67,7 +67,6 @@ const Calendar = () => {
               title: event.summary,
             }))
             console.log(newEvents);
-            // setAppointments(newEvents);
             setState({
               data: newEvents,
               currentDate: new Date(),
@@ -75,7 +74,7 @@ const Calendar = () => {
           })
       )
   }, []);
-  
+
   const commitChanges = ({ added, changed, deleted }) => {
     setState((state) => {
       let { data } = state;
@@ -98,31 +97,34 @@ const Calendar = () => {
     });
   };
 
-  
+
 
   return (
-    <Paper>
-      <Scheduler data={data} height={660}>
-        <ViewState defaultCurrentDate={currentDate} />
-        <EditingState onCommitChanges={commitChanges} />
-        <EditRecurrenceMenu />
-        <IntegratedEditing />
-        <WeekView startDayHour={9} endDayHour={19} />
-        <MonthView />
-        <DayView />
-        <ConfirmationDialog />
-        <Appointments appointmentComponent={appointmentComponent} />
-        <AppointmentTooltip showCloseButton showOpenButton showDeleteButton />
-        <AppointmentForm />
+    <Container>
 
-        <Toolbar />
-        <ViewSwitcher />
-        <DateNavigator />
-        <TodayButton />
-        <AllDayPanel />
-        <DragDropProvider allowDrag={allowDrag} />
-      </Scheduler>
-    </Paper>
+      <Paper>
+        <Scheduler data={data} height={660}>
+          <ViewState defaultCurrentDate={currentDate} />
+          <EditingState onCommitChanges={commitChanges} />
+          <EditRecurrenceMenu />
+          <IntegratedEditing />
+          <WeekView startDayHour={9} endDayHour={19} />
+          <MonthView />
+          <DayView />
+          <ConfirmationDialog />
+          <Appointments appointmentComponent={appointmentComponent} />
+          <AppointmentTooltip showCloseButton showOpenButton showDeleteButton />
+          <AppointmentForm />
+
+          <Toolbar />
+          <ViewSwitcher />
+          <DateNavigator />
+          <TodayButton />
+          <AllDayPanel />
+          <DragDropProvider allowDrag={allowDrag} />
+        </Scheduler>
+      </Paper>
+    </Container>
   );
 };
 export default Calendar;

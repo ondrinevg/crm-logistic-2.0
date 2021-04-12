@@ -3,12 +3,9 @@ import 'devextreme/dist/css/dx.light.css';
 import {
   BrowserRouter as Router,
   Switch,
-  Route,
-  // Redirect,
 } from "react-router-dom";
 import ClientMU from "./components/Clients/Client/ClientMU";
 import ListOfClientsMU from "./components/Clients/ListOfClientsMU";
-import MyCalendar from "./components/Calendar/MyCalendar";
 import HeaderMU from "./components/Header/Header mu";
 import ListOfOrdersMU from "./components/Orders/ListOfOrdersMU";
 import OrderMU from "./components/Orders/Order/OrderMU";
@@ -18,13 +15,18 @@ import EditOrderMU from "./components/EditOrder/EditOrderMU";
 import EditClientMU from "./components/EditClient/EditClientMU";
 import AdminPanel from "./components/AdminPanel/AdminPanel";
 import { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { initUserSaga } from "./redux/actionCreators/userAC";
-import PrivatRouterAdmin from "./components/PrivateRouter/PrivatRouterAdmin";
+import PrivateRouterAdmin from "./components/PrivateRouter/PrivateRouterAdmin";
+import PrivateRouterManager from "./components/PrivateRouter/PrivateRouterManager";
+import PrivateRouterNoUser from "./components/PrivateRouter/PrivateRouterNoUser";
 import Calendar from './components/Calendar/Calendar';
+import LoginPage from './LoginPage/LoginPage';
 
 function App() {
   const dispatch = useDispatch();
+
+  const user = useSelector(state => state.user);
 
   useEffect(() => {
     dispatch(initUserSaga());
@@ -32,38 +34,34 @@ function App() {
 
   return (
     <Router>
-      <HeaderMU />
+      {user?._id ? <HeaderMU /> : null}
       <Switch>
-        {/* <PrivatRouterAdmin component={MyCalendar} exact path='/'/> */}
-        <PrivatRouterAdmin component={Calendar} exact path='/'/>
-        <Route exact path='/admin'>
-          <AdminPanel />
-        </Route>
-        <Route exact path='/clients'>
-          <ListOfClientsMU />
-        </Route>
-        <Route exact path='/clients/new'>
-          <AddClientMU />
-        </Route>
-        <Route exact path='/clients/:id/edit'>
-          <EditClientMU />
-        </Route>
-        <Route exact path='/clients/:id'>
-          <ClientMU />
-        </Route>
-        <Route exact path='/orders/new'>
-          <AddOrderMU />
-        </Route>
-        <Route exact path='/orders/:id/edit'>
-          <EditOrderMU />
-        </Route>
-        <Route exact path='/orders/:id'>
-          <OrderMU />
-        </Route>
-        <Route exact path='/orders'>
-          <ListOfOrdersMU />
-        </Route>
-       
+        {user?._id ?
+          <>
+            <PrivateRouterManager component={Calendar} exact path='/' />
+
+            <PrivateRouterAdmin component={AdminPanel} exact path='/admin' />
+
+            <PrivateRouterManager component={ListOfClientsMU} exact path='/clients' />
+
+            <PrivateRouterManager component={AddClientMU} exact path='/clients/new' />
+
+            <PrivateRouterManager component={EditClientMU} exact path='/clients/:id/edit' />
+
+            <PrivateRouterManager component={ClientMU} exact path='/clients/:id' />
+
+            <PrivateRouterManager component={AddOrderMU} exact path='/orders/new' />
+
+            <PrivateRouterManager component={EditOrderMU} exact path='/orders/:id/edit' />
+
+            <PrivateRouterManager component={OrderMU} exact path='/orders/:id' />
+
+            <PrivateRouterManager component={ListOfOrdersMU} exact path='/orders' />
+          </>
+          :
+          <LoginPage />
+          // <PrivateRouterNoUser component={LoginPage} path='/' />
+          }
       </Switch>
     </Router>
   );

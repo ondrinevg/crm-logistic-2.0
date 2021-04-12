@@ -2,7 +2,6 @@ import React, { useEffect, useRef } from 'react';
 import {
   Box,
   Button,
-  Container,
   FormControl,
   Grid,
   Input,
@@ -46,9 +45,9 @@ export default function AddUser() {
 
   return (
     <>
-      <Grid container>
+      
         <Grid item xs={1}></Grid>
-        <Grid item xs={6} container justify='center'>
+        <Grid item xs={5} container justify='center'>
         <Typography variant="h4" align='center'>Добавление менеджера</Typography>
         <form ref={formRef} onSubmit={submitHandler}>
           <Box p={2} className={classes.root}>
@@ -93,11 +92,10 @@ export default function AddUser() {
         </form>
         </Grid>
         <Grid item xs={1}></Grid>
-        <Grid item xs={3}>
+        {/* <Grid item xs={3}>
           <div>Лист менеджеров</div>
-        </Grid>
-        <Grid item xs={1}></Grid>
-      </Grid>
+        </Grid> */}
+        {/* <Grid item xs={1}></Grid> */}
     </>
   )
 }

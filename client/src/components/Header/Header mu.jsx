@@ -17,8 +17,8 @@ export default function HeaderMU() {
         </Button>
         <Button color="inherit" component={Link} href={`${process.env.REACT_APP_ADDRESS_TO_FETCH}/api/v1/auth/logout`}>Выйти
         </Button>
-        <Button color="inherit" component={Link} href={`${process.env.REACT_APP_ADDRESS_TO_FETCH}/api/v1/auth/google`}>Войти
-        </Button>
+        {/* <Button color="inherit" component={Link} href={`${process.env.REACT_APP_ADDRESS_TO_FETCH}/api/v1/auth/google`}>Войти
+        </Button> */}
       </Toolbar>
     </AppBar>
   )

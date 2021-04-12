@@ -3,16 +3,17 @@ import clientReducer from './clientReducer';
 import clientsReducer from './clientsReducer';
 import ordersReducer from './ordersReducer';
 import orderReducer from './orderReducer';
-import usersReducer from './userReducer';
-
-
+import usersReducer from './usersReducer';
+import userReducer from './userReducer';
 
 const rootReducer = combineReducers({
   client: clientReducer,
   clients: clientsReducer,
   order: orderReducer,
   orders: ordersReducer,
-  user: usersReducer,
+  users: usersReducer,
+  user: userReducer,
+
 })
 
 export default rootReducer;
