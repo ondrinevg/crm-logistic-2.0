@@ -16,6 +16,7 @@ import searchOrderSagaWatcher from './order/searchOrderSagaWatcher';
 import findClientsForOrderSagaWatcher from './order/findClientsForOrderSagaWatcher';
 import showUsersSagaWatcher from './users/showUsersSagaWatcher';
 import initUserSagaWatcher from './user/initUserSaga';
+import deleteMailSagaWatcher from './users/deleteMailSagaWatcher';
 
 export default function* rootSaga() {
   yield all([
@@ -36,5 +37,6 @@ export default function* rootSaga() {
     findClientsForOrderSagaWatcher(),
     showUsersSagaWatcher(),
     initUserSagaWatcher(),
+    deleteMailSagaWatcher(),
   ])
 };

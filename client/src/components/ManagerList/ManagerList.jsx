@@ -20,7 +20,7 @@ const ManagerList = () => {
 
   useEffect(() => {
     dispatch(showUsersSaga());
-  }, []);
+  }, [users]);
 
   return (
     <>
