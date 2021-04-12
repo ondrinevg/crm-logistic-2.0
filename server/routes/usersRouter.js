@@ -1,15 +1,21 @@
 const userRouter = require('express').Router();
 const {
-  userLogin, userLogout, userRegister, userLoginRender, getManagers,
+  userLogin,
+  userLogout,
+  userRegister,
+  userLoginRender,
+  getManagers,
+  getUser,
 } = require('../controllers/userController');
 const { checkAdmin } = require('../middlewares/checkAdmin');
 const { checkAuth } = require('../middlewares/checkAuth');
 
+userRouter.route('/')
+  .get(checkAuth, getUser);
+
 userRouter.route('/adminPanel')
   .get(/*checkAuth, checkAdmin, */getManagers)
   .post(userRegister);
-
-userRouter.route('/adminPanel/registration');
 
 userRouter.route('/login')
   .get(userLoginRender)

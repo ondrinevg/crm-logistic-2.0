@@ -22,7 +22,7 @@ const getManagers = async (req, res) => {
       name: user.name,
       lastName: user.lastName,
       middleName: user.middleName,
-      }));
+    }));
 
     // const users = await User.find();
     res.json(users);
@@ -30,6 +30,14 @@ const getManagers = async (req, res) => {
     res.status(500).json(err.message);
   }
 };
+
+const getUser = async (req, res) => {
+  try {
+    res.json(req.user);
+  } catch (error) {
+    res.status(500).json(err.message);
+  }
+}
 
 const userRegister = async (req, res) => {
   try {
@@ -99,4 +107,5 @@ module.exports = {
   userLogin,
   userLogout,
   getManagers,
+  getUser,
 };
