@@ -19,13 +19,14 @@ import { useDispatch, useSelector } from "react-redux";
 import { initUserSaga } from "./redux/actionCreators/userAC";
 import PrivateRouterAdmin from "./components/PrivateRouter/PrivateRouterAdmin";
 import PrivateRouterManager from "./components/PrivateRouter/PrivateRouterManager";
-import PrivateRouterNoUser from "./components/PrivateRouter/PrivateRouterNoUser";
 import Calendar from './components/Calendar/Calendar';
 import LoginPage from './LoginPage/LoginPage';
+import { CircularProgress } from '@material-ui/core';
 
 function App() {
   const dispatch = useDispatch();
-
+  
+  const loading = useSelector(state => state.loading);
   const user = useSelector(state => state.user);
 
   useEffect(() => {
@@ -44,23 +45,24 @@ function App() {
 
             <PrivateRouterManager component={ListOfClientsMU} exact path='/clients' />
 
-            <PrivateRouterManager component={AddClientMU} path='/clients/new' />
-
-            <PrivateRouterManager component={ClientMU} exact path='/clients/:id' />
-
-            <PrivateRouterManager component={AddOrderMU} exact path='/orders/new' />
+            <PrivateRouterManager component={AddClientMU} exact path='/client/new' />
 
             <PrivateRouterManager component={EditClientMU} exact path='/clients/:id/edit' />
 
-            <PrivateRouterManager component={EditOrderMU} exact path='/orders/:id/edit' />
+            <PrivateRouterManager component={ClientMU} exact path='/clients/:id' />
+
+            <PrivateRouterManager component={AddOrderMU} exact path='/order/new' />
 
             <PrivateRouterManager component={OrderMU} exact path='/orders/:id' />
+
+            <PrivateRouterManager component={EditOrderMU} exact path='/orders/:id/edit' />
 
             <PrivateRouterManager component={ListOfOrdersMU} exact path='/orders' />
           </>
           :
-          <LoginPage />
-          // <PrivateRouterNoUser component={LoginPage} path='/' />
+          <>
+          {!loading ? <LoginPage /> :  <CircularProgress />}
+          </>
         }
       </Switch>
     </Router>

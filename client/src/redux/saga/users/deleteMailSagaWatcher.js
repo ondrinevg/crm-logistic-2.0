@@ -1,4 +1,5 @@
 import { call, put, takeLatest } from 'redux-saga/effects';
+import { changeLoadStatus } from '../../actionCreators/loadAC';
 import { deleteMail } from '../../actionCreators/usersAC';
 import { DELETE_MAIL_SAGA } from '../../types/userType';
 
@@ -16,9 +17,12 @@ const getEditUserFromServer = (id) => {
 
 function* deleteEmailSagaWorker(action) {
   try {
+    yield put(changeLoadStatus(true));
     const user = yield call(getEditUserFromServer, action.payload);
     yield put(deleteMail(user));
+    yield put(changeLoadStatus(false));
   } catch (e) {
+    yield put(changeLoadStatus(false));
     yield put({ type: "USER_FETCH_FAILED", message: e.message });
   }
 }

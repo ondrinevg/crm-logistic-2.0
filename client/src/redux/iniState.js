@@ -5,7 +5,7 @@ const initState = {
   order: {},
   users: [],
   user: {},
-  // loading: false,
+  loading: false,
   // error: {},
 }
 

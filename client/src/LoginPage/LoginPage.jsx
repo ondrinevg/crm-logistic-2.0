@@ -1,22 +1,38 @@
 import React from 'react'
-import { Button, Card, Link } from '@material-ui/core';
+import { Button, Card, CardActions, CardContent, CardMedia, Container, Link } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
 import back from '../assets/logo.jpg'
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
   root: {
-    minHeight: 345,
-    minWidth: '100vw'
+    backgroundImage: `url(${back})`,
+    backgroundPosition: 'center',
+    backgroundRepeat: 'no-repeat',
+    height: '700px',
+    minWidth: '100%',
+    marginTop: '80px',
+    padding: theme.spacing(8),
   },
-});
+  controls: {
+    width: '100%',
+    height: '100%',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'flex-end',
+  },
+}));
 
 export default function LoginPage() {
   const classes = useStyles();
   return (
-    <Card image={back} className={classes.root}>
-       <Button color="inherit" component={Link} href={`${process.env.REACT_APP_ADDRESS_TO_FETCH}/api/v1/auth/google`}>Войти
+    <Container>
+      <Card className={classes.root}>
+        <CardActions className={classes.controls}>
+          <Button  variant="contained" color="secondary" component={Link} href={`${process.env.REACT_APP_ADDRESS_TO_FETCH}/api/v1/auth/google`}>Войти
         </Button>
-    </Card>
+        </CardActions>
+      </Card>
+    </Container>
   )
 }

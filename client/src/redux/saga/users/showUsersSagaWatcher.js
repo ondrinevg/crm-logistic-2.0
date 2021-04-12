@@ -1,4 +1,5 @@
 import { call, put, takeLatest } from 'redux-saga/effects';
+import { changeLoadStatus } from '../../actionCreators/loadAC';
 import { showUsers } from '../../actionCreators/usersAC';
 import { SHOW_ALL_USERS_SAGA } from '../../types/userType';
 
@@ -11,9 +12,12 @@ const getUsersFromServer = () => {
 
 function* usersSagaWorker(action) {
   try {
+    yield put(changeLoadStatus(true));
     const users = yield call(getUsersFromServer, action.payload);
     yield put(showUsers(users));
+    yield put(changeLoadStatus(false));
   } catch (e) {
+    yield put(changeLoadStatus(false));
     yield put({ type: "USER_FETCH_FAILED", message: e.message });
   }
 }

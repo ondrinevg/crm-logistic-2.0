@@ -9,6 +9,7 @@ import {
   Box,
   Button,
   ButtonGroup,
+  CircularProgress,
   Container,
   FormControl,
   Grid,
@@ -24,6 +25,7 @@ import {
 
 export default function ClientMU() {
   const client = useSelector(state => state.client);
+  const loading = useSelector(state => state.loading);
   const { id } = useParams();
   const [comment, setComment] = useState('');
 
@@ -127,24 +129,27 @@ export default function ClientMU() {
               }
             </ul>
           </Paper>
-          <form onSubmit={commentHandlerSubmit} name="addCommentClient">
-            <FormControl fullWidth={true}>
-              <TextField
-                label="Новый комментарий:"
-                multiline
-                required
-                rows={4}
-                variant="outlined"
-                onChange={commentHandler}
-                value={comment}
-              />
-              <Button type="submit" color="primary">Оставить комментарий</Button>
-            </FormControl>
-
-          </form>
+          <>
+            {!loading ?
+              <form onSubmit={commentHandlerSubmit} name="addCommentClient">
+                <FormControl fullWidth={true}>
+                  <TextField
+                    label="Новый комментарий:"
+                    multiline
+                    required
+                    rows={4}
+                    variant="outlined"
+                    onChange={commentHandler}
+                    value={comment}
+                  />
+                  <Button type="submit" color="primary">Оставить комментарий</Button>
+                </FormControl>
+              </form>
+              : <CircularProgress />}
+          </>
         </Grid>
       </Grid>
-    </Container>    
+    </Container>
   )
 }
 
