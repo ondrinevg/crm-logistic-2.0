@@ -20,12 +20,12 @@ const ManagerList = () => {
 
   useEffect(() => {
     dispatch(showUsersSaga());
-  }, []);
+  }, [users]);
 
   return (
     <>
       <Grid item xs={4} container justify='center'>
-      <Typography variant="h6" align='center'>Список пользователей</Typography>
+        <Typography variant="h6" align='center'>Список пользователей</Typography>
         <Table>
           <TableHead>
             <TableRow>

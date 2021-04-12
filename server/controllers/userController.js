@@ -15,13 +15,14 @@ const userLoginRender = async (req, res) => {
 
 const getManagers = async (req, res) => {
   try {
-    const users = (await User.find()).map(user => ({
+    const users = (await User.find()).map((user) => ({
       role: user.role,
       email: user.email,
       _id: user._id,
       name: user.name,
       lastName: user.lastName,
       middleName: user.middleName,
+      photo: user.photo,
     }));
 
     // const users = await User.find();
@@ -101,12 +102,22 @@ const userLogout = async (req, res) => {
   }
 };
 
-const deleteUserEmail = async (req, res) => {
+const editUser = async (req, res) => {
   try {
-    const user = await User.findById(req.params.id);
-    delete user.email;
-    await user.save();
-    res.json(user);
+    if (req.body.deletemail) {
+      const user = await User.findByIdAndUpdate(req.params.id, { email: '' });
+      await user.save();
+      console.log(user);
+      return res.json({
+        role: user.role,
+        _id: user._id,
+        email: user.email,
+        name: user.name,
+        lastName: user.lastName,
+        middleName: user.middleName,
+        photo: user.photo,
+      });
+    }
   } catch (err) {
     res.status(500).json(err.message);
   }
@@ -119,5 +130,5 @@ module.exports = {
   userLogout,
   getManagers,
   getUser,
-  deleteUserEmail,
+  editUser,
 };
