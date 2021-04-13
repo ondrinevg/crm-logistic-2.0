@@ -100,23 +100,11 @@ const userLogout = async (req, res) => {
   }
 };
 
-const deleteUserEmail = async (req, res) => {
-  try {
-    const user = await User.findById(req.params.id);
-    delete user.email;
-    await user.save();
-    res.json(user);
-  } catch (err) {
-    res.status(500).json(err.message);
-  }
-};
-
 const editUser = async (req, res) => {
   try {
-    console.log('======', req.body);
     const { id } = req.params;
     if (req.body.deletemail) {
-      const user = await User.findByIdAndUpdate(id, { email: '' });
+      const user = await User.findByIdAndUpdate(id, { email: '' }, { new: true });
       await user.save();
       return res.json({
         role: user.role,
@@ -154,6 +142,5 @@ module.exports = {
   userLogout,
   getManagers,
   getUser,
-  deleteUserEmail,
   editUser,
 };
