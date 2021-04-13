@@ -56,18 +56,19 @@ const Calendar = () => {
 
   useEffect(() => {
     dispatch(changeLoadStatus(true));
-    fetch(`${process.env.REACT_APP_ADDRESS_TO_FETCH}/api/v1/managers/token`, {
-      credentials: "include",
-    })
-      .then((response) => response.json())
-      .then((token) =>
+    // fetch(`${process.env.REACT_APP_ADDRESS_TO_FETCH}/api/v1/managers/token`, {
+    //   credentials: "include",
+    // })
+    //   .then((response) => response.json())
+    //   .then((token) =>
         fetch(`https://www.googleapis.com/calendar/v3/calendars/uudmopujkodqksbu55au8opt3k@group.calendar.google.com/events`, {
           headers: {
-            Authorization: 'Bearer ' + token,
+            Authorization: 'Bearer ' + user.accessToken,
           },
         })
           .then((data) => data.json()).then((data) => {
             const newEvents = data.items.map(event => ({
+              id: event.id,
               startDate: event.start.dateTime,
               endDate: event.end.dateTime,
               title: event.summary,
@@ -79,7 +80,7 @@ const Calendar = () => {
             })
             dispatch(changeLoadStatus(false));
           })
-      )
+      // )
   }, []);
 
   const commitChanges = ({ added, changed, deleted }) => {
