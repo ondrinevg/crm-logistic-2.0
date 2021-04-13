@@ -22,6 +22,7 @@ const getManagers = async (req, res) => {
       lastName: user.lastName,
       middleName: user.middleName,
       photo: user.photo,
+      phone: user.phone,
     }));
 
     res.json(users);
@@ -36,7 +37,7 @@ const getUser = async (req, res) => {
   } catch (err) {
     res.status(500).json(err.message);
   }
-}
+};
 
 const userRegister = async (req, res) => {
   try {
@@ -114,6 +115,7 @@ const editUser = async (req, res) => {
         lastName: user.lastName,
         middleName: user.middleName,
         photo: user.photo,
+        phone: user.phone,
       });
     }
     if (Object.keys(req.body).every((key) => req.body[key].trim())) {
@@ -126,6 +128,7 @@ const editUser = async (req, res) => {
         lastName: editedUser.lastName,
         middleName: editedUser.middleName,
         photo: editedUser.photo,
+        phone: editedUser.phone,
       });
     }
   } catch (err) {
