@@ -33,9 +33,10 @@ const ManagerList = () => {
         <Table>
           <TableHead>
             <TableRow>
-              <TableCell align='center'>ФИО</TableCell>
-              <TableCell>Статус</TableCell>
-              <TableCell>Email</TableCell>
+              <TableCell align='center'>Пользователь</TableCell>
+              <TableCell align='center'>Статус</TableCell>
+              <TableCell align='center'>Email</TableCell>
+              <TableCell></TableCell>
               <TableCell></TableCell>
             </TableRow>
           </TableHead>
