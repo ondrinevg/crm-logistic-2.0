@@ -16,7 +16,10 @@ const Manager = ({ manager }) => {
   const history = useHistory();
 
   const deleteMailHandler = () => {
+    const result = window.confirm('Заблокировать пользователя?');
+    if (result) {
     dispatch(deleteMailSaga(manager._id))
+    }
   }
 
   const editUserHandler = () => {
@@ -25,11 +28,11 @@ const Manager = ({ manager }) => {
 
   return (
     <TableRow className="table-success">
-      <TableCell><Avatar alt={`${manager.lastName} ${manager.name} ${manager.middleName}`} src={manager.photo} /></TableCell>
-      <TableCell>{manager.role}</TableCell>
-      <TableCell>{manager.email}</TableCell>
+      <TableCell align='center'><Avatar src={manager.photo} /></TableCell>
+      <TableCell align='center'>{manager.role}</TableCell>
+      <TableCell >{manager.email}</TableCell>
       <TableCell align='center'><IconButton aria-label="delete" onClick={editUserHandler}><EditIcon /></IconButton></TableCell>
-      <TableCell align='center'><IconButton color={manager.email ? "secondary" : "primary"} aria-label="delete" onClick={deleteMailHandler}><HttpsIcon /></IconButton></TableCell>
+      <TableCell align='center'><IconButton color={manager.email ? "primary" : "secondary"} aria-label="delete" onClick={deleteMailHandler}><HttpsIcon /></IconButton></TableCell>
     </TableRow>
   );
 }
