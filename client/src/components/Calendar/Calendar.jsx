@@ -41,6 +41,30 @@ const appointmentComponent = (props) => {
   } return <Appointments.Appointment {...props} style={{ ...props.style, cursor: 'not-allowed' }} />;
 };
 
+const eventStartTime = new Date('2021-04-15T14:00:00-00:00')
+// eventStartTime.setDate(eventStartTime.getDate())
+
+// Create a new event end date instance for temp uses in our calendar.
+const eventEndTime = new Date('2021-04-15T17:00:00-00:00')
+// eventEndTime.setDate(eventEndTime.getDate())
+// eventEndTime.setMinutes(eventEndTime.getMinutes() + 45)
+
+// Create a dummy event for temp uses in our calendar
+const event = {
+  summary: `Встреча с Семеном`,
+  location: `Москва, кампус Эльбрус`,
+  description: `Как отобразить красивый календарь на Сайте`,
+  colorId: 1,
+  start: {
+    dateTime: eventStartTime,
+    timeZone: 'Europe/Moscow',
+  },
+  end: {
+    dateTime: eventEndTime,
+    timeZone: 'Europe/Moscow',
+  },
+}
+
 const Calendar = () => {
   const [state, setState] = useState({
     data: [],
@@ -53,6 +77,8 @@ const Calendar = () => {
 
   const { data, currentDate } = state;
   console.log({ state });
+
+ 
 
   useEffect(() => {
     dispatch(changeLoadStatus(true));
@@ -81,6 +107,16 @@ const Calendar = () => {
             dispatch(changeLoadStatus(false));
           })
       // )
+      
+      // fetch(`${process.env.REACT_APP_ADDRESS_TO_FETCH}/api/v1/managers/token`, {
+      //     credentials: "include",
+      //     method: 'POST',
+      //     headers: {
+      //       "Content-Type": "application/json",
+      //     },
+      //     body: JSON.stringify(event),
+      //   })
+      
   }, []);
 
   const commitChanges = ({ added, changed, deleted }) => {
@@ -116,7 +152,7 @@ const Calendar = () => {
           <EditingState onCommitChanges={commitChanges} />
           <EditRecurrenceMenu />
           <IntegratedEditing />
-          <WeekView startDayHour={9} endDayHour={19} />
+          <WeekView startDayHour={9} endDayHour={22} />
           <MonthView />
           <DayView />
           <ConfirmationDialog />

@@ -9,6 +9,7 @@ const cors = require('cors');
 const { connect } = require('mongoose');
 const passport = require('passport');
 const googleConfig = require('./config');
+const fetch = require('node-fetch');
 
 const User = require('./db/models/user');
 
@@ -71,9 +72,16 @@ app.use('/api/v1/orders', ordersRouter);
 app.use('/api/v1/managers/token', async (req, res) => {
   const userId = req?.user?._id;
   if (userId) {
-    const currentUser = await User.findById(userId);
-    const token = currentUser.accessToken;
-    return res.json(token);
+    console.log(req.body);
+    fetch(`https://www.googleapis.com/calendar/v3/calendars/${process.env.GOOGLE_CALENDARE_ID}/events?key=${process.env.API_KEY}`, {
+        headers: {
+          Authorization: `Bearer ${req.user.accessToken}`,
+          Accept: "application/json",
+          "Content-Type" : "application/json",
+        },
+        method: 'POST',
+        body: JSON.stringify(req.body)
+      }).then((data) => console.log(data)).then(() => res.sendStatus(200));
   }
 });
 
