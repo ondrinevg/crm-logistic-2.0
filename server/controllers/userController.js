@@ -116,7 +116,7 @@ const editUser = async (req, res) => {
     console.log('======', req.body);
     const { id } = req.params;
     if (req.body.deletemail) {
-      const user = await User.findByIdAndUpdate(id, { email: '' });
+      const user = await User.findByIdAndUpdate(id, { email: '' }, {new: true});
       await user.save();
       return res.json({
         role: user.role,

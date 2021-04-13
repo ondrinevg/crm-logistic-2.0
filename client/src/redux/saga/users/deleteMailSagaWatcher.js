@@ -6,7 +6,7 @@ import { DELETE_MAIL_SAGA } from '../../types/userType';
 const getEditUserFromServer = (id) => {
   return fetch(`${process.env.REACT_APP_ADDRESS_TO_FETCH}/api/v1/users/${id}`, {
     credentials: 'include',
-    method: 'PATCH',
+    method: 'DELETE',
     headers: {
       'Content-Type': 'application/json',
     },
