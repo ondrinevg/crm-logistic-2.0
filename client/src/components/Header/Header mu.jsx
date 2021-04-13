@@ -9,9 +9,11 @@ export default function HeaderMU() {
   return (
     <AppBar position="sticky">
       <Toolbar>
-        <Button color="inherit" component={RouterLink} to="/admin">
-          Панель администратора
+        {user?.role === 'Admin' ?
+          <Button color="inherit" component={RouterLink} to="/admin">
+            Панель администратора
         </Button>
+          : null}
         <Button color="inherit" component={RouterLink} to="/">Главная страница
         </Button>
         <Button color="inherit" component={RouterLink} to="/clients">Клиенты

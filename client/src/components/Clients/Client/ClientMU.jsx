@@ -22,10 +22,23 @@ import {
   TextField,
   Typography
 } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
+
+const useStyles = makeStyles((theme) => ({
+  inWork: {
+    backgroundColor: 'rgba(102, 187, 106, .6)',
+  },
+  finished: {
+    backgroundColor: '#9e9e9e',
+  },
+  claim: {
+    backgroundColor: 'rgba(255, 138, 101, .6)',
+  },
+}));
 
 export default function ClientMU() {
-  const client = useSelector(state => state.client);
-  const loading = useSelector(state => state.loading);
+  const classes = useStyles();
+  const { client, loading, user } = useSelector(state => state);
   const { id } = useParams();
   const [comment, setComment] = useState('');
 
@@ -70,7 +83,7 @@ export default function ClientMU() {
           <Typography variant='h6'>Информация о клиенте</Typography>
           <ButtonGroup>
             <Button color="inherit" component={RouterLink} to={`/clients/${client._id}/edit`}>Редактировать</Button>
-            <Button color="inherit" onClick={deleteHandler}>Удалить клиента</Button>
+            {user?.role === 'Admin' ? <Button color="inherit" onClick={deleteHandler}>Удалить клиента</Button> : null}
           </ButtonGroup>
           <Box>
             ФИО: {client.lastName} {client.name} {client.middleName}
@@ -104,7 +117,8 @@ export default function ClientMU() {
             <TableBody>
               {client?.orders?.length
                 ? client.orders.map(order => (
-                  <TableRow key={order._id} className="table-success">
+                  <TableRow key={order._id} className={ order.status === 'в работе' ? classes.inWork : 
+                  order.status === 'завершен' ? classes.finished : classes.claim }>
                     <TableCell align='center'><Button component={RouterLink} to={`/orders/${order._id}`}>{order.number}</Button></TableCell>
                     <TableCell>{order.contractNumber}</TableCell>
                     <TableCell>{order.title}</TableCell>
