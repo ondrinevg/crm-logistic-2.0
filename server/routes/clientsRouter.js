@@ -12,15 +12,14 @@ clientsRouter.route('/')
 clientsRouter.route('/new')
   .post(checkAuth, postAddClient);
 
-  
-  clientsRouter.route('/all/')
+clientsRouter.route('/all/')
   .post(checkAuth, findAll)
   .get(checkAuth, findClients);
-  
-  clientsRouter.route('/:id')
-    .get(checkAuth, renderClient)
-    .patch(checkAuth, postEditClient)
-    .delete(checkAuth, deliteClient);
+
+clientsRouter.route('/:id')
+  .get(checkAuth, renderClient)
+  .patch(checkAuth, postEditClient)
+  .delete(checkAuth, deliteClient);
 
 clientsRouter.route('/:id/comments')
   .post(checkAuth, addComment);
