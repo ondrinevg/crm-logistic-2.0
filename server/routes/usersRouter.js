@@ -6,6 +6,7 @@ const {
   userLoginRender,
   getManagers,
   getUser,
+  deleteUserEmail,
   editUser,
 } = require('../controllers/userController');
 const { checkAdmin } = require('../middlewares/checkAdmin');
@@ -26,6 +27,7 @@ userRouter.route('/logout')
   .get(checkAuth, userLogout);
 
 userRouter.route('/:id')
+  .patch(checkAuth, checkAdmin, deleteUserEmail)
   .patch(checkAuth, checkAdmin, editUser);
 
 module.exports = userRouter;

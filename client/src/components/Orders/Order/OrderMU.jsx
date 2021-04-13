@@ -15,8 +15,11 @@ import {
   Paper,
   Select,
   TextField,
-  Typography
+  Typography,
+  IconButton,
 } from '@material-ui/core';
+import Storage from '../../Storage/Storage'
+import AttachFileIcon from '@material-ui/icons/AttachFile';
 import { MuiPickersUtilsProvider } from "@material-ui/pickers";
 import MomentUtils from '@date-io/moment';
 import AddEvent from './AddEvent/AddEvent';
@@ -52,6 +55,7 @@ export default function OrderMU() {
       setComment('');
     }
   };
+
 
   const statusHandler = (e) => {
     setStatus(e.target.value);
@@ -141,7 +145,20 @@ export default function OrderMU() {
             <Grid item xs={12}>
              <AddEvent order={order.number}/>
             </Grid>
-
+            
+            <Storage id={order._id}/>
+          <div>
+              {order?.url?.length
+                ? order.url.map((el, index) => (
+                  <IconButton key={index} color="inherit" href={el.url}>
+                  <AttachFileIcon />
+                  {el.fileName}
+                  </IconButton>
+                 
+                ))
+                : null
+              }
+            </div>
 
           </Grid>
           <Grid item container xs={6} direction='column' style={{ minHeight: '800px' }}>

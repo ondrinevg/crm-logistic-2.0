@@ -3,6 +3,7 @@ const Order = require('../db/models/order');
 const User = require('../db/models/user');
 const Client = require('../db/models/client');
 const Comment = require('../db/models/comment');
+const { userLoginRender } = require('./userController');
 // const { response } = require('express');
 
 const renderAllOrders = async (req, res) => {
@@ -35,7 +36,6 @@ const addNewOrder = async (req, res) => {
       }
       const newOrder = await Order.create({ ...obj, deliveryAddress });
       await Client.findByIdAndUpdate(client, { $push: { orders: newOrder._id } });
-      // await User.findByIdAndUpdate(res.locals.id, { $push: { orders: newOrder._id } });
       const order = await Order.findById(newOrder._id).populate('client');
       res.json(order);
     }
@@ -83,11 +83,19 @@ const findAll = async (req, res) => {
 
 const editOrder = async (req, res) => {
   try {
-    if (req.body.status) {
-      await Order.findByIdAndUpdate(req.params.id, { ...req.body });
+    const { id } = req.params
+    const { status, url, fileName } = req.body
+    if (status) {
+      await Order.findByIdAndUpdate(id, { ...req.body });
       const editorder = await Order.findById(req.params.id).populate('client').populate({ path: 'comments', populate: { path: 'manager' } });
       return res.json(editorder);
     }
+    if (url) {
+      const order = await Order.findByIdAndUpdate(id, { $push: { url: {url, fileName} } }, { new: true }).populate('client').populate({ path: 'comments', populate: { path: 'manager' } });
+      return res.json(order);
+    }
+
+
     delete req.body.client;
     if (Object.keys(req.body).every(key => req.body[key].trim())) {
       const { city, street, building, room } = req.body;
@@ -99,7 +107,7 @@ const editOrder = async (req, res) => {
       }
 
       await Order.findByIdAndUpdate(req.params.id, { ...obj, deliveryAddress });
-      const editorder = await Order.findById(req.params.id).populate('client').populate({ path: 'comments', populate: { path: 'manager' } });
+      const editorder = await Order.findById(id).populate('client').populate({ path: 'comments', populate: { path: 'manager' } });
       return res.json(editorder);
     }
   } catch (err) {
@@ -118,18 +126,6 @@ const deliteOrder = async (req, res) => {
     res.status(500).json(err.message);
   }
 };
-
-// const changeStatus = async (req, res) => {
-//   try {
-//     const order = await Order.findById(req.params.id);
-//     order.status = req.body.status;
-//     await order.save();
-//     res.sendStatus(200);
-//   } catch (err) {
-//     res.status(500).json(err.message);
-//   }
-
-// };
 
 module.exports = {
   renderAllOrders,

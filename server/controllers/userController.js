@@ -100,6 +100,17 @@ const userLogout = async (req, res) => {
   }
 };
 
+const deleteUserEmail = async (req, res) => {
+  try {
+    const user = await User.findById(req.params.id);
+    delete user.email;
+    await user.save();
+    res.json(user);
+  } catch (err) {
+    res.status(500).json(err.message);
+  }
+};
+
 const editUser = async (req, res) => {
   try {
     console.log('======', req.body);
@@ -143,5 +154,6 @@ module.exports = {
   userLogout,
   getManagers,
   getUser,
+  deleteUserEmail,
   editUser,
 };

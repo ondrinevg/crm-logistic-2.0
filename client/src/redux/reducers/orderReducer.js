@@ -1,5 +1,6 @@
 import {
   ADD_COMMENT_ORDER,
+  ADD_IMAGE_ORDER,
   ADD_ORDER,
   CLEARE_ORDER_STATE,
   DELETE_ORDER,
@@ -21,11 +22,14 @@ const orderReducer = (state = {}, action) => {
     case ADD_COMMENT_ORDER:
       return action.payload;
 
+    case ADD_IMAGE_ORDER:
+      return action.payload;
+
     case DELETE_ORDER:
       return {};
 
     case CLEARE_ORDER_STATE:
-      return {};  
+      return {};
 
     default:
       return state;
