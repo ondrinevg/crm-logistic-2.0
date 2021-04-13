@@ -109,6 +109,9 @@ const editOrder = async (req, res) => {
 
 const deliteOrder = async (req, res) => {
   try {
+    const { id } = req.params;
+    const order = Order.findById(id);
+    await Client.findOneAndUpdate(order.client, { $pull: { orders: id } });
     await Order.findByIdAndDelete(req.params.id);
     res.sendStatus(200);
   } catch (err) {
