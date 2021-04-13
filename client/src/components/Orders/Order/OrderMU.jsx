@@ -14,8 +14,11 @@ import {
   Paper,
   Select,
   TextField,
-  Typography
+  Typography,
+  IconButton,
 } from '@material-ui/core';
+import Storage from '../../Storage/Storage'
+import AttachFileIcon from '@material-ui/icons/AttachFile';
 
 export default function OrderMU() {
   const { id } = useParams();
@@ -46,6 +49,7 @@ export default function OrderMU() {
       setComment('');
     }
   };
+
 
   const statusHandler = (e) => {
     setStatus(e.target.value);
@@ -133,18 +137,32 @@ export default function OrderMU() {
             Стоимость сборки: {order.assemblyPrice} руб.
           </Box>
 
+          <Storage id={order._id}/>
+          <div>
+              {order?.url?.length
+                ? order.url.map((el, index) => (
+                  <IconButton key={index} color="inherit" href={el.url}>
+                  <AttachFileIcon />
+                  {el.fileName}
+                  </IconButton>
+                 
+                ))
+                : null
+              }
+            </div>
+
         </Grid>
         <Grid item container xs={6} direction='column' justify='space-between' style={{ minHeight: '700px' }}>
           <Paper style={{ minHeight: '600px', overflowY: 'scroll' }}>
             <Typography variant='h6'>Комментарии по заказу</Typography>
-            <ul>
+            <Box>
               {order?.comments?.length
                 ? order.comments.map(comment => (
                   <li key={comment._id}>user {new Date(comment.createdAt).toLocaleString()}: {comment.text}</li>
                 ))
                 : null
               }
-            </ul>
+            </Box>
           </Paper>
           <form onSubmit={commentHandlerSubmit} name="addCommentClient">
             <FormControl fullWidth={true}>

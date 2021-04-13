@@ -9,4 +9,4 @@ export const showUsers = (users) => {
 
 export const showUsersSaga = () => ({ type: SHOW_ALL_USERS_SAGA });
 
-export const deleteMailSaga = (id) => 
+// export const deleteMailSaga = (id) => 

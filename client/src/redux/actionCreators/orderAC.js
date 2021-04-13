@@ -1,6 +1,8 @@
 import {
   ADD_COMMENT_ORDER,
   ADD_COMMENT_ORDER_SAGA,
+  ADD_IMAGE_ORDER,
+  ADD_IMAGE_ORDER_SAGA,
   ADD_ORDER,
   ADD_ORDER_SAGA,
   CLEARE_ORDER_STATE,
@@ -11,7 +13,8 @@ import {
   FIND_CLIENTS_FOR_NEW_ORDER,
   FIND_CLIENTS_FOR_NEW_ORDER_SAGA,
   SHOW_ORDER,
-  SHOW_ORDER_SAGA } from '../types/orderTypes'
+  SHOW_ORDER_SAGA
+} from '../types/orderTypes'
 
 export const showOrder = (order) => {
   return {
@@ -38,7 +41,7 @@ export const addOrderSaga = (order) => {
   return {
     type: ADD_ORDER_SAGA,
     payload: order,
-    
+
   };
 };
 
@@ -110,3 +113,21 @@ export const findClientsForOrder = (clients) => {
     payload: clients,
   }
 }
+
+export const addImageToOrder = (order) => {
+  return {
+    type: ADD_IMAGE_ORDER,
+    payload: order,
+  };
+};
+
+export const addImageToOrderSaga = (url, fileName, id) => {
+  return {
+    type: ADD_IMAGE_ORDER_SAGA,
+    payload: {
+      fileName,
+      url,
+      id,
+    }
+  };
+};

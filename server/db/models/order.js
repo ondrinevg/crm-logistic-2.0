@@ -48,13 +48,17 @@ const orderSchema = new Schema({
     type: Number,
     required: true,
   },
+  url: [{
+    url: String,
+    fileName: String,
+  }],
   comments: [{
     type: Schema.Types.ObjectId,
     ref: 'Comment',
   }],
   createdAt: Date,
 },
-{ timestamps: true }
+  { timestamps: true }
 );
 
 module.exports = model('Order', orderSchema);
