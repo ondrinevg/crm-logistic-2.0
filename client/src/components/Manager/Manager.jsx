@@ -18,7 +18,7 @@ const Manager = ({ manager }) => {
   const deleteMailHandler = () => {
     const result = window.confirm('Заблокировать пользователя?');
     if (result) {
-    dispatch(deleteMailSaga(manager._id))
+      dispatch(deleteMailSaga(manager._id))
     }
   }
 
@@ -31,8 +31,15 @@ const Manager = ({ manager }) => {
       <TableCell align='center'><Avatar src={manager.photo} /></TableCell>
       <TableCell align='center'>{manager.role}</TableCell>
       <TableCell >{manager.email}</TableCell>
-      <TableCell align='center'><IconButton aria-label="delete" onClick={editUserHandler}><EditIcon /></IconButton></TableCell>
-      <TableCell align='center'><IconButton color={manager.email ? "primary" : "secondary"} aria-label="delete" onClick={deleteMailHandler}><HttpsIcon /></IconButton></TableCell>
+      <TableCell align='center'><IconButton aria-label="edit" onClick={editUserHandler}><EditIcon /></IconButton></TableCell>
+      <TableCell align='center'>
+        <IconButton
+          color="primary"
+          aria-label="delete"
+          disabled={!manager.email}
+          onClick={deleteMailHandler}><HttpsIcon />
+        </IconButton>
+      </TableCell>
     </TableRow>
   );
 }

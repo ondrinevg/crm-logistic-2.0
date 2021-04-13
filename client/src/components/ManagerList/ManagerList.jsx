@@ -8,9 +8,11 @@ import {
   TableHead,
   TableRow,
   Grid,
+  IconButton,
   Typography,
   CircularProgress
 } from '@material-ui/core';
+import FaceIcon from '@material-ui/icons/Face';
 import Manager from '../Manager/Manager';
 
 
@@ -27,29 +29,33 @@ const ManagerList = () => {
   return (
     <>
       {!loading ?
-      <>
-      <Grid item xs={4} container justify='center'>
-      <Typography variant="h4" align='center'>Список пользователей</Typography>
-        <Table>
-          <TableHead>
-            <TableRow>
-              <TableCell align='center'>Пользователь</TableCell>
-              <TableCell align='center'>Статус</TableCell>
-              <TableCell align='center'>Email</TableCell>
-              <TableCell></TableCell>
-              <TableCell></TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {users?.length
-              ? users.map(user => (<Manager key={user._id} manager={user} />))
-              : null
-            }
-          </TableBody>
-        </Table>
-      </Grid>
-      <Grid item xs={1}></Grid>
-      </>
+        <>
+          <Grid item xs={4} container justify='center'>
+            <Typography variant="h4" align='center'>Список пользователей</Typography>
+            <Table>
+              <TableHead>
+                <TableRow>
+                  <TableCell align='center'>
+                    <IconButton>
+                      <FaceIcon />
+                    </IconButton>
+                  </TableCell>
+                  <TableCell align='center'>Статус</TableCell>
+                  <TableCell align='center'>Email</TableCell>
+                  <TableCell></TableCell>
+                  <TableCell></TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {users?.length
+                  ? users.map(user => (<Manager key={user._id} manager={user} />))
+                  : null
+                }
+              </TableBody>
+            </Table>
+          </Grid>
+          <Grid item xs={1}></Grid>
+        </>
         : <CircularProgress />}
     </>
   );
