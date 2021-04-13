@@ -142,6 +142,7 @@ export default function AddOrderMU() {
                   variant="inline"
                   format="YYYY-MM-DD"
                   margin="normal"
+                  minDate={new Date()}
                   value={selectedDateDelivery}
                   onChange={date => setSelectedDateDelivery(date)}
                   label="Дата доставки"
@@ -157,6 +158,7 @@ export default function AddOrderMU() {
                   margin="normal"
                   name="assemblyDate"
                   required
+                  minDate={new Date()}
                   value={selectedDateAssembly}
                   onChange={date => setSelectedDateAssembly(date)}
                   label="Дата сборки"
