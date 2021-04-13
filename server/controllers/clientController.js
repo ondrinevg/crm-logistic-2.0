@@ -1,5 +1,6 @@
 const Client = require('../db/models/client');
 const Comment = require('../db/models/comment');
+const User = require('../db/models/user')
 
 const postAddClient = async (req, res) => {
   try {
@@ -15,8 +16,9 @@ const postAddClient = async (req, res) => {
         delete obj[key];
       }
 
-      const newClient = await Client.create({ ...obj, registrationAddress, homeAddress });
+      const newClient = await Client.create({ ...obj, registrationAddress, homeAddress, manager: req.user._id });
       await User.findByIdAndUpdate(req.user._id, { $push: { clients: newClient._id } });
+      console.log(newClient);
       return res.json(newClient);
     }
   } catch (err) {
