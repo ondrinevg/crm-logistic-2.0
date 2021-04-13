@@ -22,9 +22,6 @@ import {
   DragDropProvider,
   EditRecurrenceMenu,
 } from "@devexpress/dx-react-scheduler-material-ui";
-import { makeStyles } from '@material-ui/core/styles';
-import { fade } from '@material-ui/core/styles/colorManipulator';
-
 import { ViewSwitcher } from '@devexpress/dx-react-scheduler-material-ui';
 import { Container } from "@material-ui/core";
 import { changeLoadStatus } from "../../redux/actionCreators/loadAC";
@@ -39,36 +36,13 @@ const appointmentComponent = (props) => {
   } return <Appointments.Appointment {...props} style={{ ...props.style, cursor: 'not-allowed' }} />;
 };
 
-const useStyles = makeStyles(theme => ({
-  delivery: {
-    backgroundColor: fade(theme.palette.success.light, 0.1),
-    '&:hover': {
-      backgroundColor: fade(theme.palette.success.light, 0.14),
-    },
-    '&:focus': {
-      backgroundColor: fade(theme.palette.success.light, 0.16),
-    },
-  },
-  assembly: {
-    backgroundColor: fade(theme.palette.primary.dark, 0.1),
-    '&:hover': {
-      backgroundColor: fade(theme.palette.primary.dark, 0.14),
-    },
-    '&:focus': {
-      backgroundColor: fade(theme.palette.primary.dark, 0.16),
-    },
-  }, 
-}));
-
 const Calendar = () => {
-  const classes = useStyles();
   const [state, setState] = useState({
     data: [],
     currentDate: new Date(),
   });
 
   const user = useSelector(state => state.user);
-  const loading = useSelector(state => state.loading);
   const dispatch = useDispatch();
 
   const { data, currentDate } = state;
@@ -78,7 +52,7 @@ const Calendar = () => {
 
   useEffect(() => {
     dispatch(changeLoadStatus(true));
-    fetch(`https://www.googleapis.com/calendar/v3/calendars/uudmopujkodqksbu55au8opt3k@group.calendar.google.com/events`, {
+    fetch(`https://www.googleapis.com/calendar/v3/calendars/${process.env.REACT_APP_GOOGLE_CALENDAR_ID}@group.calendar.google.com/events`, {
       headers: {
         Authorization: 'Bearer ' + user.accessToken,
       },

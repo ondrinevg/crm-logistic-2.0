@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button, Card, CardActions, CardContent, CardMedia, Container, Link } from '@material-ui/core';
+import { Button, Card, CardActions, Container, Link } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
 import back from '../assets/logo.jpg'
@@ -11,8 +11,8 @@ const useStyles = makeStyles((theme) => ({
     backgroundRepeat: 'no-repeat',
     height: '700px',
     minWidth: '100%',
-    marginTop: '80px',
-    padding: theme.spacing(8),
+    marginTop: '40px',
+    padding: theme.spacing(4),
   },
   controls: {
     width: '100%',

@@ -5,12 +5,10 @@ import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
 import AddIcon from '@material-ui/icons/Add';
 import { IconButton, InputAdornment } from "@material-ui/core";
 import { DateTimePicker } from "@material-ui/pickers";
-import moment from 'moment';
 import { useDispatch, useSelector } from 'react-redux';
 import { changeLoadStatus } from '../../../../redux/actionCreators/loadAC';
 
 export default function AddEvent({ order }) {
-  // const formRef = useRef(null);
   const [selectedDate, handleDateChange] = useState(new Date());
   const [selectedEndDate, handleEndDateChange] = useState(new Date());
   const [selectedRole, handleRoleChange] = useState('');

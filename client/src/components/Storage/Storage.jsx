@@ -1,8 +1,7 @@
 import { Button, ButtonGroup, Input } from '@material-ui/core';
 import { useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { useParams } from 'react-router-dom';
-import { showOrderSaga, addImageToOrderSaga } from '../../redux/actionCreators/orderAC';
+import { useDispatch } from 'react-redux'
+import { addImageToOrderSaga } from '../../redux/actionCreators/orderAC';
 import firebase from './firebase'
 import SaveIcon from '@material-ui/icons/Save';
 

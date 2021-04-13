@@ -104,12 +104,12 @@ const editUser = async (req, res) => {
   try {
     const { id } = req.params;
     if (req.body.deletemail) {
-      const user = await User.findByIdAndUpdate(id, { email: '' }, { new: true });
+      const user = await User.findById(id);
+      delete user.email;
       await user.save();
       return res.json({
         role: user.role,
         _id: user._id,
-        email: user.email,
         name: user.name,
         lastName: user.lastName,
         middleName: user.middleName,
