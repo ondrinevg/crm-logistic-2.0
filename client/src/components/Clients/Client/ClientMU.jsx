@@ -34,6 +34,11 @@ const useStyles = makeStyles((theme) => ({
   claim: {
     backgroundColor: 'rgba(255, 138, 101, .6)',
   },
+  userCard: {
+    '& > div': {
+      marginTop: "20px"
+    }
+  }
 }));
 
 export default function ClientMU() {
@@ -79,8 +84,11 @@ export default function ClientMU() {
   return (
     <Container maxWidth='lg'>
       <Grid container>
-        <Grid item container xs={6} direction='column'>
+        <Grid item container xs={6} direction='column' className={classes.userCard}>
+        <div>
           <Typography variant='h6'>Информация о клиенте</Typography>
+
+        </div>
           <ButtonGroup>
             <Button color="inherit" component={RouterLink} to={`/clients/${client._id}/edit`}>Редактировать</Button>
             {user?.role === 'Admin' ? <Button color="inherit" onClick={deleteHandler}>Удалить клиента</Button> : null}
@@ -132,8 +140,11 @@ export default function ClientMU() {
           <Button onClick={addOrderHandler} color="primary">Добавить заказ</Button>
         </Grid>
         <Grid item container xs={6} direction='column' justify='space-between' style={{ minHeight: '700px' }}>
-          <Paper style={{ minHeight: '600px', overflowY: 'scroll' }}>
+          <Paper style={{ minHeight: '600px', overflowY: 'scroll' }} className={classes.userCard}>
+          <div>
             <Typography variant='h6'>Комментарии по клиенту</Typography>
+
+          </div>
             <ul>
               {client?.comments?.length
                 ? client.comments.map(comment => (
