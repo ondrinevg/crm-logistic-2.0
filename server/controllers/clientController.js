@@ -16,6 +16,7 @@ const postAddClient = async (req, res) => {
       }
 
       const newClient = await Client.create({ ...obj, registrationAddress, homeAddress });
+      await User.findByIdAndUpdate(req.user._id, { $push: { clients: newClient._id } });
       return res.json(newClient);
     }
   } catch (err) {
