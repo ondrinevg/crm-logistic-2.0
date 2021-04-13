@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router';
 import moment from 'moment';
@@ -12,7 +12,6 @@ import {
   Input,
   InputLabel,
   makeStyles,
-  TextField,
   Typography
 } from '@material-ui/core';
 import MomentUtils from '@date-io/moment';
@@ -108,7 +107,6 @@ export default function EditOrderMU() {
                 variant="inline"
                 format="YYYY-MM-DD"
                 margin="normal"
-                // defaultValue={deliveryDate}
                 value={selectedDateDelivery}
                 onChange={date => setSelectedDateDelivery(date)}
                 label="Дата доставки"
@@ -124,7 +122,6 @@ export default function EditOrderMU() {
                 margin="normal"
                 name="assemblyDate"
                 required
-                // defaultValue={assemblyDate}
                 value={selectedDateAssembly}
                 onChange={date => setSelectedDateAssembly(date)}
                 label="Дата сборки"
