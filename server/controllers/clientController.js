@@ -16,6 +16,7 @@ const postAddClient = async (req, res) => {
       }
 
       const newClient = await Client.create({ ...obj, registrationAddress, homeAddress });
+      await User.findByIdAndUpdate(req.user._id, { $push: { clients: newClient._id } });
       return res.json(newClient);
     }
   } catch (err) {
@@ -56,17 +57,11 @@ const addComment = async (req, res) => {
   try {
     const { id } = req.params;
     const { text } = req.body;
-    const newComment = new Comment({ /*manager: res.locals.id,*/ text });
+    const newComment = new Comment({ manager: req.user._id, text });
     await newComment.save();
     await Client.findByIdAndUpdate(id, { $push: { comments: newComment._id } });
-    const client = await Client.findById(id).populate({ path: 'comments', populate: { path: 'manager' } });
+    const client = await Client.findById(id).populate('orders').populate({ path: 'comments', populate: { path: 'manager' } });
     res.json(client);
-    // isAdmin: res.locals.admin,
-    // text: newComment.text,
-    // name: res.locals.name,
-    // lastname: res.locals.lastname,
-    // middlname: res.locals.middlname,
-    // });
   } catch (err) {
     res.status(500).json(err.message);
   }
@@ -110,12 +105,15 @@ const postEditClient = async (req, res) => {
 
 const deliteClient = async (req, res) => {
   try {
-    const clientsOrders = (await Client.findById(req.params.id)).orders;
-    for (id of clientsOrders) {
-      await Order.findByIdAndDelete(id);
+    const { id } = req.params;
+    const client = await Client.findById(id);
+    const clientsOrders = client.orders;
+    for (orderid of clientsOrders) {
+      await Order.findByIdAndDelete(orderid);
     }
 
-    await Client.findByIdAndDelete(req.params.id);
+    await User.findOneAndUpdate(client.manager, { $pull: { clients: id } });
+    await Client.findByIdAndDelete(id);
     res.sendStatus(200);
   } catch (err) {
     res.status(500).json(err.message);

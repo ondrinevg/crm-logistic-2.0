@@ -6,6 +6,7 @@ import { editOrderSaga } from '../../redux/actionCreators/orderAC';
 import {
   Box,
   Button,
+  CircularProgress,
   Container,
   FormControl,
   Input,
@@ -31,6 +32,7 @@ export default function EditOrderMU() {
   const classes = useStyles();
   const formRef = useRef(null);
   const order = useSelector(state => state.order);
+  const loading = useSelector(state => state.loading);
 
   const deliveryDate = moment(new Date(order.deliveryDate)).format('YYYY-MM-DD');
   const assemblyDate = moment(new Date(order.assemblyDate)).format('YYYY-MM-DD');
@@ -58,6 +60,7 @@ export default function EditOrderMU() {
 
   return (
     <>
+    {!loading ?
       <MuiPickersUtilsProvider utils={MomentUtils}>
         <Container>
           <Typography variant="h4">Редактирование заказа</Typography>
@@ -105,7 +108,7 @@ export default function EditOrderMU() {
                 variant="inline"
                 format="YYYY-MM-DD"
                 margin="normal"
-                defaultValue={deliveryDate}
+                // defaultValue={deliveryDate}
                 value={selectedDateDelivery}
                 onChange={date => setSelectedDateDelivery(date)}
                 label="Дата доставки"
@@ -121,7 +124,7 @@ export default function EditOrderMU() {
                 margin="normal"
                 name="assemblyDate"
                 required
-                defaultValue={assemblyDate}
+                // defaultValue={assemblyDate}
                 value={selectedDateAssembly}
                 onChange={date => setSelectedDateAssembly(date)}
                 label="Дата сборки"
@@ -157,6 +160,7 @@ export default function EditOrderMU() {
           </form>
         </Container>
       </MuiPickersUtilsProvider>
+    : <CircularProgress />}
     </>
   )
 }

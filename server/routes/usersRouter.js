@@ -7,6 +7,7 @@ const {
   getManagers,
   getUser,
   deleteUserEmail,
+  editUser,
 } = require('../controllers/userController');
 const { checkAdmin } = require('../middlewares/checkAdmin');
 const { checkAuth } = require('../middlewares/checkAuth');
@@ -16,7 +17,7 @@ userRouter.route('/')
 
 userRouter.route('/adminPanel')
   .get(checkAuth, checkAdmin, getManagers)
-  .post(userRegister);
+  .post(checkAuth, checkAdmin, userRegister);
 
 userRouter.route('/login')
   .get(userLoginRender)
@@ -26,7 +27,7 @@ userRouter.route('/logout')
   .get(checkAuth, userLogout);
 
 userRouter.route('/:id')
-  .patch(checkAuth, checkAdmin, deleteUserEmail);
-
+  .patch(checkAuth, checkAdmin, deleteUserEmail)
+  .patch(checkAuth, checkAdmin, editUser);
 
 module.exports = userRouter;

@@ -7,7 +7,7 @@ export default function PrivateRouterManager({ component: Component, ...rest }) 
 
   return (
     <Route {...rest}>
-      {  ( currentUser?.role === 'Manager'|| currentUser?.role ==='Admin') ? <Component /> : <Redirect to='/orders' />}
+      {  ( currentUser?.role === 'Manager'|| currentUser?.role ==='Admin') ? <Component /> : <Redirect to='/login' />}
     </Route>
   )
 }

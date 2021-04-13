@@ -2,7 +2,6 @@ const bcrypt = require('bcrypt');
 const User = require('../db/models/user');
 const app = require('../app');
 
-
 const userLoginRender = async (req, res) => {
   try {
     const { id } = res.locals;
@@ -15,16 +14,17 @@ const userLoginRender = async (req, res) => {
 
 const getManagers = async (req, res) => {
   try {
-    const users = (await User.find()).map(user => ({
+    const users = (await User.find()).map((user) => ({
       role: user.role,
       email: user.email,
       _id: user._id,
       name: user.name,
       lastName: user.lastName,
       middleName: user.middleName,
+      photo: user.photo,
+      phone: user.phone,
     }));
 
-    // const users = await User.find();
     res.json(users);
   } catch (err) {
     res.status(500).json(err.message);
@@ -37,11 +37,10 @@ const getUser = async (req, res) => {
   } catch (err) {
     res.status(500).json(err.message);
   }
-}
+};
 
 const userRegister = async (req, res) => {
   try {
-    console.log(req.body);
     const {
       name,
       lastName,
@@ -60,7 +59,7 @@ const userRegister = async (req, res) => {
         role,
       });
 
-      return res.sendStatus(200);
+      return res.json(newUser);
     }
     return res.sendStatus(418);
   } catch (err) {
@@ -112,6 +111,42 @@ const deleteUserEmail = async (req, res) => {
   }
 };
 
+const editUser = async (req, res) => {
+  try {
+    console.log('======', req.body);
+    const { id } = req.params;
+    if (req.body.deletemail) {
+      const user = await User.findByIdAndUpdate(id, { email: '' });
+      await user.save();
+      return res.json({
+        role: user.role,
+        _id: user._id,
+        email: user.email,
+        name: user.name,
+        lastName: user.lastName,
+        middleName: user.middleName,
+        photo: user.photo,
+        phone: user.phone,
+      });
+    }
+    if (Object.keys(req.body).every((key) => req.body[key].trim())) {
+      const editedUser = await User.findByIdAndUpdate(id, { ...req.body }, { new: true });
+      return res.json({
+        role: editedUser.role,
+        _id: editedUser._id,
+        email: editedUser.email,
+        name: editedUser.name,
+        lastName: editedUser.lastName,
+        middleName: editedUser.middleName,
+        photo: editedUser.photo,
+        phone: editedUser.phone,
+      });
+    }
+  } catch (err) {
+    res.status(500).json(err.message);
+  }
+};
+
 module.exports = {
   userLoginRender,
   userRegister,
@@ -120,4 +155,5 @@ module.exports = {
   getManagers,
   getUser,
   deleteUserEmail,
+  editUser,
 };

@@ -36,7 +36,6 @@ const addNewOrder = async (req, res) => {
       }
       const newOrder = await Order.create({ ...obj, deliveryAddress });
       await Client.findByIdAndUpdate(client, { $push: { orders: newOrder._id } });
-      // await User.findByIdAndUpdate(res.locals.id, { $push: { orders: newOrder._id } });
       const order = await Order.findById(newOrder._id).populate('client');
       res.json(order);
     }
@@ -49,17 +48,11 @@ const addComment = async (req, res) => {
   try {
     const { id } = req.params;
     const { text } = req.body;
-    const newComment = new Comment({ /*manager: res.locals.id,*/ text });
+    const newComment = new Comment({ manager: req.user._id, text });
     await newComment.save();
     await Order.findByIdAndUpdate(id, { $push: { comments: newComment._id } });
-    const order = await Order.findById(id).populate({ path: 'comments', populate: { path: 'manager' } });
+    const order = await Order.findById(id).populate('client').populate({ path: 'comments', populate: { path: 'manager' } });
     res.json(order);
-    //   isAdmin: res.locals.admin,
-    //   text: newComment.text,
-    //   name: res.locals.name,
-    //   lastname: res.locals.lastname,
-    //   middlname: res.locals.middlname,
-    // });
   } catch (err) {
     res.status(500).json(err.message);
   }
@@ -124,24 +117,15 @@ const editOrder = async (req, res) => {
 
 const deliteOrder = async (req, res) => {
   try {
+    const { id } = req.params;
+    const order = Order.findById(id);
+    await Client.findOneAndUpdate(order.client, { $pull: { orders: id } });
     await Order.findByIdAndDelete(req.params.id);
     res.sendStatus(200);
   } catch (err) {
     res.status(500).json(err.message);
   }
 };
-
-// const changeStatus = async (req, res) => {
-//   try {
-//     const order = await Order.findById(req.params.id);
-//     order.status = req.body.status;
-//     await order.save();
-//     res.sendStatus(200);
-//   } catch (err) {
-//     res.status(500).json(err.message);
-//   }
-
-// };
 
 module.exports = {
   renderAllOrders,

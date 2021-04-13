@@ -8,13 +8,15 @@ import {
   TableHead,
   TableRow,
   Grid,
-  Typography
+  Typography,
+  CircularProgress
 } from '@material-ui/core';
 import Manager from '../Manager/Manager';
 
 
 const ManagerList = () => {
   const users = useSelector(state => state.users);
+  const loading = useSelector(state => state.loading);
 
   const dispatch = useDispatch();
 
@@ -24,8 +26,10 @@ const ManagerList = () => {
 
   return (
     <>
+      {!loading ?
+      <>
       <Grid item xs={4} container justify='center'>
-      <Typography variant="h6" align='center'>Список пользователей</Typography>
+      <Typography variant="h4" align='center'>Список пользователей</Typography>
         <Table>
           <TableHead>
             <TableRow>
@@ -44,10 +48,12 @@ const ManagerList = () => {
         </Table>
       </Grid>
       <Grid item xs={1}></Grid>
+      </>
+        : <CircularProgress />}
     </>
-
   );
 }
 
 export default ManagerList;
+
 

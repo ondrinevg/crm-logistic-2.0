@@ -17,6 +17,9 @@ import findClientsForOrderSagaWatcher from './order/findClientsForOrderSagaWatch
 import showUsersSagaWatcher from './users/showUsersSagaWatcher';
 import initUserSagaWatcher from './user/initUserSaga';
 import addImageToOrderSagaWatcher from './order/addImageToOrderSagaWatcher'
+import deleteMailSagaWatcher from './users/deleteMailSagaWatcher';
+import editUserSagaWatcher from './users/editUserSagaWatcher';
+import addUserSagaWatcher from './user/addUserSagaWatcher';
 
 export default function* rootSaga() {
   yield all([
@@ -38,5 +41,8 @@ export default function* rootSaga() {
     showUsersSagaWatcher(),
     initUserSagaWatcher(),
     addImageToOrderSagaWatcher(),
+    deleteMailSagaWatcher(),
+    editUserSagaWatcher(),
+    addUserSagaWatcher(),
   ])
 };

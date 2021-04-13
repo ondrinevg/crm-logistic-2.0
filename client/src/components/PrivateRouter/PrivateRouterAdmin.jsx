@@ -7,7 +7,7 @@ export default function PrivatRouterAdmin({ component: Component, ...rest }) {
 
   return (
     <Route {...rest}>
-      {   currentUser?.role === 'Admin' ? <Component /> : <Redirect to='/orders' />}
+      {   currentUser?.role === 'Admin' ? <Component /> : <Redirect to='/login' />}
     </Route>
   )
 }
