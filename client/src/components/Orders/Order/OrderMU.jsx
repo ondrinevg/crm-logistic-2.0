@@ -88,7 +88,7 @@ export default function OrderMU() {
                   <option aria-label="None" value="" />
                   <option value="в работе">в работе</option>
                   <option value="рекламация">рекламация</option>
-                  <option value="закончен">закончен</option>
+                  <option value="завершен">завершен</option>
                 </Select>
                 <Button type="submit">Изменить статус</Button>
               </FormControl>

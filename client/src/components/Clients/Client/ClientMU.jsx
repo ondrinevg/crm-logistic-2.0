@@ -117,8 +117,8 @@ export default function ClientMU() {
             <TableBody>
               {client?.orders?.length
                 ? client.orders.map(order => (
-                  <TableRow key={order._id} className={ order.status === 'в работе' ? classes.inWork : 
-                  order.status === 'завершен' ? classes.finished : classes.claim }>
+                  <TableRow key={order._id} className={ order.status === 'в работе' ? 
+                  classes.inWork : order.status === 'завершен' ? classes.finished : classes.claim }>
                     <TableCell align='center'><Button component={RouterLink} to={`/orders/${order._id}`}>{order.number}</Button></TableCell>
                     <TableCell>{order.contractNumber}</TableCell>
                     <TableCell>{order.title}</TableCell>
