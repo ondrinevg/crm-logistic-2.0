@@ -69,7 +69,7 @@ export default function ClientMU() {
   const addOrderHandler = () => {
     dispatch(cleareOrderState());
     dispatch(cleareClientsState());
-    history.push('/orders/new');
+    history.push('/order/new');
   };
 
   useEffect(() => {

@@ -17,24 +17,15 @@ import {
   TextField,
   Typography
 } from '@material-ui/core';
-import SnoozeIcon from "@material-ui/icons/Snooze";
-import AlarmIcon from "@material-ui/icons/AddAlarm";
-import { IconButton, InputAdornment } from "@material-ui/core";
-import { DateTimePicker, KeyboardDateTimePicker, MuiPickersUtilsProvider } from "@material-ui/pickers";
+import { MuiPickersUtilsProvider } from "@material-ui/pickers";
 import MomentUtils from '@date-io/moment';
-import moment from 'moment';
-
-moment.locale('ru');
+import AddEvent from './AddEvent/AddEvent';
 
 export default function OrderMU() {
   const { id } = useParams();
   const order = useSelector(state => state.order);
   const loading = useSelector(state => state.loading);
 
-  const [clearedDate, handleClearedDateChange] = useState(null);
-  const [selectedDate, handleDateChange] = useState(new Date());
-  const [selectedEndDate, handleEndDateChange] = useState(new Date());
-  console.log(selectedDate);
   const [comment, setComment] = useState('');
   const [status, setStatus] = useState(order?.status || 'в работе');
 
@@ -147,90 +138,13 @@ export default function OrderMU() {
               Стоимость сборки: {order.assemblyPrice} руб.
           </Box>
 
-            <Grid item container>
-              <Grid item xs={1}></Grid>
-              <Grid item xs={10}>
-                <form name="addEvent">
-                  <FormControl margin='normal' fullWidth={true}>
-                    <DateTimePicker
-                      autoOk
-                      hideTabs
-                      ampm={false}
-                      value={selectedDate}
-                      onChange={handleDateChange}
-                      allowKeyboardControl={false}
-                      minDate={new Date()}
-                      helperText="Дата начала нового события"
-                      leftArrowIcon={<AlarmIcon />}
-                      leftArrowButtonProps={{ "aria-label": "Prev month" }}
-                      rightArrowButtonProps={{ "aria-label": "Next month" }}
-                      rightArrowIcon={<SnoozeIcon />}
-                      InputProps={{
-                        endAdornment: (
-                          <InputAdornment position="end">
-                            <IconButton>
-                              <AlarmIcon />
-                            </IconButton>
-                          </InputAdornment>
-                        ),
-                      }}
-                    />
-                  </FormControl>
-                  <FormControl margin='normal' fullWidth={true}>
-                    <DateTimePicker
-                      autoOk
-                      hideTabs
-                      ampm={false}
-                      value={selectedEndDate}
-                      onChange={handleEndDateChange}
-                      allowKeyboardControl={false}
-                      minDate={new Date()}
-                      helperText="Дата окончания нового события"
-                      leftArrowIcon={<AlarmIcon />}
-                      leftArrowButtonProps={{ "aria-label": "Prev month" }}
-                      rightArrowButtonProps={{ "aria-label": "Next month" }}
-                      rightArrowIcon={<SnoozeIcon />}
-                      InputProps={{
-                        endAdornment: (
-                          <InputAdornment position="end">
-                            <IconButton>
-                              <AlarmIcon />
-                            </IconButton>
-                          </InputAdornment>
-                        ),
-                      }}
-                    />
-                  </FormControl>
-                  <FormControl margin='normal' fullWidth={true}>
-                    <InputLabel htmlFor="age-native-simple">Вид собыия</InputLabel>
-                    <Select
-                      native
-                    // onChange={} value={}
-                    >
-                      <option aria-label="None" value="" />
-                      <option value="доставка">доставка</option>
-                      <option value="сборка">сборка</option>
-                    </Select>
-                  </FormControl>
-                  <FormControl margin='normal'  fullWidth={true}>
-                    <TextField
-                      label="Дополнительные сведения:"
-                      multiline
-                      required
-                      rows={4}
-                      variant="outlined"
-                      // onChange={}
-                      // value={}
-                    />
-                     </FormControl>
-                </form>
-              </Grid>
-              <Grid item xs={1}></Grid>
+            <Grid item xs={12}>
+             <AddEvent order={order.number}/>
             </Grid>
 
 
           </Grid>
-          <Grid item container xs={6} direction='column' justify='space-between' style={{ minHeight: '700px' }}>
+          <Grid item container xs={6} direction='column' style={{ minHeight: '800px' }}>
             <Paper style={{ minHeight: '600px', overflowY: 'scroll' }}>
               <Typography variant='h6'>Комментарии по заказу</Typography>
               <ul>

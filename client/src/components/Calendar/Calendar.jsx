@@ -22,50 +22,46 @@ import {
   DragDropProvider,
   EditRecurrenceMenu,
 } from "@devexpress/dx-react-scheduler-material-ui";
+import { makeStyles } from '@material-ui/core/styles';
+import { fade } from '@material-ui/core/styles/colorManipulator';
 
 import { ViewSwitcher } from '@devexpress/dx-react-scheduler-material-ui';
 import { Container } from "@material-ui/core";
 import { changeLoadStatus } from "../../redux/actionCreators/loadAC";
 
-// let appointments = [
-//   { startDate: new Date(), endDate: new Date(), title: 'Meeting' },
-//   { startDate: new Date(), endDate: new Date(), title: 'Go to a gym' },
-// ];
-
-
 const dragDisableIds = new Set([]);
 const allowDrag = ({ id }) => !dragDisableIds.has(id);
 const appointmentComponent = (props) => {
   if (allowDrag(props.data)) {
+    if (props.data?.title.includes('доставка'))  return <Appointments.Appointment {...props} style={{ ...props.style,  backgroundColor: 'rgba(255, 138, 101, .6)' }} />;
+    if (props.data?.title.includes('сборка'))  return <Appointments.Appointment {...props} style={{ ...props.style,  backgroundColor: 'rgba(102, 187, 106, .6)' }} />;
     return <Appointments.Appointment {...props} />;
   } return <Appointments.Appointment {...props} style={{ ...props.style, cursor: 'not-allowed' }} />;
 };
 
-const eventStartTime = new Date('2021-04-15T14:00:00-00:00')
-// eventStartTime.setDate(eventStartTime.getDate())
-
-// Create a new event end date instance for temp uses in our calendar.
-const eventEndTime = new Date('2021-04-15T17:00:00-00:00')
-// eventEndTime.setDate(eventEndTime.getDate())
-// eventEndTime.setMinutes(eventEndTime.getMinutes() + 45)
-
-// Create a dummy event for temp uses in our calendar
-const event = {
-  summary: `Встреча с Семеном`,
-  location: `Москва, кампус Эльбрус`,
-  description: `Как отобразить красивый календарь на Сайте`,
-  colorId: 1,
-  start: {
-    dateTime: eventStartTime,
-    timeZone: 'Europe/Moscow',
+const useStyles = makeStyles(theme => ({
+  delivery: {
+    backgroundColor: fade(theme.palette.success.light, 0.1),
+    '&:hover': {
+      backgroundColor: fade(theme.palette.success.light, 0.14),
+    },
+    '&:focus': {
+      backgroundColor: fade(theme.palette.success.light, 0.16),
+    },
   },
-  end: {
-    dateTime: eventEndTime,
-    timeZone: 'Europe/Moscow',
-  },
-}
+  assembly: {
+    backgroundColor: fade(theme.palette.primary.dark, 0.1),
+    '&:hover': {
+      backgroundColor: fade(theme.palette.primary.dark, 0.14),
+    },
+    '&:focus': {
+      backgroundColor: fade(theme.palette.primary.dark, 0.16),
+    },
+  }, 
+}));
 
 const Calendar = () => {
+  const classes = useStyles();
   const [state, setState] = useState({
     data: [],
     currentDate: new Date(),
@@ -78,45 +74,28 @@ const Calendar = () => {
   const { data, currentDate } = state;
   console.log({ state });
 
- 
+
 
   useEffect(() => {
     dispatch(changeLoadStatus(true));
-    // fetch(`${process.env.REACT_APP_ADDRESS_TO_FETCH}/api/v1/managers/token`, {
-    //   credentials: "include",
-    // })
-    //   .then((response) => response.json())
-    //   .then((token) =>
-        fetch(`https://www.googleapis.com/calendar/v3/calendars/uudmopujkodqksbu55au8opt3k@group.calendar.google.com/events`, {
-          headers: {
-            Authorization: 'Bearer ' + user.accessToken,
-          },
+    fetch(`https://www.googleapis.com/calendar/v3/calendars/uudmopujkodqksbu55au8opt3k@group.calendar.google.com/events`, {
+      headers: {
+        Authorization: 'Bearer ' + user.accessToken,
+      },
+    })
+      .then((data) => data.json()).then((data) => {
+        const newEvents = data.items.map(event => ({
+          id: event.id,
+          startDate: event.start.dateTime,
+          endDate: event.end.dateTime,
+          title: event.summary,
+        }))
+        setState({
+          data: newEvents,
+          currentDate: new Date(),
         })
-          .then((data) => data.json()).then((data) => {
-            const newEvents = data.items.map(event => ({
-              id: event.id,
-              startDate: event.start.dateTime,
-              endDate: event.end.dateTime,
-              title: event.summary,
-            }))
-            console.log(newEvents);
-            setState({
-              data: newEvents,
-              currentDate: new Date(),
-            })
-            dispatch(changeLoadStatus(false));
-          })
-      // )
-      
-      // fetch(`${process.env.REACT_APP_ADDRESS_TO_FETCH}/api/v1/managers/token`, {
-      //     credentials: "include",
-      //     method: 'POST',
-      //     headers: {
-      //       "Content-Type": "application/json",
-      //     },
-      //     body: JSON.stringify(event),
-      //   })
-      
+        dispatch(changeLoadStatus(false));
+      })
   }, []);
 
   const commitChanges = ({ added, changed, deleted }) => {
@@ -154,7 +133,7 @@ const Calendar = () => {
           <IntegratedEditing />
           <WeekView startDayHour={9} endDayHour={22} />
           <MonthView />
-          <DayView />
+          <DayView startDayHour={9} endDayHour={22}/>
           <ConfirmationDialog />
           <Appointments appointmentComponent={appointmentComponent} />
           <AppointmentTooltip showCloseButton showOpenButton showDeleteButton />
