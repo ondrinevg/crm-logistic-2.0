@@ -72,7 +72,9 @@ const findAll = async (req, res) => {
     let { text } = req.body;
     text = text.toLowerCase();
     const orders = await Order.find();
-    const result = orders.filter((order) => order.number === text
+    const result = orders.filter((order) =>
+      order.number?.toString().toLowerCase().includes(text.toString().toLowerCase())
+      || order.contractNumber?.toString().toLowerCase().includes(text.toString().toLowerCase())
       || order.title?.toLowerCase().includes(text)
       || order.status?.toLowerCase().includes(text));
     res.json(result);
@@ -91,7 +93,7 @@ const editOrder = async (req, res) => {
       return res.json(editorder);
     }
     if (url) {
-      const order = await Order.findByIdAndUpdate(id, { $push: { url: {url, fileName} } }, { new: true }).populate('client').populate({ path: 'comments', populate: { path: 'manager' } });
+      const order = await Order.findByIdAndUpdate(id, { $push: { url: { url, fileName } } }, { new: true }).populate('client').populate({ path: 'comments', populate: { path: 'manager' } });
       return res.json(order);
     }
 

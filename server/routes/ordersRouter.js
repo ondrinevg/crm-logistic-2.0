@@ -1,7 +1,6 @@
 /* eslint-disable max-len */
 const orderRouter = require('express').Router();
 const { checkAuth } = require('../middlewares/checkAuth');
-const { checkAdmin } = require('../middlewares/checkAdmin');
 const {
   renderAllOrders, renderOrder, addComment, addNewOrder, editOrder,
   deliteOrder,
@@ -29,6 +28,4 @@ orderRouter.route('/:id')
 orderRouter.route('/:id/comments')
   .post(checkAuth, addComment);
 
-// orderRouter.route('/:id/status')
-//   .patch(changeStatus);
 module.exports = orderRouter;

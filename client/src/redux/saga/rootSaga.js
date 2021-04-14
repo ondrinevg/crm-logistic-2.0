@@ -20,6 +20,7 @@ import addImageToOrderSagaWatcher from './order/addImageToOrderSagaWatcher'
 import deleteMailSagaWatcher from './users/deleteMailSagaWatcher';
 import editUserSagaWatcher from './users/editUserSagaWatcher';
 import addUserSagaWatcher from './user/addUserSagaWatcher';
+import editEventSagaWatcher from './event/editEventSagaWatcher';
 
 export default function* rootSaga() {
   yield all([
@@ -44,5 +45,6 @@ export default function* rootSaga() {
     deleteMailSagaWatcher(),
     editUserSagaWatcher(),
     addUserSagaWatcher(),
+    editEventSagaWatcher(),
   ])
 };
