@@ -8,7 +8,7 @@ const { userLoginRender } = require('./userController');
 
 const renderAllOrders = async (req, res) => {
   try {
-    const orders = await Order.find().populate('client');
+    const orders = await Order.find().populate('client').sort({ _id: -1 }).limit(15);
     res.json(orders);
   } catch (err) {
     res.status(500).json(err.message);
