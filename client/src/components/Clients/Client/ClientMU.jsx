@@ -13,6 +13,7 @@ import {
   Container,
   FormControl,
   Grid,
+  IconButton,
   Paper,
   Table,
   TableBody,
@@ -23,6 +24,8 @@ import {
   Typography
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
+import DeleteIcon from '@material-ui/icons/Delete';
+import EditIcon from '@material-ui/icons/Edit';
 import ListOfComments from '../../ListOfComments/ListOfComments';
 
 const useStyles = makeStyles((theme) => ({
@@ -32,8 +35,15 @@ const useStyles = makeStyles((theme) => ({
   finished: {
     backgroundColor: '#9e9e9e',
   },
+
   claim: {
     backgroundColor: 'rgba(255, 138, 101, .6)',
+  },
+  edit: {
+    color: '#f9a825',
+  },
+  delete: {
+    color: '#c62828',
   },
   userCard: {
     '& > div': {
@@ -41,6 +51,9 @@ const useStyles = makeStyles((theme) => ({
       padding: '0 24px'
     }
   },
+  comments: {
+    maxWidth: "50px"
+  }
 }));
 
 export default function ClientMU() {
@@ -90,9 +103,13 @@ export default function ClientMU() {
           <div>
             <Typography variant='h6'>Информация о клиенте</Typography>
           </div>
-          <ButtonGroup>
-            <Button color="inherit" component={RouterLink} to={`/clients/${client._id}/edit`}>Редактировать</Button>
-            {user?.role === 'Admin' ? <Button color="inherit" onClick={deleteHandler}>Удалить клиента</Button> : null}
+          <ButtonGroup >
+            <IconButton className={classes.edit} component={RouterLink} to={`/clients/${client._id}/edit`}>
+              <EditIcon  />
+            </IconButton>
+            {user?.role === 'Admin' ? <IconButton size="large" className={classes.delete} onClick={deleteHandler}>
+              <DeleteIcon />
+            </IconButton> : null}
           </ButtonGroup>
           <Box>
             ФИО: {client.lastName} {client.name} {client.middleName}
