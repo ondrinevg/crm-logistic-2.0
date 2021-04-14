@@ -24,6 +24,7 @@ import {
   ListItemIcon,
   ListItemText,
   ListItem,
+  IconButton,
 } from '@material-ui/core';
 import Storage from '../../Storage/Storage'
 import AttachFileIcon from '@material-ui/icons/AttachFile';
@@ -31,6 +32,8 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { MuiPickersUtilsProvider } from "@material-ui/pickers";
 import MomentUtils from '@date-io/moment';
 import AddEvent from './AddEvent/AddEvent';
+import DeleteIcon from '@material-ui/icons/Delete';
+import EditIcon from '@material-ui/icons/Edit';
 
 const useStyles = makeStyles((theme) => ({
   orderHeader: {
@@ -40,6 +43,12 @@ const useStyles = makeStyles((theme) => ({
     '& > div': {
       marginTop: "10px"
     }
+  },
+  edit: {
+    color: '#f9a825',
+  },
+  delete: {
+    color: '#c62828',
   },
   clientLink: {
     fontWeight: 400,
@@ -110,8 +119,8 @@ export default function OrderMU() {
           <Grid item container xs={5} className={classes.userCard} direction='column'>
             <Typography variant='h6' className={classes.orderHeader}>Информация о заказе:</Typography>
             <ButtonGroup>
-              <Button color="inherit" component={RouterLink} to={`/orders/${id}/edit/`}>Редактировать</Button>
-              <Button color="inherit" onClick={deleteHandler}>Удалить заказ</Button>
+              <IconButton className={classes.edit}  component={RouterLink} to={`/orders/${id}/edit/`}><EditIcon /></IconButton>
+              <IconButton className={classes.delete}  onClick={deleteHandler}><DeleteIcon /></IconButton>
             </ButtonGroup>
             <form onSubmit={statusHandlerSubmit} name='changeStatus'>
               <FormControl margin='normal' fullWidth={true}>
