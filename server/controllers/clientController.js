@@ -28,7 +28,7 @@ const postAddClient = async (req, res) => {
 
 const renderAllClients = async (req, res) => {
   try {
-    const clients = await Client.find();
+    const clients = await Client.find().sort({ _id: -1 }).limit(15);
     res.json(clients);
   } catch (error) {
     res.status(500).json(error.message);
