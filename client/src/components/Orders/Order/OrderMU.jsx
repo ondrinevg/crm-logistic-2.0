@@ -25,6 +25,7 @@ import {
   ListItemText,
   ListItem,
   IconButton,
+  Divider,
 } from '@material-ui/core';
 import Storage from '../../Storage/Storage'
 import AttachFileIcon from '@material-ui/icons/AttachFile';
@@ -38,7 +39,7 @@ import ListOfComments from '../../ListOfComments/ListOfComments';
 
 const useStyles = makeStyles((theme) => ({
   orderHeader: {
-    margin: '20px 0',
+    margin: '20px 0 0',
   },
   userCard: {
     '& > div': {
@@ -122,9 +123,10 @@ export default function OrderMU() {
         <Grid container>
           <Grid item container xs={5} className={classes.userCard} direction='column'>
             <Typography variant='h6' className={classes.orderHeader}>Информация о заказе:</Typography>
+            <Divider style={{ height: '2px', marginTop: '10px' }} />
             <ButtonGroup >
-              <IconButton className={classes.edit}  component={RouterLink} to={`/orders/${id}/edit/`}><EditIcon /></IconButton>
-              <IconButton className={classes.delete}  onClick={deleteHandler}><DeleteIcon /></IconButton>
+              <IconButton className={classes.edit} component={RouterLink} to={`/orders/${id}/edit/`}><EditIcon /></IconButton>
+              <IconButton className={classes.delete} onClick={deleteHandler}><DeleteIcon /></IconButton>
             </ButtonGroup>
             <form onSubmit={statusHandlerSubmit} name='changeStatus'>
               <FormControl margin='normal' fullWidth={true}>
@@ -138,7 +140,7 @@ export default function OrderMU() {
                   <option value="рекламация">рекламация</option>
                   <option value="завершен">завершен</option>
                 </Select>
-                <Button type="submit">Изменить статус</Button>
+                <Button color="primary" type="submit">Изменить статус</Button>
               </FormControl>
             </form>
 
@@ -185,8 +187,10 @@ export default function OrderMU() {
             <Box>
               Стоимость сборки: {order.assemblyPrice} руб.
           </Box>
-            <Box>
 
+            <Divider style={{ height: '2px', marginTop: '10px' }} />
+
+            <Box>
               <Accordion>
                 <AccordionSummary
                   expandIcon={<ExpandMoreIcon />}
@@ -240,11 +244,11 @@ export default function OrderMU() {
           </Grid>
           <Grid item xs={1}></Grid>
           <Grid item container xs={6} direction='column' style={{ minHeight: '800px' }}>
+
             <Paper className={classes.orderComments} style={{ maxHeight: '600px', minHeight: '600px', width: '100%', overflowY: 'scroll', overflowWrap: 'break-word' }}>
-              {order?.comments?.length ?
-                <ListOfComments comments={order.comments} text={'Комментарии по заказу'} />
-                : null}
+              <ListOfComments comments={order.comments} text={'Комментарии по заказу'} />
             </Paper>
+
             <Box>
               {!loading ?
                 <form onSubmit={commentHandlerSubmit} name="addCommentClient">

@@ -87,7 +87,7 @@ export function Storage({ id }) {
             onChange={(e) => handleChange(e)}
           />
           <Fab
-            color="secondary"
+            style={{ backgroundColor: '#b2dfdb' }}
             size="small"
             component="span"
             aria-label="add"
@@ -96,7 +96,8 @@ export function Storage({ id }) {
             <AddIcon /> Выбрать файл
         </Fab>
         </label>
-        <Fab color={file.name ? "primary" : "secondary"}
+        <Fab
+          style={{ backgroundColor: file?.name ? '#b2dfdb' : '#bdbdbd' }}
           size="small"
           component="span"
           aria-label="add"

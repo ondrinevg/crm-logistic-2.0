@@ -11,6 +11,7 @@ import {
   ButtonGroup,
   CircularProgress,
   Container,
+  Divider,
   FormControl,
   Grid,
   IconButton,
@@ -102,12 +103,13 @@ export default function ClientMU() {
         <Grid item container xs={6} direction='column' className={classes.userCard}>
           <div>
             <Typography variant='h6'>Информация о клиенте</Typography>
+            <Divider style={{ height: '2px', marginTop: '10px' }} />
           </div>
           <ButtonGroup >
             <IconButton className={classes.edit} component={RouterLink} to={`/clients/${client._id}/edit`}>
-              <EditIcon  />
+              <EditIcon />
             </IconButton>
-            {user?.role === 'Admin' ? <IconButton size="large" className={classes.delete} onClick={deleteHandler}>
+            {user?.role === 'Admin' ? <IconButton className={classes.delete} onClick={deleteHandler}>
               <DeleteIcon />
             </IconButton> : null}
           </ButtonGroup>
@@ -130,6 +132,8 @@ export default function ClientMU() {
           <Box>
             Адрес проживания: {client.homeAddress}
           </Box>
+
+          <Divider style={{ height: '2px', marginTop: '10px' }} />
 
           <Table>
             <TableHead>
@@ -158,11 +162,11 @@ export default function ClientMU() {
           <Button onClick={addOrderHandler} color="primary">Добавить заказ</Button>
         </Grid>
         <Grid item container xs={6} direction='column' justify='space-between' style={{ minHeight: '700px' }}>
+
           <Paper style={{ maxHeight: '600px', minHeight: '600px', width: '100%', overflowY: 'scroll', overflowWrap: 'break-word' }} className={classes.userCard}>
-            {client?.comments?.length ?
-              <ListOfComments comments={client.comments} text={'Комментарии по клиенту'} />
-              : null}
+            <ListOfComments comments={client.comments} text={'Комментарии по клиенту'} />
           </Paper>
+
           <Box>
             {!loading ?
               <form onSubmit={commentHandlerSubmit} name="addCommentClient">

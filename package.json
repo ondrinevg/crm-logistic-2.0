@@ -1,5 +1,0 @@
-{
-  "dependencies": {
-    "passport-oauth2-refresh": "^2.0.1"
-  }
-}
