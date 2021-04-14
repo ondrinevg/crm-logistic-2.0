@@ -26,6 +26,7 @@ import { ViewSwitcher } from '@devexpress/dx-react-scheduler-material-ui';
 import { Container } from "@material-ui/core";
 import { changeLoadStatus } from "../../redux/actionCreators/loadAC";
 import { editEventSaga } from "../../redux/actionCreators/eventAC";
+import { getEventsSaga } from "../../redux/actionCreators/eventsAC";
 
 const dragDisableIds = new Set([]);
 const allowDrag = ({ id }) => !dragDisableIds.has(id);
@@ -50,8 +51,9 @@ const appointmentComponent = (props) => {
 // };
 
 const Calendar = () => {
+  const events = useSelector(state => state.events);
   const [state, setState] = useState({
-    data: [],
+    data: [...events],
     currentDate: new Date(),
   });
 
@@ -64,25 +66,27 @@ const Calendar = () => {
 
 
   useEffect(() => {
-    dispatch(changeLoadStatus(true));
-    fetch(`https://www.googleapis.com/calendar/v3/calendars/${process.env.REACT_APP_GOOGLE_CALENDAR_ID}@group.calendar.google.com/events`, {
-      headers: {
-        Authorization: 'Bearer ' + user.accessToken,
-      },
-    })
-      .then((data) => data.json()).then((data) => {
-        const newEvents = data.items.map(event => ({
-          id: event.id,
-          startDate: event.start.dateTime,
-          endDate: event.end.dateTime,
-          title: event.summary,
-        }))
-        setState({
-          data: newEvents,
-          currentDate: new Date(),
-        })
-        dispatch(changeLoadStatus(false));
-      })
+    dispatch(getEventsSaga());
+    // fetch(`https://www.googleapis.com/calendar/v3/calendars/${process.env.REACT_APP_GOOGLE_CALENDAR_ID}@group.calendar.google.com/events`, {
+    //   headers: {
+    //     Authorization: 'Bearer ' + user.accessToken,
+    //   },
+    // })
+    //   .then((data) => data.json())
+    //   .then((data) => {
+    //     const newEvents = data.items.map(event => ({
+    //       id: event.id,
+    //       startDate: event.start.dateTime,
+    //       endDate: event.end.dateTime,
+    //       title: event.summary,
+    //     }))
+    //     setState({
+    //       data: newEvents,
+    //       currentDate: new Date(),
+    //     })
+    //     dispatch(changeLoadStatus(false));
+    //   })
+
   }, []);
 
   const commitChanges = ({ added, changed, deleted }) => {
