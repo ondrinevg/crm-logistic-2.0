@@ -26,6 +26,7 @@ import {
 import { makeStyles } from '@material-ui/core/styles';
 import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
+import ListOfComments from '../../ListOfComments/ListOfComments';
 
 const useStyles = makeStyles((theme) => ({
   inWork: {
@@ -157,39 +158,15 @@ export default function ClientMU() {
           <Button onClick={addOrderHandler} color="primary">Добавить заказ</Button>
         </Grid>
         <Grid item container xs={6} direction='column' justify='space-between' style={{ minHeight: '700px' }}>
-          <Paper style={{ minHeight: '600px', overflowY: 'scroll' }} className={classes.userCard}>
-            <div>
-              <Typography variant='h6'>Комментарии по клиенту</Typography>
-
-            </div>
-            <Table >
-
-              <TableBody>
-                {client?.comments?.length
-                  ? client.comments.map(comment => (
-                    <TableRow key={comment._id} >
-                      <TableCell style={{ width: '30%' }}>{`${comment.manager?.lastName} ${comment.manager?.name[0]}. ${comment.manager?.middleName[0]}.`} :</TableCell>
-                      <TableCell style={{ width: '40%' }}>{comment.text}</TableCell>
-                      <TableCell style={{ width: '30%' }}>{new Date(comment.createdAt).toLocaleString()}</TableCell>
-                    </TableRow>
-                  ))
-                  : null
-                }
-              </TableBody>
-            </Table>
-            {/* <ul>
-              {client?.comments?.length
-                ? client.comments.map(comment => (
-                  <li key={comment._id}>{`${comment.manager?.lastName} ${comment.manager?.name[0]}. ${comment.manager?.middleName[0]}.`} {new Date(comment.createdAt).toLocaleString()}: {comment.text}</li>
-                ))
-                : null
-              }
-            </ul> */}
+          <Paper style={{ maxHeight: '600px', minHeight: '600px', width: '100%', overflowY: 'scroll', overflowWrap: 'break-word' }} className={classes.userCard}>
+            {client?.comments?.length ?
+              <ListOfComments comments={client.comments} text={'Комментарии по клиенту'} />
+              : null}
           </Paper>
-          <>
+          <Box>
             {!loading ?
               <form onSubmit={commentHandlerSubmit} name="addCommentClient">
-                <FormControl fullWidth={true}>
+                <FormControl margin='dense' fullWidth={true}>
                   <TextField
                     label="Новый комментарий:"
                     multiline
@@ -203,7 +180,7 @@ export default function ClientMU() {
                 </FormControl>
               </form>
               : <CircularProgress />}
-          </>
+          </Box>
         </Grid>
       </Grid>
     </Container>

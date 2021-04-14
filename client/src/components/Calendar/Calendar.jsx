@@ -63,30 +63,13 @@ const Calendar = () => {
   const { data, currentDate } = state;
   console.log({ state });
 
+  useEffect(() => {
+    setState(prev => ({ ...prev, data: [...events]}))
+  }, [events])
 
 
   useEffect(() => {
     dispatch(getEventsSaga());
-    // fetch(`https://www.googleapis.com/calendar/v3/calendars/${process.env.REACT_APP_GOOGLE_CALENDAR_ID}@group.calendar.google.com/events`, {
-    //   headers: {
-    //     Authorization: 'Bearer ' + user.accessToken,
-    //   },
-    // })
-    //   .then((data) => data.json())
-    //   .then((data) => {
-    //     const newEvents = data.items.map(event => ({
-    //       id: event.id,
-    //       startDate: event.start.dateTime,
-    //       endDate: event.end.dateTime,
-    //       title: event.summary,
-    //     }))
-    //     setState({
-    //       data: newEvents,
-    //       currentDate: new Date(),
-    //     })
-    //     dispatch(changeLoadStatus(false));
-    //   })
-
   }, []);
 
   const commitChanges = ({ added, changed, deleted }) => {

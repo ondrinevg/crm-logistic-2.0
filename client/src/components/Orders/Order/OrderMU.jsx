@@ -34,10 +34,11 @@ import MomentUtils from '@date-io/moment';
 import AddEvent from './AddEvent/AddEvent';
 import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
+import ListOfComments from '../../ListOfComments/ListOfComments';
 
 const useStyles = makeStyles((theme) => ({
   orderHeader: {
-      margin: '20px 0',
+    margin: '20px 0',
   },
   userCard: {
     '& > div': {
@@ -66,7 +67,8 @@ export default function OrderMU() {
   const loading = useSelector(state => state.loading);
 
   const [comment, setComment] = useState('');
-  const [status, setStatus] = useState(order?.status || 'в работе');
+  // const [status, setStatus] = useState(order?.status || 'в работе');
+  const [status, setStatus] = useState('');
 
   const dispatch = useDispatch();
   const history = useHistory();
@@ -99,9 +101,11 @@ export default function OrderMU() {
 
   const statusHandlerSubmit = (e) => {
     e.preventDefault();
-    const newOrder = { status };
-    dispatch(editOrderSaga(newOrder, order._id));
-    setStatus('в работе');
+    if (status) {
+      const newOrder = { status };
+      dispatch(editOrderSaga(newOrder, order._id));
+      dispatch(addCommentToOrderSaga(order._id, `статус был изменен на: "${status}"`))
+    }
   };
 
   function ListItemLink(props) {
@@ -191,7 +195,7 @@ export default function OrderMU() {
                   <Typography>Установить событие</Typography>
                 </AccordionSummary>
                 <AccordionDetails>
-                  <AddEvent order={order.number} />
+                  <AddEvent order={order.number} id={order._id} />
                 </AccordionDetails>
               </Accordion>
 
@@ -236,21 +240,15 @@ export default function OrderMU() {
           </Grid>
           <Grid item xs={1}></Grid>
           <Grid item container xs={6} direction='column' style={{ minHeight: '800px' }}>
-            <Paper className={classes.orderComments} style={{ minHeight: '600px', overflowY: 'scroll' }}>
-              <Typography variant='h6' className={classes.orderHeader}>Комментарии по заказу</Typography>
-              <ul>
-                {order?.comments?.length
-                  ? order.comments.map(comment => (
-                    <li key={comment._id}>{`${comment.manager?.lastName} ${comment.manager?.name[0]}. ${comment.manager?.middleName[0]}.`} {new Date(comment.createdAt).toLocaleString()}: {comment.text}</li>
-                  ))
-                  : null
-                }
-              </ul>
+            <Paper className={classes.orderComments} style={{ maxHeight: '600px', minHeight: '600px', width: '100%', overflowY: 'scroll', overflowWrap: 'break-word' }}>
+              {order?.comments?.length ?
+                <ListOfComments comments={order.comments} text={'Комментарии по заказу'} />
+                : null}
             </Paper>
-            <>
+            <Box>
               {!loading ?
                 <form onSubmit={commentHandlerSubmit} name="addCommentClient">
-                  <FormControl fullWidth={true}>
+                  <FormControl margin='dense' fullWidth={true}>
                     <TextField
                       label="Новый комментарий:"
                       multiline
@@ -264,7 +262,7 @@ export default function OrderMU() {
                   </FormControl>
                 </form>
                 : <CircularProgress />}
-            </>
+            </Box>
           </Grid>
         </Grid>
       </Container>
