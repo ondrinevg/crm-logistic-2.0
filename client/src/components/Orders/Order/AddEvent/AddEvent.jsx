@@ -7,13 +7,14 @@ import { IconButton, InputAdornment } from "@material-ui/core";
 import { DateTimePicker } from "@material-ui/pickers";
 import { useDispatch, useSelector } from 'react-redux';
 import { changeLoadStatus } from '../../../../redux/actionCreators/loadAC';
+import { addCommentToOrderSaga } from '../../../../redux/actionCreators/orderAC';
 
-export default function AddEvent({ order }) {
+export default function AddEvent({ order, id }) {
   const [selectedDate, handleDateChange] = useState(new Date());
   const [selectedEndDate, handleEndDateChange] = useState(new Date());
   const [selectedRole, handleRoleChange] = useState('');
   const [description, setDescription] = useState('');
-  
+
   const loading = useSelector(state => state.loading);
   const dispatch = useDispatch();
 
@@ -41,14 +42,16 @@ export default function AddEvent({ order }) {
           description: description.trim(),
         }),
       }).then(() => {
-        console.log(selectedDate);
+        dispatch(addCommentToOrderSaga(id,
+          `установлено событие "${selectedRole}", которое пройдет с ${selectedDate.toLocaleString()} до ${selectedEndDate.toLocaleString()}`
+        ));
         handleDateChange(new Date());
         handleEndDateChange(new Date());
         handleRoleChange('');
         setDescription('');
         dispatch(changeLoadStatus(false));
       })
-      .catch(() => dispatch(changeLoadStatus(false)));
+        .catch(() => dispatch(changeLoadStatus(false)));
   }
 
   return (

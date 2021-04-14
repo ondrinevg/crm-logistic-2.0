@@ -23,6 +23,7 @@ import {
   Typography
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
+import ListOfComments from '../../ListOfComments/ListOfComments';
 
 const useStyles = makeStyles((theme) => ({
   inWork: {
@@ -86,9 +87,9 @@ export default function ClientMU() {
     <Container maxWidth='lg'>
       <Grid container spacing={3}>
         <Grid item container xs={6} direction='column' className={classes.userCard}>
-        <div>
-          <Typography variant='h6'>Информация о клиенте</Typography>
-        </div>
+          <div>
+            <Typography variant='h6'>Информация о клиенте</Typography>
+          </div>
           <ButtonGroup>
             <Button color="inherit" component={RouterLink} to={`/clients/${client._id}/edit`}>Редактировать</Button>
             {user?.role === 'Admin' ? <Button color="inherit" onClick={deleteHandler}>Удалить клиента</Button> : null}
@@ -125,8 +126,8 @@ export default function ClientMU() {
             <TableBody>
               {client?.orders?.length
                 ? client.orders.map(order => (
-                  <TableRow key={order._id} className={ order.status === 'в работе' ? 
-                  classes.inWork : order.status === 'завершен' ? classes.finished : classes.claim }>
+                  <TableRow key={order._id} className={order.status === 'в работе' ?
+                    classes.inWork : order.status === 'завершен' ? classes.finished : classes.claim}>
                     <TableCell align='center'><Button component={RouterLink} to={`/orders/${order._id}`}>{order.number}</Button></TableCell>
                     <TableCell>{order.contractNumber}</TableCell>
                     <TableCell>{order.title}</TableCell>
@@ -140,24 +141,15 @@ export default function ClientMU() {
           <Button onClick={addOrderHandler} color="primary">Добавить заказ</Button>
         </Grid>
         <Grid item container xs={6} direction='column' justify='space-between' style={{ minHeight: '700px' }}>
-          <Paper style={{ minHeight: '600px', overflowY: 'scroll' }} className={classes.userCard}>
-          <div>
-            <Typography variant='h6'>Комментарии по клиенту</Typography>
-
-          </div>
-            <ul>
-              {client?.comments?.length
-                ? client.comments.map(comment => (
-                  <li key={comment._id}>{`${comment.manager?.lastName} ${comment.manager?.name[0]}. ${comment.manager?.middleName[0]}.`} {new Date(comment.createdAt).toLocaleString()}: {comment.text}</li>
-                ))
-                : null
-              }
-            </ul>
+          <Paper style={{ maxHeight: '600px', minHeight: '600px', width: '100%', overflowY: 'scroll', overflowWrap: 'break-word' }} className={classes.userCard}>
+            {client?.comments?.length ?
+              <ListOfComments comments={client.comments} text={'Комментарии по клиенту'} />
+              : null}
           </Paper>
-          <>
+          <Box>
             {!loading ?
               <form onSubmit={commentHandlerSubmit} name="addCommentClient">
-                <FormControl fullWidth={true}>
+                <FormControl margin='dense' fullWidth={true}>
                   <TextField
                     label="Новый комментарий:"
                     multiline
@@ -171,7 +163,7 @@ export default function ClientMU() {
                 </FormControl>
               </form>
               : <CircularProgress />}
-          </>
+          </Box>
         </Grid>
       </Grid>
     </Container>

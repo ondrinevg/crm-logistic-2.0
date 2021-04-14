@@ -72,7 +72,7 @@ export default function ListOfClientsMU() {
                     ? clients.map(client => (
                       <ClientForListMU key={client._id} client={client} />
                     ))
-                    : <div>Нет таких клиентов...</div>
+                    : <Typography align="center" >Нет таких клиентов...</Typography>
                   }
                 </List>
               </Grid>

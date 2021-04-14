@@ -5,9 +5,8 @@ import { useSelector } from 'react-redux';
 
 export default function HeaderMU() {
   const user = useSelector(state => state.user);
-
   return (
-    <AppBar position="sticky">
+    <AppBar style={{ backgroundColor: 'rgba(41,49,51,0.80)' }} position="sticky">
       <Toolbar>
         {user?.role === 'Admin' ?
           <Button color="inherit" component={RouterLink} to="/admin">
