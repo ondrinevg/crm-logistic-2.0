@@ -63,6 +63,9 @@ const Calendar = () => {
   const { data, currentDate } = state;
   console.log({ state });
 
+  useEffect(() => {
+    setState(prev => ({ ...prev, data: [...events]}))
+  }, [events])
 
 
   useEffect(() => {

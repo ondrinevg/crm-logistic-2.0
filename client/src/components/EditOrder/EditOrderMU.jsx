@@ -2,7 +2,7 @@ import React, { useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router';
 import moment from 'moment';
-import { editOrderSaga } from '../../redux/actionCreators/orderAC';
+import { addCommentToOrderSaga, editOrderSaga } from '../../redux/actionCreators/orderAC';
 import {
   Box,
   Button,
@@ -52,6 +52,7 @@ export default function EditOrderMU() {
     const valuesOfFields = Object.fromEntries(new FormData(formRef.current).entries());
     if (Object.keys(valuesOfFields).every(key => valuesOfFields[key].trim())) {
       dispatch(editOrderSaga(valuesOfFields, order._id));
+      dispatch(addCommentToOrderSaga(order._id, "заказ был отредактирован"))
       formRef.current.reset();
       history.push(`/orders/${order._id}`);
     }

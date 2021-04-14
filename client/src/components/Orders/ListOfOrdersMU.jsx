@@ -79,7 +79,7 @@ export default function ListOfOrdersMU() {
                     ? orders.map(order => (
                       <OrderForListMU key={order._id} order={order} />
                     ))
-                    : <div>Нет таких заказов...</div>
+                    : <Typography align="center" >Нет таких заказов...</Typography>
                   }
                 </List>
               </Grid>
