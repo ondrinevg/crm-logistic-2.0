@@ -1,9 +1,10 @@
-import { Button, ButtonGroup, Input } from '@material-ui/core';
+import { ButtonGroup, Fab } from '@material-ui/core';
 import { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { addImageToOrderSaga } from '../../redux/actionCreators/orderAC';
 import firebase from './firebase'
-import SaveIcon from '@material-ui/icons/Save';
+import SaveAltRoundedIcon from '@material-ui/icons/SaveAltRounded';
+import AddIcon from "@material-ui/icons/Add";
 
 
 export function Storage({ id }) {
@@ -11,7 +12,7 @@ export function Storage({ id }) {
   const [file, setFile] = useState({});
 
   const dispatch = useDispatch();
-  
+
   const handleChange = (e) => {
     setFile(e.target.files[0]);
   }
@@ -72,21 +73,35 @@ export function Storage({ id }) {
 
     }
   }
-  // const showImage = () => {
-  //   let storageRef = firebase.storage().ref()
-  //   let spaceRef = storageRef.child('images/' + file.name)
-  //   storageRef.child('images/' + file.name).getDownloadURL().then((url) => {
-  //   })
-  // }
 
   return (
     <div>
-     
+
       <ButtonGroup>
-        <Input type="file" onChange={(e) => handleChange(e)} />
-        <Button color="inherit" startIcon={<SaveIcon />} onClick={handleSave}>Сохранить</Button>
+        <label htmlFor="upload">
+          <input
+            style={{ display: "none" }}
+            id="upload"
+            name="upload"
+            type="file"
+            onChange={(e) => handleChange(e)}
+          />
+          <Fab
+            color="secondary"
+            size="small"
+            component="span"
+            aria-label="add"
+            variant="extended"
+          >
+            <AddIcon /> Выбрать файл
+        </Fab>
+        </label>
+        <Fab color={file.name ? "primary" : "secondary"}
+          size="small"
+          component="span"
+          aria-label="add"
+          variant="extended" onClick={handleSave}><SaveAltRoundedIcon /></Fab>
       </ButtonGroup>
-   
     </div>
   )
 

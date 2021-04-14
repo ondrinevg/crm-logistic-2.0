@@ -16,10 +16,17 @@ import {
   Select,
   TextField,
   Typography,
-  IconButton,
+  Accordion,
+  AccordionSummary,
+  AccordionDetails,
+  List,
+  ListItemIcon,
+  ListItemText,
+  ListItem,
 } from '@material-ui/core';
 import Storage from '../../Storage/Storage'
 import AttachFileIcon from '@material-ui/icons/AttachFile';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { MuiPickersUtilsProvider } from "@material-ui/pickers";
 import MomentUtils from '@date-io/moment';
 import AddEvent from './AddEvent/AddEvent';
@@ -68,6 +75,10 @@ export default function OrderMU() {
     setStatus('в работе');
   };
 
+  function ListItemLink(props) {
+    return <ListItem button component="a" {...props} />;
+  }
+
   useEffect(() => {
     dispatch(showOrderSaga(id));
   }, []);
@@ -76,7 +87,7 @@ export default function OrderMU() {
     <MuiPickersUtilsProvider utils={MomentUtils}>
       <Container maxWidth='lg'>
         <Grid container>
-          <Grid item container xs={6} direction='column'>
+          <Grid item container xs={5} direction='column'>
             <Typography variant='h6'>Информация о заказе:</Typography>
             <ButtonGroup>
               <Button color="inherit" component={RouterLink} to={`/orders/${id}/edit/`}>Редактировать</Button>
@@ -141,26 +152,60 @@ export default function OrderMU() {
             <Box>
               Стоимость сборки: {order.assemblyPrice} руб.
           </Box>
+            <Box>
 
-            <Grid item xs={12}>
-             <AddEvent order={order.number}/>
-            </Grid>
-            
-            <Storage id={order._id}/>
-          <div>
-              {order?.url?.length
-                ? order.url.map((el, index) => (
-                  <IconButton key={index} color="inherit" href={el.url}>
-                  <AttachFileIcon />
-                  {el.fileName}
-                  </IconButton>
-                 
-                ))
-                : null
-              }
-            </div>
+              <Accordion>
+                <AccordionSummary
+                  expandIcon={<ExpandMoreIcon />}
+                  aria-controls="panel1c-content"
+                  id="panel1c-header">
+                  <Typography>Установить событие</Typography>
+                </AccordionSummary>
+                <AccordionDetails>
+                  <AddEvent order={order.number} />
+                </AccordionDetails>
+              </Accordion>
 
+              <Accordion>
+                <AccordionSummary
+                  expandIcon={<ExpandMoreIcon />}
+                  aria-controls="panel1c-content"
+                  id="panel1c-header">
+                  <Typography>Добавить файл</Typography>
+                </AccordionSummary>
+                <AccordionDetails>
+                  <Storage id={order._id} />
+
+                </AccordionDetails>
+              </Accordion>
+              <Accordion>
+                <AccordionSummary
+                  expandIcon={<ExpandMoreIcon />}
+                  aria-controls="panel1c-content"
+                  id="panel1c-header">
+                  <Typography>Сохраненные файлы</Typography>
+                </AccordionSummary>
+                <AccordionDetails>
+                  <List>
+                    {order?.url?.length
+                      ? order.url.map((el) => (
+                        <ListItem key={el._id} divider >
+                          <ListItemIcon>
+                            <AttachFileIcon />
+                          </ListItemIcon>
+                          <ListItemLink href={el.url} >
+                            <ListItemText primary={el.fileName} />
+                          </ListItemLink>
+                        </ListItem>
+                      ))
+                      : null
+                    }
+                  </List>
+                </AccordionDetails>
+              </Accordion>
+            </Box>
           </Grid>
+          <Grid item xs={1}></Grid>
           <Grid item container xs={6} direction='column' style={{ minHeight: '800px' }}>
             <Paper style={{ minHeight: '600px', overflowY: 'scroll' }}>
               <Typography variant='h6'>Комментарии по заказу</Typography>
