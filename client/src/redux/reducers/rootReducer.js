@@ -6,6 +6,7 @@ import orderReducer from './orderReducer';
 import usersReducer from './usersReducer';
 import userReducer from './userReducer';
 import loadReducer from './loadReducer'
+import eventReducer from './eventReducer';
 
 const rootReducer = combineReducers({
   client: clientReducer,
@@ -15,6 +16,7 @@ const rootReducer = combineReducers({
   users: usersReducer,
   user: userReducer,
   loading: loadReducer,
+  event: eventReducer,
 })
 
 export default rootReducer;

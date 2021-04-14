@@ -25,16 +25,29 @@ import {
 import { ViewSwitcher } from '@devexpress/dx-react-scheduler-material-ui';
 import { Container } from "@material-ui/core";
 import { changeLoadStatus } from "../../redux/actionCreators/loadAC";
+import { editEventSaga } from "../../redux/actionCreators/eventAC";
 
 const dragDisableIds = new Set([]);
 const allowDrag = ({ id }) => !dragDisableIds.has(id);
 const appointmentComponent = (props) => {
   if (allowDrag(props.data)) {
-    if (props.data?.title.includes('доставка'))  return <Appointments.Appointment {...props} style={{ ...props.style,  backgroundColor: 'rgba(255, 138, 101, .6)' }} />;
-    if (props.data?.title.includes('сборка'))  return <Appointments.Appointment {...props} style={{ ...props.style,  backgroundColor: 'rgba(102, 187, 106, .6)' }} />;
+    if (props.data?.title.includes('доставка')) return <Appointments.Appointment {...props} style={{ ...props.style, backgroundColor: 'rgba(255, 138, 101, .6)' }} />;
+    if (props.data?.title.includes('сборка')) return <Appointments.Appointment {...props} style={{ ...props.style, backgroundColor: 'rgba(102, 187, 106, .6)' }} />;
     return <Appointments.Appointment {...props} />;
   } return <Appointments.Appointment {...props} style={{ ...props.style, cursor: 'not-allowed' }} />;
 };
+
+// так можно переписать элемент, но весьма некрасиво выглядит
+// const AppointmentContent = ({ style, ...restProps }) => {
+//   return (
+//     <Appointments.AppointmentContent {...restProps}>
+//       <div className={restProps.container}>
+//         <div>{restProps.data.title}</div>
+//         <div>Your information</div>
+//       </div>
+//     </Appointments.AppointmentContent>
+//   );
+// };
 
 const Calendar = () => {
   const [state, setState] = useState({
@@ -86,10 +99,12 @@ const Calendar = () => {
             ? { ...appointment, ...changed[appointment.id] }
             : appointment
         );
+        dispatch(editEventSaga(changed));
       }
       if (deleted !== undefined) {
         data = data.filter((appointment) => appointment.id !== deleted);
       }
+      console.log(changed);
       return { data };
     });
   };
@@ -100,16 +115,16 @@ const Calendar = () => {
     <Container>
 
       <Paper>
-        <Scheduler data={data} height={660}>
+        <Scheduler data={data} height={660} /*locale*/>
           <ViewState defaultCurrentDate={currentDate} />
           <EditingState onCommitChanges={commitChanges} />
           <EditRecurrenceMenu />
           <IntegratedEditing />
           <WeekView startDayHour={9} endDayHour={22} />
           <MonthView />
-          <DayView startDayHour={9} endDayHour={22}/>
+          <DayView startDayHour={9} endDayHour={22} />
           <ConfirmationDialog />
-          <Appointments appointmentComponent={appointmentComponent} />
+          <Appointments appointmentComponent={appointmentComponent}  /*appointmentContentComponent={AppointmentContent}*/ />
           <AppointmentTooltip showCloseButton showOpenButton showDeleteButton />
           <AppointmentForm />
 

@@ -9,7 +9,7 @@ const cors = require('cors');
 const { connect } = require('mongoose');
 const passport = require('passport');
 const googleConfig = require('./config');
-const fetch = require('node-fetch');
+
 
 const User = require('./db/models/user');
 
@@ -17,6 +17,7 @@ const authRouter = require('./routes/auth');
 const ordersRouter = require('./routes/ordersRouter');
 const clientsRouter = require('./routes/clientsRouter');
 const usersRouter = require('./routes/usersRouter');
+const calendarRouter = require('./routes/calendarRouter');
 
 const app = express();
 
@@ -69,21 +70,7 @@ app.use('/api/v1/auth', authRouter);
 app.use('/api/v1/users', usersRouter);
 app.use('/api/v1/clients', clientsRouter);
 app.use('/api/v1/orders', ordersRouter);
-app.use('/api/v1/managers/token', async (req, res) => {
-  const userId = req?.user?._id;
-  if (userId) {
-    console.log(req.body);
-    fetch(`https://www.googleapis.com/calendar/v3/calendars/${process.env.GOOGLE_CALENDARE_ID}/events?key=${process.env.API_KEY}`, {
-        headers: {
-          Authorization: `Bearer ${req.user.accessToken}`,
-          Accept: "application/json",
-          "Content-Type" : "application/json",
-        },
-        method: 'POST',
-        body: JSON.stringify(req.body)
-      }).then((data) => console.log(data)).then(() => res.sendStatus(200));
-  }
-});
+app.use('/api/v1/managers', calendarRouter);
 
 const PORT = process.env.PORT ?? 3000;
 
