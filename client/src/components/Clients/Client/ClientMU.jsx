@@ -102,11 +102,11 @@ export default function ClientMU() {
           <div>
             <Typography variant='h6'>Информация о клиенте</Typography>
           </div>
-          <ButtonGroup>
+          <ButtonGroup >
             <IconButton className={classes.edit} component={RouterLink} to={`/clients/${client._id}/edit`}>
-              <EditIcon />
+              <EditIcon  />
             </IconButton>
-            {user?.role === 'Admin' ? <IconButton className={classes.delete} onClick={deleteHandler}>
+            {user?.role === 'Admin' ? <IconButton size="large" className={classes.delete} onClick={deleteHandler}>
               <DeleteIcon />
             </IconButton> : null}
           </ButtonGroup>

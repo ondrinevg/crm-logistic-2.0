@@ -118,7 +118,7 @@ export default function OrderMU() {
         <Grid container>
           <Grid item container xs={5} className={classes.userCard} direction='column'>
             <Typography variant='h6' className={classes.orderHeader}>Информация о заказе:</Typography>
-            <ButtonGroup>
+            <ButtonGroup >
               <IconButton className={classes.edit}  component={RouterLink} to={`/orders/${id}/edit/`}><EditIcon /></IconButton>
               <IconButton className={classes.delete}  onClick={deleteHandler}><DeleteIcon /></IconButton>
             </ButtonGroup>
