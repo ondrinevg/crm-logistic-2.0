@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useHistory, useParams } from 'react-router-dom';
 import { Link as RouterLink } from 'react-router-dom';
+import { makeStyles } from '@material-ui/core/styles';
 import { showOrderSaga, addCommentToOrderSaga, deleteOrderSaga, editOrderSaga } from '../../../redux/actionCreators/orderAC';
 import {
   Box,
@@ -31,7 +32,26 @@ import { MuiPickersUtilsProvider } from "@material-ui/pickers";
 import MomentUtils from '@date-io/moment';
 import AddEvent from './AddEvent/AddEvent';
 
+const useStyles = makeStyles((theme) => ({
+  orderHeader: {
+      margin: '20px 0',
+  },
+  userCard: {
+    '& > div': {
+      marginTop: "10px"
+    }
+  },
+  clientLink: {
+    fontWeight: 400,
+    fontSize: 'inherit',
+  },
+  orderComments: {
+    padding: '0 24px'
+  }
+}));
+
 export default function OrderMU() {
+  const classes = useStyles();
   const { id } = useParams();
   const order = useSelector(state => state.order);
   const loading = useSelector(state => state.loading);
@@ -87,8 +107,8 @@ export default function OrderMU() {
     <MuiPickersUtilsProvider utils={MomentUtils}>
       <Container maxWidth='lg'>
         <Grid container>
-          <Grid item container xs={5} direction='column'>
-            <Typography variant='h6'>Информация о заказе:</Typography>
+          <Grid item container xs={5} className={classes.userCard} direction='column'>
+            <Typography variant='h6' className={classes.orderHeader}>Информация о заказе:</Typography>
             <ButtonGroup>
               <Button color="inherit" component={RouterLink} to={`/orders/${id}/edit/`}>Редактировать</Button>
               <Button color="inherit" onClick={deleteHandler}>Удалить заказ</Button>
@@ -126,7 +146,7 @@ export default function OrderMU() {
             </Box>
 
             <Box>
-              Клиент: <Button component={RouterLink} to={`/clients/${order.client?._id}`}>{order.client?.lastName} {order.client?.name} {order.client?.middleName}</Button>
+              Клиент: <Button className={classes.clientLink} component={RouterLink} to={`/clients/${order.client?._id}`}>{order.client?.lastName} {order.client?.name} {order.client?.middleName}</Button>
             </Box>
 
             <Box>
@@ -207,8 +227,8 @@ export default function OrderMU() {
           </Grid>
           <Grid item xs={1}></Grid>
           <Grid item container xs={6} direction='column' style={{ minHeight: '800px' }}>
-            <Paper style={{ minHeight: '600px', overflowY: 'scroll' }}>
-              <Typography variant='h6'>Комментарии по заказу</Typography>
+            <Paper className={classes.orderComments} style={{ minHeight: '600px', overflowY: 'scroll' }}>
+              <Typography variant='h6' className={classes.orderHeader}>Комментарии по заказу</Typography>
               <ul>
                 {order?.comments?.length
                   ? order.comments.map(comment => (

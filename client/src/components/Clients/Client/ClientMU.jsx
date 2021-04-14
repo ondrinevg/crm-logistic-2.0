@@ -36,9 +36,10 @@ const useStyles = makeStyles((theme) => ({
   },
   userCard: {
     '& > div': {
-      marginTop: "20px"
+      marginTop: "20px",
+      padding: '0 24px'
     }
-  }
+  },
 }));
 
 export default function ClientMU() {
@@ -83,11 +84,10 @@ export default function ClientMU() {
 
   return (
     <Container maxWidth='lg'>
-      <Grid container>
+      <Grid container spacing={3}>
         <Grid item container xs={6} direction='column' className={classes.userCard}>
         <div>
           <Typography variant='h6'>Информация о клиенте</Typography>
-
         </div>
           <ButtonGroup>
             <Button color="inherit" component={RouterLink} to={`/clients/${client._id}/edit`}>Редактировать</Button>
