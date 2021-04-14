@@ -18,6 +18,7 @@ import MomentUtils from '@date-io/moment';
 
 import { KeyboardDatePicker, MuiPickersUtilsProvider } from '@material-ui/pickers';
 import moment from 'moment';
+import { addCommentToClientSaga } from '../../redux/actionCreators/clientAC';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -56,6 +57,7 @@ export default function AddOrderMU() {
     const order = { ...valuesOfFields, client: client._id }
     if (Object.keys(order).every(key => order[key].trim())) {
       dispatch(addOrderSaga(order));
+      dispatch(addCommentToClientSaga(client._id, `добавлен заказ №${valuesOfFields.number}`))
       formRef.current.reset();
     }
   }

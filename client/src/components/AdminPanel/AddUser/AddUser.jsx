@@ -2,6 +2,7 @@ import React, { useRef } from 'react';
 import {
   Box,
   Button,
+  Divider,
   FormControl,
   Grid,
   Input,
@@ -81,11 +82,13 @@ export default function AddUser() {
             </FormControl>
           </Box>
           <FormControl fullWidth={true}>
-            <Button type="submit">Добавить</Button>
+            <Button color='primary' type="submit">Добавить</Button>
           </FormControl>
         </form>
         </Grid>
-        <Grid item xs={1}></Grid>
+        <Grid item xs={1}>
+        <Divider orientation="vertical" />
+        </Grid>
     </>
   )
 }

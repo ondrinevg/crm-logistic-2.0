@@ -1,7 +1,7 @@
 import React, { useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router';
-import { editClientSaga } from '../../redux/actionCreators/clientAC';
+import { addCommentToClientSaga, editClientSaga } from '../../redux/actionCreators/clientAC';
 import {
   Box,
   Button,
@@ -42,7 +42,8 @@ export default function EditClientMU() {
 
     const valuesOfFields = Object.fromEntries(new FormData(formRef.current).entries());
     if (Object.keys(valuesOfFields).every(key => valuesOfFields[key].trim())) {
-      dispatch(editClientSaga(valuesOfFields, client._id))
+      dispatch(editClientSaga(valuesOfFields, client._id));
+      dispatch(addCommentToClientSaga(client._id, "страница клиента была отредактирована"))
       formRef.current.reset();
       history.push(`/clients/${client._id}`);
     }

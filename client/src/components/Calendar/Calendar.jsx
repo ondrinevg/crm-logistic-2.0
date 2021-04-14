@@ -24,9 +24,10 @@ import {
 } from "@devexpress/dx-react-scheduler-material-ui";
 import { ViewSwitcher } from '@devexpress/dx-react-scheduler-material-ui';
 import { Container } from "@material-ui/core";
-import { changeLoadStatus } from "../../redux/actionCreators/loadAC";
 import { editEventSaga } from "../../redux/actionCreators/eventAC";
 import { getEventsSaga } from "../../redux/actionCreators/eventsAC";
+
+import mainBack from '../../assets/img/grey-black-gradient-linear-1920x1080-c2-808080-000000-a-300-f-14.svg'
 
 const dragDisableIds = new Set([]);
 const allowDrag = ({ id }) => !dragDisableIds.has(id);
@@ -64,7 +65,7 @@ const Calendar = () => {
   console.log({ state });
 
   useEffect(() => {
-    setState(prev => ({ ...prev, data: [...events]}))
+    setState(prev => ({ ...prev, data: [...events] }))
   }, [events])
 
 
@@ -99,9 +100,9 @@ const Calendar = () => {
 
 
   return (
-    <Container>
+    <Container style={{ marginTop: '40px' }}>
 
-      <Paper>
+      <Paper elevation={5}>
         <Scheduler data={data} height={660} /*locale*/>
           <ViewState defaultCurrentDate={currentDate} />
           <EditingState onCommitChanges={commitChanges} />

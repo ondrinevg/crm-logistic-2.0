@@ -5,7 +5,7 @@ import { cleareClientState } from '../../redux/actionCreators/clientAC';
 import { cleareClientsState } from '../../redux/actionCreators/clientsAC';
 import { cleareOrderState } from '../../redux/actionCreators/orderAC';
 import { searchOrdersSaga, showAllOrdersSaga } from '../../redux/actionCreators/ordersAC';
-import { Button, CircularProgress, Container, Divider, Grid, List, Typography } from '@material-ui/core';
+import { Button, CircularProgress, Container, Divider, Grid, List, Paper, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import OrderForListMU from './Order/OrderForListMU';
@@ -45,8 +45,8 @@ export default function ListOfOrdersMU() {
   return (
     <>
       {!loading ?
-        <Container maxWidth="lg">
-          <Typography component="div" style={{ border: '2px solid #cfe8fc', height: '100vh' }}>
+        <Container maxWidth="lg" elevation={3} component={Paper}>
+          <Typography component="div" style={{ height: '90vh' }}>
             <Grid container alignContent='center' justify='center' spacing={4}>
               <Grid item container xs={6} justify='flex-end' alignContent='center'>
                 <form className={classes.root} noValidate autoComplete="off">
