@@ -41,6 +41,7 @@ export default function AddEvent({ order }) {
           description: description.trim(),
         }),
       }).then(() => {
+        console.log(selectedDate);
         handleDateChange(new Date());
         handleEndDateChange(new Date());
         handleRoleChange('');

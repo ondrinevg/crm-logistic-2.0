@@ -6,6 +6,7 @@ const initState = {
   users: [],
   user: {},
   loading: false,
+  event: {},
   // error: {},
 }
 
