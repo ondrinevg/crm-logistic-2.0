@@ -33,7 +33,7 @@ const getManagers = async (req, res) => {
 
 const getUser = async (req, res) => {
   try {
-    const userForInit = { ...req.user };
+    const userForInit = JSON.parse(JSON.stringify(req.user));
     delete userForInit.googleId;
     delete userForInit.accessToken;
     delete userForInit.googleName;
