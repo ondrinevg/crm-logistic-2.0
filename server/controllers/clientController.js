@@ -77,9 +77,10 @@ const findAll = async (req, res) => {
     const result = clients.filter((client) => client.name.toLowerCase()?.includes(text)
       || client.lastName?.toLowerCase().includes(text)
       || client.middleName?.toLowerCase().includes(text));
-    res.status(200).json(result);
+    if (result.length > 15) return res.json(result.slice(0, 15));
+    return res.json(result);
   } catch (err) {
-    res.status(500).json(err.message);
+    return res.status(500).json(err.message);
   }
 };
 

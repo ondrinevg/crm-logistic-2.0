@@ -28,9 +28,10 @@ const ManagerList = () => {
 
   return (
     <>
-      {!loading ?
-        <>
-          <Grid item xs={4} container justify='center'>
+
+      <Grid item xs={4} container justify='center' style={{position: 'relative'}}>
+        {!loading ?
+          <>
             <Typography variant="h4" align='center'>Список пользователей</Typography>
             <Table>
               <TableHead>
@@ -53,10 +54,11 @@ const ManagerList = () => {
                 }
               </TableBody>
             </Table>
-          </Grid>
-          <Grid item xs={1}></Grid>
-        </>
-        : <CircularProgress />}
+          </>
+          : <CircularProgress style={{ position: 'absolute', top: '50%', left: '50%' }} />}
+      </Grid>
+      <Grid item xs={1}></Grid>
+
     </>
   );
 }

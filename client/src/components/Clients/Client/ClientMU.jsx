@@ -167,7 +167,7 @@ export default function ClientMU() {
             <ListOfComments comments={client.comments} text={'Комментарии по клиенту'} />
           </Paper>
 
-          <Box>
+          <Box style={{position: 'relative'}}>
             {!loading ?
               <form onSubmit={commentHandlerSubmit} name="addCommentClient">
                 <FormControl margin='dense' fullWidth={true}>
@@ -183,7 +183,7 @@ export default function ClientMU() {
                   <Button type="submit" color="primary">Оставить комментарий</Button>
                 </FormControl>
               </form>
-              : <CircularProgress />}
+              : <CircularProgress style={{position: 'absolute', top: '50%', left: '50%'}}/>}
           </Box>
         </Grid>
       </Grid>

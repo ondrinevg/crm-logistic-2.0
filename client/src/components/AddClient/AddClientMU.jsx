@@ -3,10 +3,12 @@ import {
   Box,
   Button,
   Container,
+  Divider,
   FormControl,
   Input,
   InputLabel,
   makeStyles,
+  Paper,
   Typography
 } from '@material-ui/core';
 import { useDispatch, useSelector } from 'react-redux';
@@ -50,8 +52,9 @@ export default function AddClientMU() {
 
   return (
     <>
-      <Container>
-      <Typography variant="h4">Добавление клиента</Typography>
+      <Container elevation={3} component={Paper} style={{ marginTop: '40px', padding: '40px' }}>
+        <Typography variant="h4">Добавление клиента</Typography>
+        <Divider style={{ height: '2px', marginTop: '10px', marginBottom: '10px' }} />
         <form ref={formRef} onSubmit={submitHandler}>
           <Box className={classes.root}>
             <FormControl>
@@ -78,7 +81,7 @@ export default function AddClientMU() {
             </FormControl>
           </Box>
           <Box className={classes.root}>
-            <p>Адрес проживания</p>
+            <Typography variant='h5'>Адрес проживания</Typography>
             <FormControl>
               <InputLabel htmlFor="component-simple">Город</InputLabel>
               <Input type="text" name="city" required />
@@ -97,7 +100,7 @@ export default function AddClientMU() {
             </FormControl>
           </Box>
           <Box className={classes.root}>
-            <p>Адрес регистрации</p>
+            <Typography variant='h5'>Адрес регистрации</Typography>
             <FormControl>
               <InputLabel htmlFor="component-simple">Город</InputLabel>
               <Input type="text" name="cityReg" required />
@@ -116,7 +119,7 @@ export default function AddClientMU() {
             </FormControl>
           </Box>
           <FormControl fullWidth={true}>
-            <Button type="submit" className="btn btn-primary">Добавить</Button>
+            <Button type="submit" color='primary' size='large'>Добавить</Button>
           </FormControl>
         </form>
       </Container>

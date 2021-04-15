@@ -77,9 +77,10 @@ const findAll = async (req, res) => {
       || order.contractNumber?.toString().toLowerCase().includes(text.toString().toLowerCase())
       || order.title?.toLowerCase().includes(text)
       || order.status?.toLowerCase().includes(text));
-    res.json(result);
+      if (result.length > 15) return res.json(result.slice(0, 15));
+    return res.json(result);
   } catch (err) {
-    res.status(500).json(err.message);
+    return res.status(500).json(err.message);
   }
 };
 
