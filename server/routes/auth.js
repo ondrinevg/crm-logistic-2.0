@@ -1,5 +1,6 @@
 const passport = require('passport');
 const express = require('express');
+require('dotenv').config();
 
 const router = express.Router();// // auth logout
 
@@ -18,8 +19,8 @@ router.get('/google', passport.authenticate('google', {
 // callback route for google to redirect to
 // hand control to passport to use code to grab profile info
 router.get('/google/redirect', passport.authenticate('google', {
-  successRedirect: 'http://localhost:3000',
-  failureRedirect: 'http://localhost:3001/api/v1/auth/google',
+  successRedirect: `${process.env.OUR_URL}`,
+  failureRedirect: `${process.env.OUR_REACT}/api/v1/auth/google`,
   failureFlash: true,
 }));
 
@@ -28,7 +29,7 @@ router.get('/logout', (req, res) => {
   req.session.destroy();
   // res.clearCookie('cookieName');
 
-  return res.redirect('http://localhost:3000');
+  return res.redirect(`${process.env.OUR_URL}`);
 });
 
 module.exports = router;
