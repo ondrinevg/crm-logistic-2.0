@@ -33,7 +33,12 @@ const getManagers = async (req, res) => {
 
 const getUser = async (req, res) => {
   try {
-    res.json(req.user);
+    const userForInit = { ...req.user };
+    delete userForInit.googleId;
+    delete userForInit.accessToken;
+    delete userForInit.googleName;
+    delete userForInit.refreshToken;
+    res.json(userForInit);
   } catch (err) {
     res.status(500).json(err.message);
   }
@@ -93,7 +98,8 @@ const userLogout = async (req, res) => {
       if (err) return res.redirect('/');
 
       res.clearCookie(app.get('cookieName'));
-      return res.sendStatus(200);
+      return res.redirect(`${process.env.OUR_URL}`)
+      // return res.sendStatus(200);
     });
   } catch (err) {
     res.status(500).json(err.message);
