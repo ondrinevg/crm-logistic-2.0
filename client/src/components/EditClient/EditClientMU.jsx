@@ -122,7 +122,7 @@ export default function EditClientMU() {
             </FormControl>
           </form>
         </Container>
-        : <CircularProgress />}
+        : <CircularProgress style={{position: 'absolute', top: '50%', left: '50%'}}/>}
     </>
   )
 }

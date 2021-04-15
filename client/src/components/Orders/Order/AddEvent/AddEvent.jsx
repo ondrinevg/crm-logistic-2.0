@@ -148,7 +148,7 @@ export default function AddEvent({ order, id }) {
             </Grid>
             <Grid item xs={1}></Grid>
           </>
-          : <CircularProgress />}
+          : <CircularProgress style={{position: 'absolute', top: '50%', left: '50%'}} />}
       </Grid>
     </Paper>
   )

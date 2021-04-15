@@ -44,8 +44,7 @@ export default function ListOfClientsMU() {
   return (
     <>
       {!loading ?
-        // <Paper elevation={3}>
-          <Container maxWidth="lg" elevation={3} component={Paper}>
+          <Container maxWidth="lg" elevation={3} component={Paper} style={{ overflow: 'hidden', paddingBottom: '20px'}}>
             <Typography component="div" style={{ height: '90vh' }}>
               <Grid container alignContent='center' justify='center' spacing={4}>
                 <Grid item container xs={6} justify='flex-end' alignContent='center'>
@@ -56,7 +55,8 @@ export default function ListOfClientsMU() {
                 <Grid item container xs={6} justify='flex-start' alignContent='center'>
                   <Button onClick={addClientHandler}>Добавить клиента</Button>
                 </Grid>
-                <Grid item container>
+                <Grid item container xs={12}>
+               
                   <Grid container item spacing={4}>
                     <Grid item sm={1}></Grid>
                     <Grid item sm={8}>
@@ -80,8 +80,7 @@ export default function ListOfClientsMU() {
               </Grid>
             </Typography>
           </Container>
-        // </Paper>
-        : <CircularProgress />}
+        : <CircularProgress style={{position: 'absolute', top: '50%', left: '50%'}} />}
     </>
   )
 }

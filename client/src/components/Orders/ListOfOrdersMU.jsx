@@ -45,7 +45,7 @@ export default function ListOfOrdersMU() {
   return (
     <>
       {!loading ?
-        <Container maxWidth="lg" elevation={3} component={Paper}>
+        <Container maxWidth="lg" elevation={3} component={Paper} style={{ overflow: 'hidden', paddingBottom: '20px'}}>
           <Typography component="div" style={{ height: '90vh' }}>
             <Grid container alignContent='center' justify='center' spacing={4}>
               <Grid item container xs={6} justify='flex-end' alignContent='center'>
@@ -86,7 +86,7 @@ export default function ListOfOrdersMU() {
             </Grid>
           </Typography>
         </Container>
-        : <CircularProgress />}
+        : <CircularProgress style={{position: 'absolute', top: '50%', left: '50%'}} />}
     </>
   )
 }

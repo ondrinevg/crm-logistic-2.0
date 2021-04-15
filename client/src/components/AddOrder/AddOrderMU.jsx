@@ -8,10 +8,13 @@ import {
   Button,
   CircularProgress,
   Container,
+  Divider,
   FormControl,
   Input,
   InputLabel,
+  List,
   makeStyles,
+  Paper,
   Typography
 } from '@material-ui/core';
 import MomentUtils from '@date-io/moment';
@@ -75,8 +78,9 @@ export default function AddOrderMU() {
     <>
       {!loading ?
         <MuiPickersUtilsProvider utils={MomentUtils}>
-          <Container>
+          <Container elevation={3} component={Paper} style={{ marginTop: '40px', padding: '40px' }}>
             <Typography variant="h4">Добавление заказа</Typography>
+            <Divider style={{ height: '2px', marginTop: '10px', marginBottom: '10px' }} />
             <form ref={formRef} onSubmit={submitHandler}>
               <Box className={classes.root}>
                 <FormControl>
@@ -99,13 +103,15 @@ export default function AddOrderMU() {
                       handlerSerchClients(e);
                     }
                     }
+                    disabled={client?._id ? true : false}
                     value={client?._id ? `${client.lastName} ${client.name} ${client.middleName}` : clientString}
                     type="text"
                     name="client"
                     autoComplete="off"
                     required />
                 </FormControl>
-                <ul>
+               
+                <List style={{width: '100%'}}>
                   {clients.length
                     ? clients.map(client => (
                       <ClientVariant key={client._id} client={client} setClientString={setClientString} />
@@ -113,11 +119,11 @@ export default function AddOrderMU() {
                     :
                     ''
                   }
-                </ul>
+                </List>
               </Box>
 
               <Box className={classes.root}>
-                <p>Адрес доставки</p>
+                <Typography variant='h5'>Адрес доставки</Typography>
                 <FormControl>
                   <InputLabel htmlFor="component-simple">Город</InputLabel>
                   <Input type="text" name="city" required />
@@ -190,12 +196,12 @@ export default function AddOrderMU() {
                 </FormControl>
               </Box>
               <FormControl fullWidth={true}>
-                <Button type="submit" className="btn btn-primary">Добавить</Button>
+                <Button type="submit" color='primary' size='large'>Добавить</Button>
               </FormControl>
             </form>
           </Container>
         </MuiPickersUtilsProvider>
-        : <CircularProgress />}
+        : <CircularProgress style={{position: 'absolute', top: '50%', left: '50%'}} />}
     </>
   )
 }

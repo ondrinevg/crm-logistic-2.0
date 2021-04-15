@@ -20,10 +20,10 @@ export default function HeaderMU() {
         <Button color="inherit" component={RouterLink} to="/orders">Заказы
         </Button>
         <Box display="flex" justifyContent="flex-end" flexGrow={1}>
-          <Button color="inherit">
-            {user.googleName}
+          <Button color="inherit" >
+            {`${user?.lastName} ${user?.name[0]}. ${user?.middleName[0]}.`}
           </Button>
-          <Avatar alt={`${user.name}`} src={user.photo} />
+          <Avatar alt={`${user.name}`} src={user.photo} style={{ marginRight: '40px' }} />
           <Button color="inherit" component={Link} href={`${process.env.REACT_APP_ADDRESS_TO_FETCH}/api/v1/auth/logout`}>Выйти
         </Button>
         </Box>
