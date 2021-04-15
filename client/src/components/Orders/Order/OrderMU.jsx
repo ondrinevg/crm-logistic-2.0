@@ -68,7 +68,6 @@ export default function OrderMU() {
   const loading = useSelector(state => state.loading);
 
   const [comment, setComment] = useState('');
-  // const [status, setStatus] = useState(order?.status || 'в работе');
   const [status, setStatus] = useState('');
 
   const dispatch = useDispatch();

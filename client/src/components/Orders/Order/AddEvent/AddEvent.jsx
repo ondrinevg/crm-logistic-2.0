@@ -6,8 +6,8 @@ import AddIcon from '@material-ui/icons/Add';
 import { IconButton, InputAdornment } from "@material-ui/core";
 import { DateTimePicker } from "@material-ui/pickers";
 import { useDispatch, useSelector } from 'react-redux';
-import { changeLoadStatus } from '../../../../redux/actionCreators/loadAC';
 import { addCommentToOrderSaga } from '../../../../redux/actionCreators/orderAC';
+import { addEventSaga } from '../../../../redux/actionCreators/eventAC';
 
 export default function AddEvent({ order, id }) {
   const [selectedDate, handleDateChange] = useState(new Date());
@@ -20,38 +20,29 @@ export default function AddEvent({ order, id }) {
 
   const submitHandler = (e) => {
     e.preventDefault();
-    dispatch(changeLoadStatus(true));
-    if (selectedDate && selectedEndDate && selectedRole && description.trim())
-      fetch(`${process.env.REACT_APP_ADDRESS_TO_FETCH}/api/v1/managers/token`, {
-        credentials: "include",
-        method: 'POST',
-        headers: {
-          "Content-Type": "application/json",
+    if (selectedDate && selectedEndDate && selectedRole && description.trim()) {
+      const newEvent = {
+        start: {
+          dateTime: selectedDate,
+          timeZone: 'Europe/Moscow'
         },
-        body: JSON.stringify({
-          start: {
-            dateTime: selectedDate,
-            timeZone: 'Europe/Moscow'
-          },
-          end: {
-            dateTime: selectedEndDate,
-            timeZone: 'Europe/Moscow'
-          },
-          summary: `${selectedRole} для заказа №${order}`,
-          colorId: selectedRole === 'доставка' ? 1 : 2,
-          description: description.trim(),
-        }),
-      }).then(() => {
-        dispatch(addCommentToOrderSaga(id,
-          `установлено событие "${selectedRole}", которое пройдет с ${selectedDate.toLocaleString()} до ${selectedEndDate.toLocaleString()}`
-        ));
-        handleDateChange(new Date());
-        handleEndDateChange(new Date());
-        handleRoleChange('');
-        setDescription('');
-        dispatch(changeLoadStatus(false));
-      })
-        .catch(() => dispatch(changeLoadStatus(false)));
+        end: {
+          dateTime: selectedEndDate,
+          timeZone: 'Europe/Moscow'
+        },
+        summary: `${selectedRole} для заказа №${order}`,
+        colorId: selectedRole === 'доставка' ? 1 : 2,
+        description: description.trim(),
+      };
+      dispatch(addEventSaga(newEvent));
+      dispatch(addCommentToOrderSaga(id,
+        `установлено событие "${selectedRole}", которое пройдет с ${selectedDate.toLocaleString()} до ${selectedEndDate.toLocaleString()}`
+      ));
+      handleDateChange(new Date());
+      handleEndDateChange(new Date());
+      handleRoleChange('');
+      setDescription('');
+    }
   }
 
   return (
