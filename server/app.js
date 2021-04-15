@@ -29,7 +29,7 @@ app.use(express.json());
 app.use(flash());
 
 app.use(cors({
-  origin: 'http://localhost:3000',
+  origin: `${process.env.OUR_URL}`,
   credentials: true,
 }));
 
