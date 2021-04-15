@@ -6,7 +6,7 @@ export default function ListOfComments({ text, comments }) {
   return (
     <List>
       <ListSubheader inset={false} disableGutters={false}>
-        <Paper style={{ width: '95%', padding: '11px' }}>
+        <Paper style={{ width: '96%', padding: '11px' }}>
           <Typography variant='h6'>{text}</Typography>
         </Paper>
       </ListSubheader>

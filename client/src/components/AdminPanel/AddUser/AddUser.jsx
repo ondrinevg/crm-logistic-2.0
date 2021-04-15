@@ -64,6 +64,7 @@ export default function AddUser() {
               <InputLabel htmlFor="age-native-simple">Роль</InputLabel>
               <Select
                 native name="role"
+                required
               >
                 <option aria-label="None" value="" />
                 <option value="Manager">Менеджер</option>

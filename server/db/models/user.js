@@ -25,6 +25,11 @@ const userSchema = new Schema({
   email: {
     type: String,
     unique: true,
+    sparse: true,
+  },
+  canAccess: {
+    type: Boolean,
+    default: true,
   },
   accessToken: {
     type: String,

@@ -23,17 +23,26 @@ const strategy = new GoogleStrategy({
   const photo = profile.photos[0].value;
   const googleId = profile.id;
   const googleName = profile.displayName;
-
-  User.findOneAndUpdate({ email: googleEmail },
-    {
+  let userForUpdate;
+  if (refreshToken) {
+    userForUpdate = {
       accessToken,
       refreshToken,
       photo,
       googleName,
       googleId,
-    }, { new: true })
+    }
+  } else userForUpdate = {
+    accessToken,
+    photo,
+    googleName,
+    googleId,
+  }
+
+  User.findOneAndUpdate({ email: googleEmail },
+    userForUpdate, { new: true })
     .then((currentUser) => {
-      if (currentUser) {
+      if (currentUser && currentUser.canAccess) {
         return done(null, currentUser);
       }
       return done(null, false, { message: 'User incorrect!' });

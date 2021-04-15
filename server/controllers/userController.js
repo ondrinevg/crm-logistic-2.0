@@ -23,6 +23,7 @@ const getManagers = async (req, res) => {
       middleName: user.middleName,
       photo: user.photo,
       phone: user.phone,
+      canAccess: user.canAccess,
     }));
 
     res.json(users);
@@ -33,7 +34,12 @@ const getManagers = async (req, res) => {
 
 const getUser = async (req, res) => {
   try {
-    res.json(req.user);
+    const userForInit = JSON.parse(JSON.stringify(req.user));
+    delete userForInit.googleId;
+    delete userForInit.accessToken;
+    delete userForInit.googleName;
+    delete userForInit.refreshToken;
+    res.json(userForInit);
   } catch (err) {
     res.status(500).json(err.message);
   }
@@ -58,12 +64,11 @@ const userRegister = async (req, res) => {
         email,
         role,
       });
-
       return res.json(newUser);
     }
     return res.sendStatus(418);
   } catch (err) {
-    res.status(500).json(err.message);
+    return res.status(500).json(err.message);
   }
 };
 
@@ -93,7 +98,8 @@ const userLogout = async (req, res) => {
       if (err) return res.redirect('/');
 
       res.clearCookie(app.get('cookieName'));
-      return res.sendStatus(200);
+      return res.redirect(`${process.env.OUR_URL}`)
+      // return res.sendStatus(200);
     });
   } catch (err) {
     res.status(500).json(err.message);
@@ -105,7 +111,7 @@ const editUser = async (req, res) => {
     const { id } = req.params;
     if (req.body.deletemail) {
       const user = await User.findById(id);
-      delete user.email;
+      user.canAccess = !user.canAccess;
       await user.save();
       return res.json({
         role: user.role,
@@ -115,6 +121,8 @@ const editUser = async (req, res) => {
         middleName: user.middleName,
         photo: user.photo,
         phone: user.phone,
+        email: user.email,
+        canAccess: user.canAccess,
       });
     }
     if (Object.keys(req.body).every((key) => req.body[key].trim())) {
@@ -131,7 +139,7 @@ const editUser = async (req, res) => {
       });
     }
   } catch (err) {
-    res.status(500).json(err.message);
+    return res.status(500).json(err.message);
   }
 };
 
