@@ -8,10 +8,12 @@ import {
   Button,
   CircularProgress,
   Container,
+  Divider,
   FormControl,
   Input,
   InputLabel,
   makeStyles,
+  Paper,
   Typography
 } from '@material-ui/core';
 import MomentUtils from '@date-io/moment';
@@ -44,7 +46,7 @@ export default function EditOrderMU() {
   const dispatch = useDispatch();
 
 
-  const address = order.deliveryAddress.split(', ');
+  const address = order.deliveryAddress?.split(', ');
 
   const submitHandler = (e) => {
     e.preventDefault();
@@ -62,8 +64,9 @@ export default function EditOrderMU() {
     <>
     {!loading ?
       <MuiPickersUtilsProvider utils={MomentUtils}>
-        <Container>
+        <Container elevation={3} component={Paper} style={{ marginTop: '40px', padding: '40px' }}>
           <Typography variant="h4">Редактирование заказа</Typography>
+          <Divider style={{ height: '2px', marginTop: '10px', marginBottom: '10px' }} />
           <form ref={formRef} onSubmit={submitHandler}>
             <Box className={classes.root}>
               <FormControl>
@@ -82,22 +85,22 @@ export default function EditOrderMU() {
             </Box>
 
             <Box className={classes.root}>
-              <p>Адрес доставки</p>
+              <Typography variant='h5'>Адрес доставки</Typography>
               <FormControl>
                 <InputLabel htmlFor="component-simple">Город</InputLabel>
-                <Input type="text" name="city" defaultValue={address[0]} required />
+                <Input type="text" name="city" defaultValue={address?.length ? address[0] : ''} required />
               </FormControl>
               <FormControl>
                 <InputLabel htmlFor="component-simple">Улица</InputLabel>
-                <Input type="text" name="street" defaultValue={address[1]} required />
+                <Input type="text" name="street" defaultValue={address?.length ? address[1] : ''} required />
               </FormControl>
               <FormControl>
                 <InputLabel htmlFor="component-simple">Дом/строение</InputLabel>
-                <Input type="text" name="building" defaultValue={address[2]} required />
+                <Input type="text" name="building" defaultValue={address?.length ? address[2] : ''} required />
               </FormControl>
               <FormControl>
                 <InputLabel htmlFor="component-simple">Квартира/помещение</InputLabel>
-                <Input type="text" name="room" defaultValue={address[3]} required />
+                <Input type="text" name="room" defaultValue={address?.length ? address[3] : ''} required />
               </FormControl>
             </Box>
             <Box className={classes.root}>
@@ -153,7 +156,7 @@ export default function EditOrderMU() {
               </FormControl>
             </Box>
             <FormControl fullWidth={true}>
-              <Button type="submit" className="btn btn-primary">Отредактировать</Button>
+              <Button type="submit" color='primary' size='large'>Отредактировать</Button>
             </FormControl>
           </form>
         </Container>

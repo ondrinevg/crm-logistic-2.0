@@ -7,10 +7,12 @@ import {
   Button,
   CircularProgress,
   Container,
+  Divider,
   FormControl,
   Input,
   InputLabel,
   makeStyles,
+  Paper,
   Typography
 } from '@material-ui/core';
 
@@ -34,8 +36,8 @@ export default function EditClientMU() {
 
   const client = useSelector(state => state.client);
 
-  const homeAddress = client.homeAddress.split(', ');
-  const registrationAddress = client.registrationAddress.split(', ');
+  const homeAddress = client.homeAddress?.split(', ');
+  const registrationAddress = client.registrationAddress?.split(', ');
 
   const submitHandler = (e) => {
     e.preventDefault();
@@ -52,8 +54,9 @@ export default function EditClientMU() {
   return (
     <>
       {!loading ?
-        <Container>
+        <Container elevation={3} component={Paper} style={{ marginTop: '40px', padding: '40px' }}>
           <Typography variant="h4">Редактирование клиента</Typography>
+          <Divider style={{ height: '2px', marginTop: '10px', marginBottom: '10px' }} />
           <form ref={formRef} onSubmit={submitHandler}>
             <Box className={classes.root}>
               <FormControl>
@@ -80,49 +83,49 @@ export default function EditClientMU() {
               </FormControl>
             </Box>
             <Box className={classes.root}>
-              <p>Адрес проживания</p>
+              <Typography variant='h5'>Адрес проживания</Typography>
               <FormControl>
                 <InputLabel htmlFor="component-simple">Город</InputLabel>
-                <Input type="text" defaultValue={homeAddress[0]} name="city" required />
+                <Input type="text" defaultValue={homeAddress?.length ? homeAddress[0] : ''} name="city" required />
               </FormControl>
               <FormControl>
                 <InputLabel htmlFor="component-simple">Улица</InputLabel>
-                <Input type="text" defaultValue={homeAddress[1]} name="street" required />
+                <Input type="text" defaultValue={homeAddress?.length ? homeAddress[1] : ''} name="street" required />
               </FormControl>
               <FormControl>
                 <InputLabel htmlFor="component-simple">Дом/строение</InputLabel>
-                <Input type="text" defaultValue={homeAddress[2]} name="building" required />
+                <Input type="text" defaultValue={homeAddress?.length ? homeAddress[2] : ''} name="building" required />
               </FormControl>
               <FormControl>
                 <InputLabel htmlFor="component-simple">Квартира/помещение</InputLabel>
-                <Input type="text" defaultValue={homeAddress[3]} name="room" required />
+                <Input type="text" defaultValue={homeAddress?.length ? homeAddress[3] : ''} name="room" required />
               </FormControl>
             </Box>
             <Box className={classes.root}>
-              <p>Адрес регистрации</p>
+              <Typography variant='h5'>Адрес регистрации</Typography>
               <FormControl>
                 <InputLabel htmlFor="component-simple">Город</InputLabel>
-                <Input type="text" defaultValue={registrationAddress[0]} name="cityReg" required />
+                <Input type="text" defaultValue={registrationAddress?.length ? registrationAddress[0] : ''} name="cityReg" required />
               </FormControl>
               <FormControl>
                 <InputLabel htmlFor="component-simple">Улица</InputLabel>
-                <Input type="text" defaultValue={registrationAddress[1]} name="streetReg" required />
+                <Input type="text" defaultValue={registrationAddress?.length ? registrationAddress[1] : ''} name="streetReg" required />
               </FormControl>
               <FormControl>
                 <InputLabel htmlFor="component-simple">Дом/строение</InputLabel>
-                <Input type="text" defaultValue={registrationAddress[2]} name="buildingReg" required />
+                <Input type="text" defaultValue={registrationAddress?.length ? registrationAddress[2] : ''} name="buildingReg" required />
               </FormControl>
               <FormControl>
                 <InputLabel htmlFor="component-simple">Квартира/помещение</InputLabel>
-                <Input type="text" defaultValue={registrationAddress[3]} name="roomReg" required />
+                <Input type="text" defaultValue={registrationAddress?.length ? registrationAddress[3] : ''} name="roomReg" required />
               </FormControl>
             </Box>
             <FormControl fullWidth={true}>
-              <Button type="submit" className="btn btn-primary">Редактировать</Button>
+              <Button type="submit" color='primary' size='large'>Редактировать</Button>
             </FormControl>
           </form>
         </Container>
-        : <CircularProgress style={{position: 'absolute', top: '50%', left: '50%'}}/>}
+        : <CircularProgress style={{ position: 'absolute', top: '50%', left: '50%' }} />}
     </>
   )
 }

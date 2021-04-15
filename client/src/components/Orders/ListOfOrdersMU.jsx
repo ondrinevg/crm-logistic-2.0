@@ -45,7 +45,7 @@ export default function ListOfOrdersMU() {
   return (
     <>
       {!loading ?
-        <Container maxWidth="lg" elevation={3} component={Paper} style={{ overflow: 'hidden', paddingBottom: '20px'}}>
+        <Container maxWidth="lg" elevation={3} component={Paper} style={{ overflow: 'hidden',  padding: '20px 0 0'}}>
           <Typography component="div" style={{ height: '90vh' }}>
             <Grid container alignContent='center' justify='center' spacing={4}>
               <Grid item container xs={6} justify='flex-end' alignContent='center'>
@@ -54,7 +54,7 @@ export default function ListOfOrdersMU() {
                 </form>
               </Grid>
               <Grid item container xs={6} justify='flex-start' alignContent='center'>
-                <Button onClick={addOrderHandler}>Добавить заказ</Button>
+                <Button color='primary' onClick={addOrderHandler}>Добавить заказ</Button>
               </Grid>
               <Grid item container>
                 <Grid container item spacing={4}>

@@ -98,7 +98,7 @@ export default function ClientMU() {
   }, [id]);
 
   return (
-    <Container maxWidth='lg'>
+    <Container maxWidth='lg' style={{padding: '20px 0'}}>
       <Grid container spacing={3}>
         <Grid item container xs={6} direction='column' className={classes.userCard}>
           <div>
