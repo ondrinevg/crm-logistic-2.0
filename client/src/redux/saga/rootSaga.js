@@ -22,6 +22,7 @@ import editUserSagaWatcher from './users/editUserSagaWatcher';
 import addUserSagaWatcher from './user/addUserSagaWatcher';
 import editEventSagaWatcher from './event/editEventSagaWatcher';
 import getEventsSagaWatcher from './events/getEventsSagaWatcher';
+import addEventSagaWatcher from './event/addEventSagaWatcher';
 
 export default function* rootSaga() {
   yield all([
@@ -48,5 +49,6 @@ export default function* rootSaga() {
     addUserSagaWatcher(),
     editEventSagaWatcher(),
     getEventsSagaWatcher(),
+    addEventSagaWatcher(),
   ])
 };
