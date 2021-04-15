@@ -16,7 +16,7 @@ passport.deserializeUser((id, done) => {
 const strategy = new GoogleStrategy({
   clientID: process.env.GOOGLE_CLIENT_ID,
   clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-  callbackURL: '/api/v1/auth/google/redirect',
+  callbackURL: `${process.env.OUR_REACT}/api/v1/auth/google/redirect`,
 }, (accessToken, refreshToken, profile, done) => {
   const googleEmail = profile.emails[0].value;
   const photo = profile.photos[0].value;
