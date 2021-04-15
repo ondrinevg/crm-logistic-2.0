@@ -1,0 +1,21 @@
+{
+  "name": "crm-logistic-2.0",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "cd ./server && npm i && node app.js",
+    "heroku-postbuild": "cd ./client && yarn && yarn run build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ondrinevg/crm-logistic-2.0.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ondrinevg/crm-logistic-2.0/issues"
+  },
+  "homepage": "https://github.com/ondrinevg/crm-logistic-2.0#readme"
+}
