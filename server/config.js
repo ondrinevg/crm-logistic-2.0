@@ -42,7 +42,7 @@ const strategy = new GoogleStrategy({
   User.findOneAndUpdate({ email: googleEmail },
     userForUpdate, { new: true })
     .then((currentUser) => {
-      if (currentUser) {
+      if (currentUser && currentUser.canAccess) {
         return done(null, currentUser);
       }
       return done(null, false, { message: 'User incorrect!' });

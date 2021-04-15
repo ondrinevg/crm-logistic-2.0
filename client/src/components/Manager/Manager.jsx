@@ -34,9 +34,8 @@ const Manager = ({ manager }) => {
       <TableCell align='center'><IconButton aria-label="edit" onClick={editUserHandler}><EditIcon /></IconButton></TableCell>
       <TableCell align='center'>
         <IconButton
-          color="primary"
+          color={manager.canAccess ? "primary" : "secondary"}
           aria-label="delete"
-          disabled={!manager.email}
           onClick={deleteMailHandler}><HttpsIcon />
         </IconButton>
       </TableCell>

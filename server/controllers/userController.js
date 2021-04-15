@@ -23,6 +23,7 @@ const getManagers = async (req, res) => {
       middleName: user.middleName,
       photo: user.photo,
       phone: user.phone,
+      canAccess: user.canAccess,
     }));
 
     res.json(users);
@@ -109,7 +110,8 @@ const editUser = async (req, res) => {
   try {
     const { id } = req.params;
     if (req.body.deletemail) {
-      const user = await User.findByIdAndUpdate(id, { $unset: { email: 1 } }, { new: true });
+      const user = await User.findById(id);
+      user.canAccess = !user.canAccess;
       await user.save();
       return res.json({
         role: user.role,
@@ -119,6 +121,8 @@ const editUser = async (req, res) => {
         middleName: user.middleName,
         photo: user.photo,
         phone: user.phone,
+        email: user.email,
+        canAccess: user.canAccess,
       });
     }
     if (Object.keys(req.body).every((key) => req.body[key].trim())) {
