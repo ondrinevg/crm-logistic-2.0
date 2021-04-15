@@ -73,6 +73,11 @@ app.use('/api/v1/orders', ordersRouter);
 app.use('/api/v1/managers', calendarRouter);
 
 const PORT = process.env.PORT ?? 3000;
+const root = require('path').join(__dirname, '../', 'client', 'build');
+app.use(express.static(root));
+app.get('*', (req, res) => {
+  res.sendFile('index.html', { root });
+});
 
 app.listen(
   PORT,
