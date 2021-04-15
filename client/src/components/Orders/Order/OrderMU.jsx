@@ -118,7 +118,7 @@ export default function OrderMU() {
 
   return (
     <MuiPickersUtilsProvider utils={MomentUtils}>
-      <Container maxWidth='lg'>
+      <Container maxWidth='lg' style={{padding: '20px 0 50px'}}>
         <Grid container>
           <Grid item container xs={5} className={classes.userCard} direction='column'>
             <Typography variant='h6' className={classes.orderHeader}>Информация о заказе:</Typography>

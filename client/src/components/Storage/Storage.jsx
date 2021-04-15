@@ -97,7 +97,7 @@ export function Storage({ id }) {
         </Fab>
         </label>
         <Fab
-          style={{ backgroundColor: file?.name ? '#b2dfdb' : '#bdbdbd' }}
+          style={{ marginLeft: '20px', backgroundColor: file?.name ? '#b2dfdb' : '#bdbdbd' }}
           size="small"
           component="span"
           aria-label="add"

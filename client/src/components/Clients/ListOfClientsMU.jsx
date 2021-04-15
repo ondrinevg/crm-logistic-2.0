@@ -44,7 +44,7 @@ export default function ListOfClientsMU() {
   return (
     <>
       {!loading ?
-          <Container maxWidth="lg" elevation={3} component={Paper} style={{ overflow: 'hidden', paddingBottom: '20px'}}>
+          <Container maxWidth="lg" elevation={3} component={Paper} style={{ overflow: 'hidden', padding: '20px 0 0'}}>
             <Typography component="div" style={{ height: '90vh' }}>
               <Grid container alignContent='center' justify='center' spacing={4}>
                 <Grid item container xs={6} justify='flex-end' alignContent='center'>
@@ -53,7 +53,7 @@ export default function ListOfClientsMU() {
                   </form>
                 </Grid>
                 <Grid item container xs={6} justify='flex-start' alignContent='center'>
-                  <Button onClick={addClientHandler}>Добавить клиента</Button>
+                  <Button color='primary' onClick={addClientHandler}>Добавить клиента</Button>
                 </Grid>
                 <Grid item container xs={12}>
                

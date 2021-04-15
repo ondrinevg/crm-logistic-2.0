@@ -7,10 +7,13 @@ import {
   Button,
   CircularProgress,
   Container,
+  Divider,
   FormControl,
   Input,
   InputLabel,
   makeStyles,
+  Paper,
+  Select,
   Typography
 } from '@material-ui/core';
 
@@ -42,7 +45,6 @@ export default function EditUser() {
 
     const valuesOfFields = Object.fromEntries(new FormData(formRef.current).entries());
     if (Object.keys(valuesOfFields).every(key => valuesOfFields[key].trim())) {
-      console.log('valuesOfFields', valuesOfFields);
       dispatch(editUserSaga(valuesOfFields, id));
       formRef.current.reset();
       history.push('/admin');
@@ -52,8 +54,9 @@ export default function EditUser() {
   return (
     <>
       {!loading ?
-        <Container>
+        <Container elevation={3} component={Paper} style={{ marginTop: '40px', padding: '40px' }}>
           <Typography variant="h4">Редактирование пользователя</Typography>
+          <Divider style={{ height: '2px', marginTop: '10px', marginBottom: '10px' }} />
           <form ref={formRef} onSubmit={submitHandler}>
             <Box className={classes.root}>
               <FormControl>
@@ -69,6 +72,19 @@ export default function EditUser() {
                 <Input type="text" defaultValue={user.middleName} name="middleName" required />
               </FormControl>
             </Box>
+            <Box p={6}>
+              <FormControl fullWidth={true}>
+                <InputLabel htmlFor="age-native-simple">Роль</InputLabel>
+                <Select
+                  native name="role"
+                  required
+                  defaultValue={user.role}
+                >
+                  <option value="Manager">Менеджер</option>
+                  <option value="Admin">Администратор CRM</option>
+                </Select>
+              </FormControl>
+            </Box>
             <Box className={classes.root}>
               <FormControl>
                 <InputLabel htmlFor="component-simple">Телефон</InputLabel>
@@ -80,11 +96,11 @@ export default function EditUser() {
               </FormControl>
             </Box>
             <FormControl fullWidth={true}>
-              <Button type="submit" className="btn btn-primary">Редактировать</Button>
+              <Button type="submit" color='primary' size='large'>Редактировать</Button>
             </FormControl>
           </form>
         </Container>
-        : <CircularProgress style={{position: 'absolute', top: '50%', left: '50%'}} />}
+        : <CircularProgress style={{ position: 'absolute', top: '50%', left: '50%' }} />}
     </>
   )
 }
