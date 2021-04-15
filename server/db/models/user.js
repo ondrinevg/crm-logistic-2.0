@@ -27,6 +27,10 @@ const userSchema = new Schema({
     unique: true,
     sparse: true,
   },
+  canAccess: {
+    type: Boolean,
+    default: true,
+  },
   accessToken: {
     type: String,
   },
