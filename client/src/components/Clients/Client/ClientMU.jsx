@@ -163,7 +163,7 @@ export default function ClientMU() {
         </Grid>
         <Grid item container xs={6} direction='column' justify='space-between' style={{ minHeight: '700px' }}>
 
-          <Paper style={{ maxHeight: '600px', minHeight: '600px', width: '100%', overflowY: 'scroll', overflowWrap: 'break-word' }} className={classes.userCard}>
+          <Paper elevation={3} style={{ maxHeight: '600px', minHeight: '600px', width: '100%', overflowY: 'scroll', overflowWrap: 'break-word', pagging: '0 24px' }} className={classes.userCard}>
             <ListOfComments comments={client.comments} text={'Комментарии по клиенту'} />
           </Paper>
 

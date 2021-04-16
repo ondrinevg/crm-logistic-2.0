@@ -57,7 +57,7 @@ const useStyles = makeStyles((theme) => ({
     fontSize: 'inherit',
   },
   orderComments: {
-    padding: '0 24px'
+    padding: '0 18px'
   }
 }));
 
@@ -189,7 +189,7 @@ export default function OrderMU() {
 
             <Divider style={{ height: '2px', marginTop: '10px' }} />
 
-            <Box>
+            <Box component={Paper} elevation={3}>
               <Accordion>
                 <AccordionSummary
                   expandIcon={<ExpandMoreIcon />}
@@ -244,7 +244,7 @@ export default function OrderMU() {
           <Grid item xs={1}></Grid>
           <Grid item container xs={6} direction='column' style={{ minHeight: '800px' }}>
 
-            <Paper className={classes.orderComments} style={{ maxHeight: '600px', minHeight: '600px', width: '100%', overflowY: 'scroll', overflowWrap: 'break-word' }}>
+            <Paper elevation={3} className={classes.orderComments} style={{ maxHeight: '600px', minHeight: '600px', width: '100%', overflowY: 'scroll', overflowWrap: 'break-word' }}>
               <ListOfComments comments={order.comments} text={'Комментарии по заказу'} />
             </Paper>
 
