@@ -87,6 +87,7 @@ const Calendar = () => {
             ? { ...appointment, ...changed[appointment.id] }
             : appointment
         );
+        console.log(changed);
         dispatch(editEventSaga(changed));
       }
       if (deleted !== undefined) {

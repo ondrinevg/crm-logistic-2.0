@@ -16,6 +16,7 @@ userRouter.route('/token')
           startDate: event.start.dateTime,
           endDate: event.end.dateTime,
           title: event.summary,
+          notes: event.description,
         })));
       };
       if (response.status === 401) {
@@ -42,6 +43,7 @@ userRouter.route('/token')
               startDate: event.start.dateTime,
               endDate: event.end.dateTime,
               title: event.summary,
+              notes: event.description,
             })));
           }
           return res.status(response.status).json(response.message);
