@@ -5,9 +5,9 @@ import CommentForList from './CommentForList/CommentForList'
 export default function ListOfComments({ text, comments }) {
   return (
     <List>
-      <ListSubheader inset={false} disableGutters={false}>
-        <Paper style={{ width: '96%', padding: '11px' }}>
-          <Typography variant='h6'>{text}</Typography>
+      <ListSubheader inset={false} disableGutters={false} /*style={{ paddingLeft: 0 }}*/ >
+        <Paper elevation={3} style={{ width: '96%', padding: '11px 12px' }}>
+          <Typography variant='h6' >{text}</Typography>
         </Paper>
       </ListSubheader>
       {comments?.length ?
