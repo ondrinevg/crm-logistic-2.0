@@ -22,14 +22,37 @@ const putEventToGoogle = async (req, res) => {
 
 const patchEventOnGoogle = async (req, res) => {
   const eventId = Object.keys(req.body)[0];
-  const start = {
-    dateTime: req.body[eventId].startDate,
-    timeZone: 'Europe/Moscow',
-  };
-  const end = {
-    dateTime: req.body[eventId].endDate,
-    timeZone: 'Europe/Moscow'
-  };
+  let newEvent;
+  if (req.body[eventId].hasOwnProperty('notes')) {
+    if (req.body[eventId].hasOwnProperty('startDate')) {
+      newEvent = {
+        start: {
+          dateTime: req.body[eventId].startDate,
+          timeZone: 'Europe/Moscow',
+        },
+        end: {
+          dateTime: req.body[eventId].endDate,
+          timeZone: 'Europe/Moscow'
+        },
+        description: req.body[eventId].notes,
+      };
+    } else {
+      newEvent = {
+        description: req.body[eventId].notes,
+      };
+    }
+  } else {
+    newEvent = {
+      start: {
+        dateTime: req.body[eventId].startDate,
+        timeZone: 'Europe/Moscow',
+      },
+      end: {
+        dateTime: req.body[eventId].endDate,
+        timeZone: 'Europe/Moscow'
+      },
+    };
+  }
   return fetch(`https://www.googleapis.com/calendar/v3/calendars/${process.env.GOOGLE_CALENDAR_ID}/events/${eventId}?key=${process.env.API_KEY}`, {
     headers: {
       Authorization: `Bearer ${req.user.accessToken}`,
@@ -37,7 +60,7 @@ const patchEventOnGoogle = async (req, res) => {
       "Content-Type": "application/json",
     },
     method: 'PATCH',
-    body: JSON.stringify({ start, end })
+    body: JSON.stringify(newEvent)
   });
 };
 
