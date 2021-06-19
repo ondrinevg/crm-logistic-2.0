@@ -1,4 +1,3 @@
-const bcrypt = require('bcrypt');
 const User = require('../db/models/user');
 const app = require('../app');
 
@@ -72,26 +71,6 @@ const userRegister = async (req, res) => {
   }
 };
 
-const userLogin = async (req, res) => {
-  try {
-    const { email, password } = req.body;
-    if (email && password) {
-      const currentUser = await User.findOne({ email });
-      if (currentUser && (await bcrypt.compare(password, currentUser.password))) {
-        req.session.user = {
-          id: currentUser._id,
-        };
-
-        return res.sendStatus(200);
-      }
-      return res.sendStatus(418);
-    }
-    return res.sendStatus(418);
-  } catch (err) {
-    res.status(500).json(err.message);
-  }
-};
-
 const userLogout = async (req, res) => {
   try {
     req.session.destroy((err) => {
@@ -146,7 +125,6 @@ const editUser = async (req, res) => {
 module.exports = {
   userLoginRender,
   userRegister,
-  userLogin,
   userLogout,
   getManagers,
   getUser,
