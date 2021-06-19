@@ -10,7 +10,6 @@ const { connect } = require('mongoose');
 const passport = require('passport');
 const googleConfig = require('./config');
 
-
 const User = require('./db/models/user');
 
 const authRouter = require('./routes/auth');
@@ -36,14 +35,14 @@ app.use(cors({
 app.use(sessions({
   name: app.get('cookieName'),
   secret: process.env.SECRET_KEY,
-  resave: false, // Не сохранять сессию, если мы ее не изменим
-  saveUninitialized: false, // не сохранять пустую сессию
-  store: MongoStore.create({ // выбираем в качестве хранилища mongoDB
+  resave: false,
+  saveUninitialized: false,
+  store: MongoStore.create({
     mongoUrl: process.env.DB_CONNECTION_CLOUD,
   }),
-  cookie: { // настройки, необходимые для корректного работы cookie
-    httpOnly: true, // не разрещаем модифицировать данную cookie через javascript
-    maxAge: 86400 * 1e3, // устанавливаем время жизни cookie
+  cookie: {
+    httpOnly: true,
+    maxAge: 86400 * 1e3,
   },
 }));
 

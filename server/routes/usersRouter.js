@@ -1,6 +1,5 @@
 const userRouter = require('express').Router();
 const {
-  userLogin,
   userLogout,
   userRegister,
   userLoginRender,
@@ -19,8 +18,7 @@ userRouter.route('/adminPanel')
   .post(checkAuth, checkAdmin, userRegister);
 
 userRouter.route('/login')
-  .get(userLoginRender)
-  .post(userLogin);
+  .get(userLoginRender);
 
 userRouter.route('/logout')
   .get(checkAuth, userLogout);
