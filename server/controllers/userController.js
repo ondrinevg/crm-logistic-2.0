@@ -3,9 +3,10 @@ const app = require('../app');
 
 const userLoginRender = async (req, res) => {
   try {
-    const { id } = res.locals;
-    const userId = await User.findById(id);
-    res.status(200).json(userId);
+    const { _id } = req.user;
+    console.log("_id", _id);
+    const user = await User.findById(_id);
+    res.status(200).json(user);
   } catch (err) {
     res.status(500).json(err.message);
   }
@@ -77,8 +78,7 @@ const userLogout = async (req, res) => {
       if (err) return res.redirect('/');
 
       res.clearCookie(app.get('cookieName'));
-      return res.redirect(`${process.env.OUR_URL}`)
-      // return res.sendStatus(200);
+      return res.redirect(`${process.env.OUR_URL}`);
     });
   } catch (err) {
     res.status(500).json(err.message);
