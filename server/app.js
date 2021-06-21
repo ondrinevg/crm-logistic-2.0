@@ -4,7 +4,7 @@ const flash = require('connect-flash');
 const express = require('express');
 const sessions = require('express-session');
 const MongoStore = require('connect-mongo');
-// const logger = require('morgan');
+const logger = require('morgan');
 const cors = require('cors');
 const { connect } = require('mongoose');
 const passport = require('passport');
@@ -22,7 +22,7 @@ const app = express();
 
 app.set('cookieName', 'sid');
 
-// app.use(logger('dev'));
+app.use(logger('dev'));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(flash());
@@ -48,22 +48,6 @@ app.use(sessions({
 
 app.use(passport.initialize());
 app.use(passport.session());
-
-app.use(async (req, res, next) => {
-  const userId = req.session?.user?.id;
-  if (userId) {
-    const currentUser = await User.findById(userId);
-    if (currentUser) {
-      res.locals.name = currentUser.name;
-      res.locals.lastname = currentUser.lastname;
-      res.locals.middlname = currentUser.middlename;
-      res.locals.id = currentUser._id;
-      res.locals.admin = currentUser.role === 'admin';
-      res.locals.manager = currentUser.role === 'manager';
-    }
-  }
-  next();
-});
 
 app.use('/api/v1/auth', authRouter);
 app.use('/api/v1/users', usersRouter);

@@ -7,7 +7,7 @@ const router = express.Router();
 router.get('/google', passport.authenticate('google', {
   scope: ['profile', 'email', 'https://www.googleapis.com/auth/calendar'],
   prompt: 'select_account',
-  accessType: 'offline', 
+  accessType: 'offline',
   // approvalPrompt: 'force'
 }));
 router.get('/google/redirect', passport.authenticate('google', {
