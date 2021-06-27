@@ -58,11 +58,10 @@ const Calendar = () => {
     currentDate: new Date(),
   });
 
-  const user = useSelector(state => state.user);
+  // const user = useSelector(state => state.user);
   const dispatch = useDispatch();
 
   const { data, currentDate } = state;
-  console.log({ state });
 
   useEffect(() => {
     setState(prev => ({ ...prev, data: [...events] }))
