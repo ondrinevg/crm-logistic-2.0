@@ -86,8 +86,8 @@ const findAll = async (req, res) => {
 
 const editOrder = async (req, res) => {
   try {
-    const { id } = req.params
-    const { status, url, fileName } = req.body
+    const { id } = req.params;
+    const { status, url, fileName } = req.body;
     if (status) {
       await Order.findByIdAndUpdate(id, { ...req.body });
       const editorder = await Order.findById(req.params.id).populate('client').populate({ path: 'comments', populate: { path: 'manager' } });

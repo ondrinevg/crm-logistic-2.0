@@ -36,7 +36,7 @@ export default function AddEvent({ order, id }) {
       };
       dispatch(addEventSaga(newEvent));
       dispatch(addCommentToOrderSaga(id,
-        `установлено событие "${selectedRole}", которое пройдет с ${selectedDate.toLocaleString()} до ${selectedEndDate.toLocaleString()}, дополнительные сведения: "${description.trim()}"`
+        `установлено событие "${selectedRole}", которое пройдет с ${new Date(selectedDate).toLocaleString()} до ${new Date(selectedEndDate).toLocaleString()}, дополнительные сведения: "${description.trim()}"`
       ));
       handleDateChange(new Date());
       handleEndDateChange(new Date());
