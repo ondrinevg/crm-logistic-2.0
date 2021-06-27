@@ -20,10 +20,7 @@ userRouter.route('/token')
         })));
       };
       if (response.status === 401) {
-        console.log('401 get on 22');
         refresh.requestNewAccessToken('google', req.user.refreshToken, async function (err, accessToken, refreshToken) {
-          console.log(' старый рефреш 25', req.user.refreshToken);
-          console.log(' новый рефреш 26', refreshToken);
           let userForUpdate;
           if (refreshToken) {
             userForUpdate = {
@@ -37,7 +34,6 @@ userRouter.route('/token')
           const newResponse = await getEventsFromGoogle(req, res);
           if (newResponse.status === 200) {
             const data = await newResponse.json();
-            console.log('newData', data);
             return res.json(data.items.map(event => ({
               id: event.id,
               startDate: event.start.dateTime,
@@ -61,8 +57,6 @@ userRouter.route('/token')
       if (response.status === 401) {
         console.log('401 post on 60');
         refresh.requestNewAccessToken('google', req.user.refreshToken, async function (err, accessToken, refreshToken) {
-          console.log(' старый рефреш 59', req.user.refreshToken);
-          console.log(' новый рефреш 60', refreshToken);
           let userForUpdate;
           if (refreshToken) {
             userForUpdate = {
@@ -88,10 +82,7 @@ userRouter.route('/token')
       const response = await patchEventOnGoogle(req);
       if (response.status === 200) return res.sendStatus(200);
       if (response.status === 401) {
-        console.log('401 patch on 89');
         refresh.requestNewAccessToken('google', req.user.refreshToken, async function (err, accessToken, refreshToken) {
-          console.log(' старый рефреш 83', req.user.refreshToken);
-          console.log(' новый рефреш 84', refreshToken);
           let userForUpdate;
           if (refreshToken) {
             userForUpdate = {
