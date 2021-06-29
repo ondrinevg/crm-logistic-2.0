@@ -22,6 +22,15 @@ const useStyles = makeStyles((theme) => ({
       width: '30ch',
     },
   },
+  divider: {
+    height: '2px',
+    marginTop: '10px',
+    marginBottom: '10px',
+  },
+  container: {
+    marginTop: '40px',
+    padding: '40px',
+  },
 }));
 
 export default function AddClientMU() {
@@ -52,9 +61,11 @@ export default function AddClientMU() {
 
   return (
     <>
-      <Container elevation={3} component={Paper} style={{ marginTop: '40px', padding: '40px' }}>
+      {/* <Container elevation={3} component={Paper} style={{ marginTop: '40px', padding: '40px' }}> */}
+      <Container elevation={3} component={Paper} className={classes.container}>
         <Typography variant="h4">Добавление клиента</Typography>
-        <Divider style={{ height: '2px', marginTop: '10px', marginBottom: '10px' }} />
+        {/* <Divider style={{ height: '2px', marginTop: '10px', marginBottom: '10px' }} /> */}
+        <Divider className={classes.divider} />
         <form ref={formRef} onSubmit={submitHandler}>
           <Box className={classes.root}>
             <FormControl>
