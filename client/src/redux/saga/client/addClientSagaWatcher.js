@@ -3,16 +3,17 @@ import { addClient } from '../../actionCreators/clientAC';
 import { changeLoadStatus } from '../../actionCreators/loadAC';
 import { ADD_CLIENT_SAGA } from '../../types/clientTypes';
 
-const addClientToServer = (client) => {
-  return fetch(`${process.env.REACT_APP_ADDRESS_TO_FETCH}/api/v1/clients/new`, {
+const addClientToServer = async (client) => {
+  const response = await fetch(`${process.env.REACT_APP_ADDRESS_TO_FETCH}/api/v1/clients/new`, {
     credentials: 'include',
     method: 'POST',
     headers: {
-      'Content-Type' : 'application/json',
+      'Content-Type': 'application/json',
     },
     body: JSON.stringify(client),
-  })
-    .then(response => response.json())
+  });
+
+  return await response.json();
 }
 
 

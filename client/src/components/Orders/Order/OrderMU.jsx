@@ -211,7 +211,6 @@ export default function OrderMU() {
                 </AccordionSummary>
                 <AccordionDetails>
                   <Storage id={order._id} />
-
                 </AccordionDetails>
               </Accordion>
               <Accordion>
