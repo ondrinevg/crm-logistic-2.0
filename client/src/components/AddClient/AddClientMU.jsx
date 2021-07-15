@@ -44,7 +44,6 @@ export default function AddClientMU() {
   const id = useSelector(state => state.client._id);
 
 
-
   const submitHandler = (e) => {
     e.preventDefault();
     const valuesOfFields = Object.fromEntries(new FormData(formRef.current).entries());
